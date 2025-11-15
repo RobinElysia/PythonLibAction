@@ -1,0 +1,6 @@
+,客户ID,交易日期,产品类别,销售额,客户评分,地区,交易状态,利润
+0,CUST01000,2023-11-24,Books,269.36,1.0,North,Pending,89.98
+1,CUST01001,2023-02-27,Books,125.72,3.0,Central,Completed,44.07
+2,CUST01002,2023-01-13,Electronics,322.86,2.0,South,Completed,44.51
+3,CUST01003,2023-05-21,Electronics,923.01,5.0,Central,Completed,295.87
+4,CUST01004,2023-05-06,Clothing,112.06,2.0,Central,Completed,35.55

@@ -1,0 +1,14 @@
+[project]
+name = "mysqlproject"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = "==3.10.11"
+dependencies = [
+    "pymysql",
+    "pymongo",
+    "faiss-cpu",
+    "lxml",
+    "BeautifulSoup4",
+    "numpy",
+    "pandas"
+]
