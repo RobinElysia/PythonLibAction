@@ -1,6 +1,38 @@
 # PythonLibAction！
 💡 探索、学习、贡献！这是一个开放的 Python AI 第三方库学习社区。我们不仅收集和解析最酷的 Python AI 库，还鼓励你通过提交代码和案例来共同构建这份知识图谱。一起点亮 Python AI 技能树吧！
 
+## 目录
+- [环境配置](#环境配置)
+  - [虚拟环境与 Python 安装](#虚拟环境与-python-安装)
+    - [高版本系统](#高版本系统)
+    - [低版本系统](#低版本系统)
+  - [CUDA 与 cuDNN](#cuda-与-cudnn)
+    - [CUDA](#cuda)
+    - [cuDNN](#cudnn)
+  - [安装 Virtualenv、Pytorch、Tensorflow、Ollama、Model](#安装-virtualenvpytorchtensorflowollamamodel)
+    - [Virtualenv](#virtualenv)
+    - [Pytorch](#pytorch)
+    - [Tensorflow](#tensorflow)
+    - [Virtualenv 虚拟环境下安装环境（不如 uv](#virtualenv-虚拟环境下安装环境不如-uv)
+    - [Ollama、模型安装](#ollama模型安装)
+  - [OpenWebUI 安装](#openwebui-安装)
+  - [其他](#其他)
+- [慢速开始](#慢速开始)
+  - [Linux 使用技巧](#linux-使用技巧)
+    - [Vim](#vim)
+  - [正则表达式（讨厌re的原因是因为它是设计给天才看的）](#正则表达式讨厌re的原因是因为它是设计给天才看的)
+    - [实践](#实践)
+  - [Ollama Modelfile 权威指南](#ollama-modelfile-权威指南)
+- [数据处理](#数据处理)
+  - [JSON（万物基于JSON）](#json万物基于json)
+  - [XML（谁？不熟，感觉是Java佬最爱）](#xml谁不熟感觉是java佬最爱)
+  - [HTML（BeautifulSoup，漂亮的汤（](#htmlbeautifulsoup漂亮的汤)
+  - [pandas（你为什么不学熊猫？）](#pandas你为什么不学熊猫)
+- [数据库](#数据库)
+  - [MySQL（没人觉得这个 DB 很诡异么？）](#mysql没人觉得这个-db-很诡异么)
+  - [MongoDB（MySQL 严父）](#mongodbmysql-严父)
+  - [Faiss（超绝内存型向量数据库）](#faiss超绝内存型向量数据库)
+
 ## 环境配置
 准备工作：
 1. 虚拟机：WSL Ubuntu 20.04 以上版本（不含20.04，低版本系统处理方案我会放在文中）
