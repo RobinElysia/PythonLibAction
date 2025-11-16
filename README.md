@@ -306,7 +306,7 @@ open-webui serve
 第三方库：
 1. pymysql：直接pip install就可以
 2. pymongo：同上
-3. faiss：Windows平台仅支持cpu版本，py版本在3.14~9（我使用的是3.10.X版本）；gpu加速版本仅限Linux平台，版本限制在3.10~6。官方建议在conda虚拟环境上安装，但是没必要，我将使用权威的 uv。
+3. faiss：Windows平台仅支持cpu版本，py版本在3.14 ~ 9（我使用的是3.10.X版本）；gpu加速版本仅限Linux平台，版本限制在3.10 ~ 6。官方建议在conda虚拟环境上安装，但是没必要，我将使用权威的 uv。
 4. sqlite3：仅限Linux平台，自己搭建可能需要手动编译>=3.35.0版本，编译完成后重新让Py链接sqlite3的依赖（这部分如果你的py也是编译的，那就重新编译一遍）
 
 ## 慢速开始
