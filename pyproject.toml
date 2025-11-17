@@ -1,3 +1,8 @@
+# pyproject.toml
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "mysqlproject"
 version = "0.1.0"
@@ -9,6 +14,27 @@ dependencies = [
     "faiss-cpu",
     "lxml",
     "BeautifulSoup4",
-    "numpy",
-    "pandas"
+    "pandas",
+    "SQLAlchemy",
+    # SQLAlchemy链接mysql需要，和pymysql都可以
+    "mysqlclient",
+    "torch==2.2.0+cu118",
+    "torchvision==0.17.0+cu118",
+    "torchaudio==2.2.0+cu118",
+    # 其余常用库
+    "numpy>=1.23,<2",
+    "pillow>=9.0",
+    "tqdm",
+    "matplotlib",
+    "tensorboard",
+    "scipy"
 ]
+
+[[tool.pip.index-url]]
+url = "https://pypi.org/simple"
+
+[[tool.uv.index]]
+url = "https://download.pytorch.org/whl/cu118"
+
+[tool.setuptools]
+packages = []      # 只装依赖，不打包任何源码
