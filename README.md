@@ -2,36 +2,44 @@
 💡 探索、学习、贡献！这是一个开放的 Python AI 第三方库学习社区。我们不仅收集和解析最酷的 Python AI 库，还鼓励你通过提交代码和案例来共同构建这份知识图谱。一起点亮 Python AI 技能树吧！
 
 ## 目录
-- [环境配置](#环境配置)
-  - [虚拟环境与 Python 安装](#虚拟环境与-python-安装)
-    - [高版本系统](#高版本系统)
-    - [低版本系统](#低版本系统)
-  - [CUDA 与 cuDNN](#cuda-与-cudnn)
-    - [CUDA](#cuda)
-    - [cuDNN](#cudnn)
-  - [安装 Virtualenv、Pytorch、Tensorflow、Ollama、Model](#安装-virtualenvpytorchtensorflowollamamodel)
-    - [Virtualenv](#virtualenv)
-    - [Pytorch](#pytorch)
-    - [Tensorflow](#tensorflow)
-    - [Virtualenv 虚拟环境下安装环境（不如 uv](#virtualenv-虚拟环境下安装环境不如-uv)
-    - [Ollama、模型安装](#ollama模型安装)
-  - [OpenWebUI 安装](#openwebui-安装)
-  - [其他](#其他)
-- [慢速开始](#慢速开始)
-  - [Linux 使用技巧](#linux-使用技巧)
-    - [Vim](#vim)
-  - [正则表达式（讨厌re的原因是因为它是设计给天才看的）](#正则表达式讨厌re的原因是因为它是设计给天才看的)
-    - [实践](#实践)
-  - [Ollama Modelfile 权威指南](#ollama-modelfile-权威指南)
-- [数据处理](#数据处理)
-  - [JSON（万物基于JSON）](#json万物基于json)
-  - [XML（谁？不熟，感觉是Java佬最爱）](#xml谁不熟感觉是java佬最爱)
-  - [HTML（BeautifulSoup，漂亮的汤（](#htmlbeautifulsoup漂亮的汤)
-  - [pandas（你为什么不学熊猫？）](#pandas你为什么不学熊猫)
-- [数据库](#数据库)
-  - [MySQL（没人觉得这个 DB 很诡异么？）](#mysql没人觉得这个-db-很诡异么)
-  - [MongoDB（MySQL 严父）](#mongodbmysql-严父)
-  - [Faiss（超绝内存型向量数据库）](#faiss超绝内存型向量数据库)
+1. [环境配置](#环境配置)
+   1. [虚拟环境与 Python 安装](#虚拟环境与-python-安装)
+   2. [CUDA 与 cuDNN](#cuda-与-cudnn)
+   3. [安装 Virtualenv、Pytorch、Tensorflow、Ollama、Model](#安装-virtualenvpytorchtensorflowollamamodel)
+   4. [OpenWebUI 安装](#openwebui-安装)
+   5. [其他](#其他)
+2. [慢速开始](#慢速开始)
+   1. [Linux 使用技巧](#linux-使用技巧)
+   2. [正则表达式](#正则表达式讨厌re的原因是因为它是设计给天才看的)
+   3. [Ollama Modelfile 权权指南](#ollama-modelfile-权威指南)
+3. [数据处理](#数据处理)
+   1. [JSON](#json万物基于json)
+   2. [XML](#xml谁不熟感觉是java佬最爱)
+   3. [HTML](#htmlbeautifulsoup漂亮的汤)
+   4. [pandas](#pandas你为什么不学熊猫)
+      1. [样本数据生成](#样本数据生成)
+      2. [Series](#series)
+      3. [DataFrame](#dataframe)
+      4. [文件操作](#文件操作)
+      5. [缺失值](#缺失值)
+      6. [重复值与类型转换](#重复值与类型转换)
+      7. [数据变形](#数据变形)
+      8. [数据分箱](#数据分箱)
+      9. [时间数据处理](#时间数据处理)
+      10. [分类聚合](#分类聚合)
+4. [数据库](#数据库)
+   1. [MySQL](#mysql没人觉得这个-db-很诡异么)
+   2. [MongoDB](#mongodbmysql-严父)
+   3. [Faiss](#faiss超绝内存型向量数据库)
+      1. [简单线性索引](#简单线性索引)
+      2. [自定义索引 ID](#自定义索引-id)
+      3. [聚类倒排索引](#聚类倒排索引)
+      4. [聚类倒排量化索引](#聚类倒排量化索引)
+      5. [GPU 加速](#gpu-加速仅限linux平台)
+   4. [SQLAlchemy](#sqlalchemy)
+      1. [简单的查询](#简单的查询)
+      2. [复杂的查询](#复杂的查询)
+      3. [ORM 的一切](#orm-的一切)
 
 ## 环境配置
 准备工作：
@@ -137,8 +145,8 @@ sudo su cuda_11.8.0_520.61.05_linux.run
 
 # 环境配置
 vim ~/.bashrc
-export PATH=/usr/local/cuda-11.8/bin=${PATH}
-export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64=${LD_LIBRARY_PATH}
+export PATH=/usr/local/cuda-11.8/bin:${PATH}
+export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64:${LD_LIBRARY_PATH}
 export CUDA_HOME=/usr/local/suda-11.8
 # 保存退出
 # 刷新
@@ -180,7 +188,7 @@ sudo chmod a+r /usr/local/cuda-11.8/include/cudnn*.h /usr/local/cuda/lib64/libcu
 deb安装：
 ```bash
 
-# dpkg
+# dpkg：Debin package
 dpkg -i XXX.deb
 
 ```
@@ -287,14 +295,43 @@ cd /opt/openwebui
 # 下载
 wget https://files.pythonhosted.org/packages/a6/dd/3665ce90ca299d670c656d767effb33c6a20b6370361e7f11cd1f72e947b/open_webui-0.6.36-py3-none-any.whl
 
-# 安装
+# 安装open-webui
 pip install /opt/openwebui/open_webui-0.6.36-py3-none-any.whl
 
-# 安装pysqlite3
-pip install pysqlite3-binary # 可忽略
+# 安装高版本sqlite3
+# 所有的Ubuntu都需要，因为自带的系统没有sqlite3.35以上版本
 
-# 修改对应的init文件
-...# 可忽略
+# 下载
+wget https://sqlite.org/2025/sqlite-autoconf-3510000.tar.gz
+
+# 解压缩
+tar -vxf sqlite-autoconf-3510000.tar.gz
+
+# Debian/Ubuntu:
+apt update && apt install -y build-essential gcc make tcl
+
+# 配置编译选项（推荐启用 FTS5、JSON、RTree）
+./configure \
+  --prefix=/usr/local \
+  --enable-fts5 \
+  --enable-rtree \
+  --enable-shared \
+  --enable-static
+
+# 编译
+make -j$(nproc)
+
+# 安装（可选，但建议，安装到系统）
+make install
+
+# 验证sqlite版本
+/usr/local/bin/sqlite3 --version
+
+# 修改对应的init文件（偷梁换柱）
+# 在：site-packages/chromadb/__init__.py
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 # 运行
 open-webui serve
@@ -308,6 +345,9 @@ open-webui serve
 2. pymongo：同上
 3. faiss：Windows平台仅支持cpu版本，py版本在3.14 ~ 9（我使用的是3.10.X版本）；gpu加速版本仅限Linux平台，版本限制在3.10 ~ 6。官方建议在conda虚拟环境上安装，但是没必要，我将使用权威的 uv。
 4. sqlite3：仅限Linux平台，自己搭建可能需要手动编译>=3.35.0版本，编译完成后重新让Py链接sqlite3的依赖（这部分如果你的py也是编译的，那就重新编译一遍）
+5. BeautifulSoup：使用4.X版本
+	1. 需要下载 lxml
+6. SQLAlchemy：2.0.44版本的，尽量使用2.X版本
 
 ## 慢速开始
 注： 相关 Py 源代码见个人仓库
@@ -611,7 +651,7 @@ PARAMETER max_tokens 256
 PARAMETER stop "<|im_end|>"
 ```
 
-##### 样题解答
+##### 完整的 Demo
 
 ```bash
 FROM /opt/model/qwen2.5-1.8b-instruct
@@ -1843,4 +1883,321 @@ def test01():
   
 if __name__ == "__main__":  
     test01()
+```
+
+#### SQLAlchemy
+##### 简单的查询
+```python
+import sqlalchemy  
+from sqlalchemy.sql import and_, or_, not_  
+  
+en = sqlalchemy.create_engine("mysql://root:123456@localhost/testdb")  
+  
+# 创建元数据  
+meta_data = sqlalchemy.MetaData()  
+  
+# 创建表  
+person = sqlalchemy.Table(  
+    "person", meta_data,  
+    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),  
+    sqlalchemy.Column("name", sqlalchemy.String(32)),  
+    sqlalchemy.Column("age", sqlalchemy.Integer)  
+)  
+"""  
+name: 表名  
+meta_data: 元数据  
+Column: 字段信息  
+"""  
+# 创建表  
+meta_data.create_all(en)  
+  
+print("_____插入_____")  
+  
+# 插入一个记录  
+insert = person.insert().values(name="张三", age=18)  
+with en.connect() as con: # 创建连接  
+    result = con.execute(insert) # 执行插入  
+    print(result.inserted_primary_key) # 获取插入的id  
+    con.commit() # 提交  
+  
+# 多条记录  
+insert = person.insert()  
+with en.connect() as con:  
+    result = con.execute(insert, [  
+        {"name": "张三", "age": 18},  
+        {"name": "张三", "age": 12},  
+        {"name": "张三", "age": 20}  
+    ])  
+    print(result.inserted_primary_key)  
+    con.commit()  
+  
+print("_____查询_____")  
+# 普通查询  
+select = person.select()  
+with en.connect() as con:  
+    result = con.execute(select)  
+    for row in result:  
+        print(row) # 这是一个元组  
+    # 或者直接提取数据，结果集大不建议  
+    fetchResult = result.fetchall()  
+    print(fetchResult)  
+    # 取一个数据  
+    fetchOne = result.fetchone()  
+    print(fetchOne)  
+  
+# 条件查询  
+select = person.select().where("张三" == person.c.name).where(person.c.age > 18) # 创建查询条件  
+with en.connect() as con:  
+    result = con.execute(select)  
+    for row in result:  
+        print(row)  
+  
+# 带符号的条件的查询  
+select = person.select().where(and_(person.c.name == "张三", person.c.age > 18)) # 两个条件and  
+with en.connect() as con:  
+    result = con.execute(select)  
+    for row in result:  
+        print(row)  
+  
+# 更新  
+# select = person.update().values(name="李四") # 全部全部为李四  
+select = person.update().where(1 == person.c.id).values(name="王五")  
+with en.connect() as con:  
+    result = con.execute(select)  
+    print(result.rowcount) # 影响的行数  
+    con.commit()  
+  
+# 删除  
+select = person.delete().where(1 == person.c.id) # 删除id为1的  
+with en.connect() as con:  
+    result = con.execute(select)  
+    print(result.rowcount)  
+    con.commit()
+```
+
+##### 复杂的查询
+```python
+from typing import Tuple  
+  
+import sqlalchemy  
+from sqlalchemy.sql import and_  
+  
+def create_en() -> Tuple[sqlalchemy.engine.base.Engine, sqlalchemy.MetaData]:  
+    en = sqlalchemy.create_engine("mysql://root:123456@localhost/testdb")  
+  
+    # 创建元数据  
+    meta_data = sqlalchemy.MetaData()  
+    return en, meta_data  
+  
+def create_tb(meta_data) -> Tuple[sqlalchemy.Table, sqlalchemy.Table]:  
+    # 部门  
+    department = sqlalchemy.Table(  
+        "department", meta_data,  
+        sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),  
+        sqlalchemy.Column("name", sqlalchemy.String(32))  
+    )  
+  
+    # 员工  
+    employee = sqlalchemy.Table(  
+        "employee", meta_data,  
+        sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),  
+        sqlalchemy.Column("name", sqlalchemy.String(32)),  
+        sqlalchemy.Column("age", sqlalchemy.Integer),  
+        # 外键  
+        sqlalchemy.Column("department_id", sqlalchemy.Integer, sqlalchemy.ForeignKey("department.id"))  
+    )  
+    return department, employee  
+  
+def insert_data(en, department, employee):  
+    with en.connect() as con:  
+        con.execute(department.insert(), [  
+            {"name": "it"},  
+            {"name": "hr"}  
+        ])  
+        con.execute(employee.insert(), [  
+            {"name": "张三", "age": 18, "department_id": 1},  
+            {"name": "李四", "age": 12, "department_id": 1},  
+            {"name": "王五", "age": 20, "department_id": 2}  
+        ])  
+        con.commit()  
+  
+def select_data(en, department, employee):  
+    with en.connect() as con:  
+        # 联合查询  
+        join = employee.join(department, department.c.id == employee.c.department_id)  
+        # q = sqlalchemy.select(join).where(and_(department.c.name == "it")) # 创建查询条件  
+        q = sqlalchemy.select(employee).select_from(join).where(and_(department.c.name == "it")) # 不带部门  
+        # 执行查询  
+        result = con.execute(q)  
+        for row in result:  
+            print(row)  
+  
+if __name__ == "__main__":  
+    # 创建连接和元数据  
+    en, meta_data = create_en()  
+  
+    # 创建表  
+    department, employee = create_tb(meta_data)  
+  
+    # 查询  
+    select_data(en, department, employee)  
+  
+    # 插入数据  
+    meta_data.create_all(en)
+```
+
+##### ORM 的一切
+```python
+from typing import Type, List  
+from sqlalchemy import Engine, insert, select  
+from sqlalchemy.sql import and_  
+from sqlalchemy.ext.declarative import declarative_base  
+from sqlalchemy.orm import DeclarativeBase, sessionmaker, Session  
+  
+import sqlalchemy  
+  
+def create_en() -> tuple[Engine, Type[DeclarativeBase], sessionmaker[Session]]:  
+    en = sqlalchemy.create_engine("mysql://root:123456@localhost/testdb")  
+  
+    # 创建基类  
+    Base = declarative_base()  
+  
+    # 创建会话  
+    Session = sessionmaker(bind=en)  
+    return en, Base, Session  
+  
+# 创建连接  
+en, Base, Session = create_en()  
+  
+class Person(Base):  
+    __tablename__ = "person"  
+    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)  
+    name = sqlalchemy.Column(sqlalchemy.String(32))  
+    age = sqlalchemy.Column(sqlalchemy.Integer)  
+  
+def insert_data(person: Person, session: sessionmaker[Session], Base: Type[DeclarativeBase]):  
+    # 创建会话  
+    insert_session = session()  
+    # 添加数据  
+    insert_session.add(person)  
+    # 提交数据  
+    insert_session.commit()  
+  
+def insert_M_data(person: List[Person], session: sessionmaker[Session], Base: Type[DeclarativeBase]):  
+    # 创建会话  
+    insert_session = session()  
+    # 批量添加数据  
+    insert_session.add_all(person)  
+    # 提交数据  
+    insert_session.commit()  
+  
+def select_data(person: Person, en: Engine, session: sessionmaker[Session], Base: Type[DeclarativeBase]):  
+    # 创建会话  
+    select_session = session()  
+    # 查询所有  
+    result = select_session.query(person).all()  
+    for row in result:  
+        print(row)  
+  
+def select_con_data(person: Person, session: sessionmaker[Session], Base: Type[DeclarativeBase]):  
+    # 创建会话  
+    select_session = session()  
+    # 条件查询第一个，查询可以为空  
+    result = select_session.query(person).filter(and_(person.name == "张三")).first()  
+    # 结果集只有一条记录使用one，查询不能为空  
+    # result = select_session.query(person).filter(and_(person.name == "张三")).one()  
+    # 结果集只有一条记录，但是可以为空  
+    # result = select_session.query(person).filter(and_(person.name == "张三")).scalar()  
+    print(result)  
+  
+def update_base_query_data(person: Person, session: sessionmaker[Session], Base: Type[DeclarativeBase]):  
+    # 创建会话  
+    update_session = session()  
+    # 更新  
+    result = update_session.query(person).one()  
+    # 修改  
+    result.name = "赵四"  
+    # 提交数据  
+    update_session.commit()  
+  
+def update_func_data(person: Person, session: sessionmaker[Session], Base: Type[DeclarativeBase]):  
+    # 创建会话  
+    update_session = session()  
+    # 更新  
+    result = update_session.query(person).update({"name": "小潘"})  
+    # 提交数据  
+    update_session.commit()  
+  
+# 批量插入  
+def insert_M_useValue_data(session: sessionmaker[Session]):  
+    # 创建会话  
+    insert_session = session()  
+    # 批量添加数据  
+    insert_session.execute(  
+        insert(Person).values([  
+            {"id": 4, "name": "王五", "age": 18},  
+            {"id": 5, "name": "赵刘", "age": 18},  
+        ])  
+    )  
+    # 提交数据  
+    insert_session.commit()  
+  
+# 嵌套查询的批量插入  
+def insert_M_useSelect_data(session: sessionmaker[Session]):  
+    # 创建会话  
+    insert_session = session()  
+    insert_session.execute(  
+        insert(Person).values(  
+            [  
+                {  
+                    "id": 6, "name": "bob", "age": select(Person.age).where(Person.id == 1)  
+                },  
+                {  
+                    "id": 7, "name": "lili", "age": select(Person.age).where(Person.id == 2)  
+                },  
+            ]  
+        )  
+    )# 查询id为1 2的年龄作为6 7年龄  
+  
+# 更新删除同理也可以使用execute进行批量  
+  
+# 什么？你问我事务和多数据源？事务天然支持，多数据源一行代码搞定  
+# with Session(engine) as session1, session1.begin(), Session(engine2) as session2.begin():  
+  
+if __name__ == "__main__":  
+    # 插入数据  
+    person = Person(id=1, name="张三", age=18)  
+    insert_data(person, Session, Base)  
+  
+    # 批量插入  
+    ps = [  
+        Person(id=2, name="王五", age=18),  
+        Person(id=3, name="李四", age=18),  
+    ]  
+    insert_M_data(ps, Session, Base)  
+  
+    # 查询  
+    person = Person(id=1)  
+    select_data(person, en, Session, Base)  
+  
+    # 条件查询  
+    person = Person(id=1)  
+    select_con_data(person, Session, Base)  
+  
+    # 修改1  
+    person = Person(id=1)  
+    update_base_query_data(person, Session, Base)  
+  
+    # 修改2  
+    person = Person(id=1)  
+    update_func_data(person, Session, Base)  
+  
+    # 批量插入  
+    insert_M_useValue_data(Session)  
+  
+    # 嵌套查询的批量插入  
+    insert_M_useSelect_data(Session)  
+  
+    # 插入数据  
+    Base.metadata.create_all(en)
 ```
