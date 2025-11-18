@@ -1,5 +1,5 @@
 from typing import Type, List
-from sqlalchemy import Engine
+from sqlalchemy import Engine, insert, select
 from sqlalchemy.sql import and_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import DeclarativeBase, sessionmaker, Session
@@ -78,6 +78,42 @@ def update_func_data(person: Person, session: sessionmaker[Session], Base: Type[
     # 提交数据
     update_session.commit()
 
+# 批量插入
+def insert_M_useValue_data(session: sessionmaker[Session]):
+    # 创建会话
+    insert_session = session()
+    # 批量添加数据
+    insert_session.execute(
+        insert(Person).values([
+            {"id": 4, "name": "王五", "age": 18},
+            {"id": 5, "name": "赵刘", "age": 18},
+        ])
+    )
+    # 提交数据
+    insert_session.commit()
+
+# 嵌套查询的批量插入
+def insert_M_useSelect_data(session: sessionmaker[Session]):
+    # 创建会话
+    insert_session = session()
+    insert_session.execute(
+        insert(Person).values(
+            [
+                {
+                    "id": 6, "name": "bob", "age": select(Person.age).where(Person.id == 1)
+                },
+                {
+                    "id": 7, "name": "lili", "age": select(Person.age).where(Person.id == 2)
+                },
+            ]
+        )
+    )# 查询id为1 2的年龄作为6 7年龄
+
+# 更新删除同理也可以使用execute进行批量
+
+# 什么？你问我事务和多数据源？事务天然支持，多数据源一行代码搞定
+# with Session(engine) as session1, session1.begin(), Session(engine2) as session2.begin():
+
 if __name__ == "__main__":
     # 插入数据
     person = Person(id=1, name="张三", age=18)
@@ -105,6 +141,12 @@ if __name__ == "__main__":
     # 修改2
     person = Person(id=1)
     update_func_data(person, Session, Base)
+
+    # 批量插入
+    insert_M_useValue_data(Session)
+
+    # 嵌套查询的批量插入
+    insert_M_useSelect_data(Session)
 
     # 插入数据
     Base.metadata.create_all(en)
