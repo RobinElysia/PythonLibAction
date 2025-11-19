@@ -1,4 +1,6 @@
-from PytorchLib.utils.ActFunc import sigmoid
+from PytorchLib.utils.ActFunc import sigmoid, Softmax
+from PytorchLib.utils.LossFunc import CEE
+
 import numpy as np
 
 class ReLu:
@@ -74,6 +76,27 @@ class softmax_with_loss:
     """
     输出层
     """
+    def __init__(self):
+        self.loss = None
+        self.y = None
+        self.t = None
 
+    def forward(self, X, t):
+        self.t = t
+        self.y = Softmax.complex_softmax(X)
+        self.loss = CEE.cross_entropy_error(self.y, self.t)
+        return self.loss
+
+    def backward(self, dy=1):
+        n = self.t.shape[0]
+        # 如果是独热编码的标签，就直接代入公式计算
+        if self.t.size == self.y.size:
+            dx = self.y - self.t
+        # 如果是标签的索引，就根据索引进行计算
+        else:
+            dx = self.y.copy()
+            dx[np.arange(n), self.t] -= 1
+            dx = dx / n
+        return dx
 
 # 输入层 → Affine → 激活函数 → Affine → 激活函数 → ... → Affine → SoftmaxWithLoss
