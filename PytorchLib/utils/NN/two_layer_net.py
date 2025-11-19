@@ -1,7 +1,8 @@
 import numpy as np
 from PytorchLib.utils.ActFunc import Softmax, sigmoid
 from PytorchLib.utils.LossFunc import CEE
-from PytorchLib.utils.gradent import gradient
+from PytorchLib.utils.gd import gradient
+
 
 class TwoLayerNet:
     def __init__(self, input_size, hidden_size, output_size, weight_init_std=0.01):

@@ -18,6 +18,7 @@ dependencies = [
     "SQLAlchemy",
     # SQLAlchemy链接mysql需要，和pymysql都可以
     "mysqlclient",
+    "scikit-learn",
     "torch==2.2.0+cu118",
     "torchvision==0.17.0+cu118",
     "torchaudio==2.2.0+cu118",

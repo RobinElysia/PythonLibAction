@@ -12,6 +12,7 @@ Requires-Dist: BeautifulSoup4
 Requires-Dist: pandas
 Requires-Dist: SQLAlchemy
 Requires-Dist: mysqlclient
+Requires-Dist: scikit-learn
 Requires-Dist: torch==2.2.0+cu118
 Requires-Dist: torchvision==0.17.0+cu118
 Requires-Dist: torchaudio==2.2.0+cu118

@@ -1,5 +1,6 @@
 import numpy as np
-from PytorchLib.utils.gradent import gradient
+from PytorchLib.utils.gd import gradient
+
 
 # 梯度下降函数
 def gradient_descent(f, init_x, lr=0.01, step_num=100):

@@ -6,6 +6,7 @@ BeautifulSoup4
 pandas
 SQLAlchemy
 mysqlclient
+scikit-learn
 torch==2.2.0+cu118
 torchvision==0.17.0+cu118
 torchaudio==2.2.0+cu118

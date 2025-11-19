@@ -1,19 +1,17 @@
-from typing import Any
-
+from sklearn.model_selection import train_test_split 
+from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
-from numpy import ndarray
 
-
-def csvLoad(file_path) -> tuple[ndarray, ndarray]:
-    """
-    csv文件读取
-    :param file_path: 文件路径
-    :return:
-    """
-    # 读取csv文件
-    df = pd.read_csv(file_path)
-    # 获取列名
-    columns = df.columns().values # 转换为ndarray
-    # 获取数据
-    data = df.values
-    return columns, data
+def get_data():
+    # 加载数据集
+    data = pd.read_csv(r"D:\code\python\LearnPyLib\PytorchLib\utils\DataLoad\train.csv")
+    print(data.shape)
+    # 划分训练集和测试集
+    X = data.drop("label", axis=1)
+    y = data["label"]
+    x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+    # 归一化
+    preprocessor = MinMaxScaler()
+    x_train = preprocessor.fit_transform(x_train)
+    x_test = preprocessor.transform(x_test)
+    return x_train, x_test, y_train.values, y_test.values

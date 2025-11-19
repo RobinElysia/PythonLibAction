@@ -3,7 +3,7 @@ from PytorchLib.utils.LossFunc import CEE
 
 import numpy as np
 
-class ReLu:
+class ReLu_:
     """
     ReLu激活函数
     前向传播
@@ -23,7 +23,7 @@ class ReLu:
         dx = dy
         return dx
 
-class Sigmoid:
+class Sigmoid_:
     """
     Sigmoid激活函数
     前向传播
@@ -53,24 +53,23 @@ class affine:
         # 对输入数据X进行保存
         self.X = None
         # 形状
-        self.o_shape = None
+        self.original_shape = None
         # 权重和偏执参数的梯度值保存
-        self.dw = None
+        self.dW = None
         self.db = None
 
     def forward(self, X):
-        self.o_shape = X.shape
-        self.X = X.reshape(X.shape[0], -1)
+        self.original_shape = X.shape
+        self.X = X
         y = X @ self.W + self.b
         return y
 
     def backward(self, dy):
-        dX = dy @ self.W.T
-        # 转换
-        dX = dX.reshape(*self.o_shape)
-        self.dw = self.X.T @ dy
+        self.dW = np.dot(self.X.T, dy)
         self.db = np.sum(dy, axis=0)
-        return dX
+        dx = np.dot(dy, self.W.T)
+        return dx
+
 
 class softmax_with_loss:
     """
@@ -88,15 +87,17 @@ class softmax_with_loss:
         return self.loss
 
     def backward(self, dy=1):
-        n = self.t.shape[0]
-        # 如果是独热编码的标签，就直接代入公式计算
-        if self.t.size == self.y.size:
-            dx = self.y - self.t
-        # 如果是标签的索引，就根据索引进行计算
+        batch_size = self.t.shape[0]
+        if self.t.size == self.y.size:  # 监督数据是one-hot-vector的情况
+            dx = (self.y - self.t) / batch_size
         else:
             dx = self.y.copy()
-            dx[np.arange(n), self.t] -= 1
-            dx = dx / n
-        return dx
-
-# 输入层 → Affine → 激活函数 → Affine → 激活函数 → ... → Affine → SoftmaxWithLoss
+            # 确保索引不会超出范围
+            indices = np.arange(batch_size)
+            t_indices = self.t.astype(int)  # 确保标签是整数类型
+            # 检查索引是否有效，同时检查两个维度
+            valid_indices = (t_indices < self.y.shape[1]) & (indices < self.y.shape[0])
+            dx[indices[valid_indices], t_indices[valid_indices]] -= 1
+            dx = dx / batch_size
+        # 保持与输入数据相同的形状
+        return dx  # 不再需要转置
