@@ -3,7 +3,7 @@ import numpy as np
 
 class ReLu:
     """
-    ReLu层的细分
+    ReLu激活函数
     前向传播
     反向传播
     """
@@ -23,7 +23,7 @@ class ReLu:
 
 class Sigmoid:
     """
-    Sigmoid层的细分
+    Sigmoid激活函数
     前向传播
     反向传播
     """
@@ -41,7 +41,7 @@ class Sigmoid:
 
 class affine:
     """
-    仿射
+    前置仿射
     前向
     反向
     """
@@ -69,3 +69,11 @@ class affine:
         self.dw = self.X.T @ dy
         self.db = np.sum(dy, axis=0)
         return dX
+
+class softmax_with_loss:
+    """
+    输出层
+    """
+
+
+# 输入层 → Affine → 激活函数 → Affine → 激活函数 → ... → Affine → SoftmaxWithLoss
