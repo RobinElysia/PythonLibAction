@@ -19,5 +19,9 @@ def ReLU_derivative(x):
 def leaky_ReLU(alpha,x):
     return np.maximum(alpha * x, x)
 
+# 反向传播计算
+def leaky_ReLU_derivative(alpha,x):
+    return np.where(x > 0, 1, alpha)
+
 # 1. ReLU 激活函数的改进，当x小于0时，输出$\alpha$x，当x大于0时，输出x
 # 2. 避免神经元死亡
