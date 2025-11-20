@@ -1,7 +1,8 @@
 import numpy as np
-from Perceptron_PytorchLib.utils.ActFunc import Softmax, sigmoid
-from Perceptron_PytorchLib.utils.LossFunc import CEE
-from Perceptron_PytorchLib.utils.gd import gradient
+from pytorch.Perceptron_PytorchLib.utils.ActFunc import sigmoid
+from pytorch.Perceptron_PytorchLib.utils.ActFunc import Softmax
+from pytorch.Perceptron_PytorchLib.utils.LossFunc import CEE
+from pytorch.Perceptron_PytorchLib.utils.gd import gradient
 
 
 class TwoLayerNet:

@@ -1,5 +1,5 @@
 import numpy as np
-from Perceptron_PytorchLib.utils.gd import gradient
+from pytorch.Perceptron_PytorchLib.utils.gd import gradient
 
 
 # 梯度下降函数

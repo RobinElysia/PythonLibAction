@@ -1,5 +1,6 @@
-from Perceptron_PytorchLib.utils.ActFunc import sigmoid, Softmax
-from Perceptron_PytorchLib.utils.LossFunc import CEE
+from pytorch.Perceptron_PytorchLib.utils.ActFunc import sigmoid
+from pytorch.Perceptron_PytorchLib.utils.ActFunc import Softmax
+from pytorch.Perceptron_PytorchLib.utils.LossFunc import CEE
 
 import numpy as np
 

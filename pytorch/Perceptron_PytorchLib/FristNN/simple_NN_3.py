@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from Perceptron_PytorchLib.utils.DataLoad import csvLoad
-from Perceptron_PytorchLib.utils.NN import two_layer_net_bp
+from pytorch.Perceptron_PytorchLib.utils.DataLoad import csvLoad
+from pytorch.Perceptron_PytorchLib.utils.NN import two_layer_net_bp
 # from Perceptron_PytorchLib.utils.NN import two_layer_net
 
 # 读入数据

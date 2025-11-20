@@ -4,8 +4,8 @@
 
 import numpy as np
 
-from Perceptron_PytorchLib.utils.gd import gradient # 梯度计算
-from Perceptron_PytorchLib.utils.layers import ReLu_, affine, softmax_with_loss # bp
+from pytorch.Perceptron_PytorchLib.utils.gd import gradient # 梯度计算
+from pytorch.Perceptron_PytorchLib.utils.layers import ReLu_, affine, softmax_with_loss # bp
 from collections import OrderedDict # 定义一个层顺序和相关的名称，有序字典
 
 class TwoLayerNet:
