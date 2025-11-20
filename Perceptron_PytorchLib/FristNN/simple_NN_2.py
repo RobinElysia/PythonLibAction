@@ -1,8 +1,8 @@
 import numpy as np
 
-from PytorchLib.utils.ActFunc import Softmax # 激活函数
-from PytorchLib.utils.LossFunc import CEE # 损失函数
-from PytorchLib.utils.gd import gradient
+from Perceptron_PytorchLib.utils.ActFunc import Softmax # 激活函数
+from Perceptron_PytorchLib.utils.LossFunc import CEE # 损失函数
+from Perceptron_PytorchLib.utils.gd import gradient
 
 
 # 定义一个简单神经网络类（只有输入层输出层）

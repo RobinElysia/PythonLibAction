@@ -4,7 +4,7 @@ import pandas as pd
 
 def get_data():
     # 加载数据集
-    data = pd.read_csv(r"D:\code\python\LearnPyLib\PytorchLib\utils\DataLoad\train.csv")
+    data = pd.read_csv(r"/Perceptron_PytorchLib\utils\DataLoad\train.csv")
     print(data.shape)
     # 划分训练集和测试集
     X = data.drop("label", axis=1)

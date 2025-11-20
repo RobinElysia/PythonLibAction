@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from PytorchLib.utils.DataLoad import csvLoad
-from PytorchLib.utils.NN import two_layer_net_bp
-# from PytorchLib.utils.NN import two_layer_net
+from Perceptron_PytorchLib.utils.DataLoad import csvLoad
+from Perceptron_PytorchLib.utils.NN import two_layer_net_bp
+# from Perceptron_PytorchLib.utils.NN import two_layer_net
 
 # 读入数据
 x_train, x_test, t_train, t_test = csvLoad.get_data()

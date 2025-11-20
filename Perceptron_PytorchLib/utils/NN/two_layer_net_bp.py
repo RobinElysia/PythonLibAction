@@ -4,10 +4,8 @@
 
 import numpy as np
 
-from PytorchLib.utils.ActFunc import sigmoid, Softmax # 激活函数
-from PytorchLib.utils.LossFunc import CEE # 交叉熵损失
-from PytorchLib.utils.gd import gradient # 梯度计算
-from PytorchLib.utils.layers import ReLu_, Sigmoid_, affine, softmax_with_loss # bp
+from Perceptron_PytorchLib.utils.gd import gradient # 梯度计算
+from Perceptron_PytorchLib.utils.layers import ReLu_, affine, softmax_with_loss # bp
 from collections import OrderedDict # 定义一个层顺序和相关的名称，有序字典
 
 class TwoLayerNet:
