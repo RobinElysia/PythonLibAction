@@ -61,3 +61,26 @@ class AdaGrad:
         for key in params.keys():
             self.h[key] += grads[key] * grads[key] # 哈达马积
             params[key] -= self.lr * grads[key] / (np.sqrt(self.h[key]) + 1e-7)
+# 动量法的初始化比AdaGrad好，因为随着v参数的更新，v的变化率会趋于稳定
+# 而AdaGrad的h不会，它的初始化参数是哈达马积，不会像动量法的v参数更新那样趋于稳定
+# 于是为了引入，我们又从AdaGrad到了RMSProp
+    # 均方根传播，对于过早的历史信息进行遗忘，权重变小，新的信息权重变大（使用指数移动加权平均，EMA）
+    # 多了一个α超参数
+class RMSProp:
+    def __init__(self, lr=0.01, gamma=0.9):
+        self.lr = lr
+        self.gamma = gamma
+        self.h = None
+
+    def update(self, params, grads):
+        # 对h进行初始化
+        if self.h is None:
+            self.h = {}
+            for key, val in params.items():
+                self.h[key] = np.zeros_like(val)
+
+        # 梯度更新
+        for key in params.keys():
+            self.h[key] *= self.gamma
+            self.h[key] += (1 - self.gamma) * grads[key] * grads[key]
+            params[key] -= self.lr * grads[key] / (np.sqrt(self.h[key]) + 1e-7)
