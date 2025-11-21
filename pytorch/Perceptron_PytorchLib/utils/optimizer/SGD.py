@@ -36,3 +36,28 @@ class Momentum:
         for key in params.keys():
             self.v[key] = self.momentum * self.v[key] - self.lr * grads[key] # v = momentum * v - lr * grads
             params[key] += self.v[key] # params = params + v
+
+# 学习率衰减
+    # 等间隔衰减：步长衰减，按照训练周期进行某比例衰减
+    # 指定间隔衰减：步长衰减，按照训练周期进行某系数衰减
+    # 指数衰减：步长衰减，按照训练周期进行指数为底进行衰减
+
+    # 有点死板
+# 看看AdaGrad
+    # 自适应梯度
+class AdaGrad:
+    def __init__(self, lr=0.01):
+        self.lr = lr
+        self.h = None
+
+    def update(self, params, grads):
+        # 对h进行初始化
+        if self.h is None:
+            self.h = {}
+            for key, val in params.items():
+                self.h[key] = np.zeros_like(val)
+
+        # 梯度更新
+        for key in params.keys():
+            self.h[key] += grads[key] * grads[key] # 哈达马积
+            params[key] -= self.lr * grads[key] / (np.sqrt(self.h[key]) + 1e-7)
