@@ -84,3 +84,34 @@ class RMSProp:
             self.h[key] *= self.gamma
             self.h[key] += (1 - self.gamma) * grads[key] * grads[key]
             params[key] -= self.lr * grads[key] / (np.sqrt(self.h[key]) + 1e-7)
+
+# Adam它把两条非常成功的改进 SGD 的路线直接“拼”在了一起：
+    # AdaGrad——给每个参数配一个“历史梯度平方和”做分母，实现学习率自适应。
+    # RMSProp——把 AdaGrad 的“历史平方和”改成“指数移动平均”，解决后期学习率过早降到 0 的问题。
+    # Adam 在这两条算法的基础上再叠加一层“动量”（Momentum，即对梯度本身也做指数移动平均），于是同时拥有了
+        # 动量法的一阶矩估计（mean）
+        # RMSProp 的二阶矩估计（uncentered variance）
+class Adam:
+    def __init__(self, lr=0.001, beta1=0.9, beta2=0.999):
+        self.lr = lr
+        self.beta1 = beta1
+        self.beta2 = beta2
+        self.iter = 0
+        self.m = None
+        self.v = None
+
+    def update(self, params, grads):
+        # 对m和v进行初始化
+        if self.m is None:
+            self.m, self.v = {}, {}
+            for key, val in params.items():
+                self.m[key] = np.zeros_like(val)
+                self.v[key] = np.zeros_like(val)
+
+        # 迭代次数
+        self.iter += 1
+        lr_t = self.lr * np.sqrt(1.0 - self.beta2 ** self.iter) / (1.0 - self.beta1 ** self.iter)
+        for key in params.keys():
+            self.m[key] += (1 - self.beta1) * (grads[key] - self.m[key])
+            self.v[key] += (1 - self.beta2) * (grads[key] ** 2 - self.v[key])
+            params[key] -= lr_t * self.m[key] / (np.sqrt(self.v[key]) + 1e-7)
