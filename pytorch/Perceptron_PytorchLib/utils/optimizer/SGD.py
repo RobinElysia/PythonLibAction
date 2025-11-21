@@ -91,6 +91,7 @@ class RMSProp:
     # Adam 在这两条算法的基础上再叠加一层“动量”（Momentum，即对梯度本身也做指数移动平均），于是同时拥有了
         # 动量法的一阶矩估计（mean）
         # RMSProp 的二阶矩估计（uncentered variance）
+    # 自适应矩估计
 class Adam:
     def __init__(self, lr=0.001, beta1=0.9, beta2=0.999):
         self.lr = lr
@@ -110,8 +111,15 @@ class Adam:
 
         # 迭代次数
         self.iter += 1
+        # 更改当前轮次的学习率
         lr_t = self.lr * np.sqrt(1.0 - self.beta2 ** self.iter) / (1.0 - self.beta1 ** self.iter)
+        # 更新参数
         for key in params.keys():
-            self.m[key] += (1 - self.beta1) * (grads[key] - self.m[key])
-            self.v[key] += (1 - self.beta2) * (grads[key] ** 2 - self.v[key])
-            params[key] -= lr_t * self.m[key] / (np.sqrt(self.v[key]) + 1e-7)
+            # # m = beta2 * m + (1 - beta2) * grads**2
+            # self.m[key] += self.beta2 * self.m[key] + (1 - self.beta2) * (grads[key] ** 2)
+            # # v = beta1 * v + (1 - beta1) * grads
+            # self.v[key] += self.beta1 * self.v[key] + (1 - self.beta1) * grads[key]
+            # 上述移向得到，简化运算效率
+            self.v[key] += (1 - self.beta1) * (grads[key] - self.v[key])
+            self.m[key] += (1 - self.beta2) * (grads[key] - self.m[key])
+            params[key] -= lr_t * self.v[key] / (np.sqrt(self.m[key]) + 1e-7)
