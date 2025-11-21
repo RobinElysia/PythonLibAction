@@ -1,48 +1,77 @@
-# PythonLibAction！
+# PythonLibAction！  
 💡 探索、学习、贡献！这是一个开放的 Python AI 第三方库学习社区。我们不仅收集和解析最酷的 Python AI 库，还鼓励你通过提交代码和案例来共同构建这份知识图谱。一起点亮 Python AI 技能树吧！
 
 ## 目录
-1. [环境配置](#环境配置)
-   1. [虚拟环境与 Python 安装](#虚拟环境与-python-安装)
-   2. [CUDA 与 cuDNN](#cuda-与-cudnn)
-   3. [安装 Virtualenv、Pytorch、Tensorflow、Ollama、Model](#安装-virtualenvpytorchtensorflowollamamodel)
-   4. [OpenWebUI 安装](#openwebui-安装)
-   5. [其他](#其他)
-2. [慢速开始](#慢速开始)
-   1. [Linux 使用技巧](#linux-使用技巧)
-   2. [正则表达式](#正则表达式讨厌re的原因是因为它是设计给天才看的)
-   3. [Ollama Modelfile 权权指南](#ollama-modelfile-权威指南)
-3. [数据处理](#数据处理)
-   1. [JSON](#json万物基于json)
-   2. [XML](#xml谁不熟感觉是java佬最爱)
-   3. [HTML](#htmlbeautifulsoup漂亮的汤)
-   4. [pandas](#pandas你为什么不学熊猫)
-      1. [样本数据生成](#样本数据生成)
-      2. [Series](#series)
-      3. [DataFrame](#dataframe)
-      4. [文件操作](#文件操作)
-      5. [缺失值](#缺失值)
-      6. [重复值与类型转换](#重复值与类型转换)
-      7. [数据变形](#数据变形)
-      8. [数据分箱](#数据分箱)
-      9. [时间数据处理](#时间数据处理)
-      10. [分类聚合](#分类聚合)
-4. [数据库](#数据库)
-   1. [MySQL](#mysql没人觉得这个-db-很诡异么)
-   2. [MongoDB](#mongodbmysql-严父)
-   3. [Faiss](#faiss超绝内存型向量数据库)
-      1. [简单线性索引](#简单线性索引)
-      2. [自定义索引 ID](#自定义索引-id)
-      3. [聚类倒排索引](#聚类倒排索引)
-      4. [聚类倒排量化索引](#聚类倒排量化索引)
-      5. [GPU 加速](#gpu-加速仅限linux平台)
-   4. [SQLAlchemy](#sqlalchemy)
-      1. [简单的查询](#简单的查询)
-      2. [复杂的查询](#复杂的查询)
-      3. [ORM 的一切](#orm-的一切)
-5. [Transformers](#Transformers)
-   1. [Pipline](#Pipline)
-   2. [Tokenizer]()
+- [[#环境配置]]
+	- [[#虚拟环境与 Python 安装]]
+		- [[#虚拟环境与 Python 安装]]
+		- [[#高版本系统]]
+		- [[#低版本系统]]
+	- [[#CUDA 与 cuDNN]]
+		- [[#CUDA]]
+		- [[#cuDNN]]
+	- [[#安装 Virtualenv、Pytorch、Tensorflow、Ollama、Model]]
+		- [[#Virtualenv]]
+		- [[#Pytorch]]
+		- [[#Tensorflow]]
+		- [[#Virtualenv 虚拟环境下安装环境（不如 uv]]
+	- [[#Ollama、模型安装]]
+	- [[#其他]]
+- [[#慢速开始]]
+	- [[#Linux 使用技巧]]
+		- [[#Vim]]
+	- [[#正则表达式（讨厌re的原因是因为它是设计给天才看的）]]
+		- [[#实践]]
+	- [[#Ollama Modelfile 权威指南]]
+		- [[#1. 简介：什么是 Modelfile]]
+		- [[#2. Modelfile 的基本结构]]
+		- [[#3. 常用字段详解]]
+		- [[#4. 模板（TEMPLATE）与停止符（STOP）]]
+		- [[#5. 参数（PARAMETER）详解与推荐值]]
+		- [[#6. 常见使用场景示例]]
+		- [[#7. 附录：示例 Modelfile 热门变体]]
+	- [[#数据处理]]
+		- [[#JSON（万物基于JSON）]]
+		- [[#XML（谁？不熟，感觉是Java佬最爱）]]
+		- [[#HTML（BeautifulSoup，漂亮的汤（]]
+		- [[#pandas（你为什么不学熊猫？）]]
+			- [[#Series]]
+			- [[#DataFrame]]
+			- [[#文件操作]]
+			- [[#缺失值]]
+			- [[#重复值与类型转换]]
+			- [[#数据变形]]
+			- [[#数据分箱]]
+			- [[#时间数据处理]]
+			- [[#分类聚合]]
+	- [[#数据库]]
+		- [[#MySQL（没人觉得这个 DB 很诡异么？）]]
+		- [[#MongoDB（MySQL 严父）]]
+		- [[#Faiss（超绝内存型向量数据库）]]
+			- [[#简单线性索引]]
+			- [[#自定义索引 ID]]
+			- [[#聚类倒排索引]]
+			- [[#聚类倒排量化索引]]
+			- [[#GPU 加速（仅限Linux平台）]]
+		- [[#SQLAlchemy]]
+			- [[#简单的查询]]
+			- [[#复杂的查询]]
+			- [[#ORM 的一切]]
+	- [[#机器学习/深度学习]]
+		- [[#Tensorflow]]
+		- [[#Pytorch]]
+			- [[#前置知识]]
+			- [[#Pytorch Lib]]
+		- [[#Transformers]]
+			- [[#Pipline]]
+			- [[#Tokenizer]]
+			- [[#Easy Model]]
+			- [[#ComModel]]
+			- [[#Datasets]]
+		- [[#sk-learn]]
+		- [[#peft]]
+		- [[#FastAPI]]
+		- [[#LangChain]]
 
 ## 环境配置
 准备工作：
@@ -352,6 +381,65 @@ open-webui serve
 	1. 需要下载 lxml
 6. SQLAlchemy：2.0.44版本的，尽量使用2.X版本
 
+因为我使用的是权威的 `uv` 项目管理器，所以直接给出 `toml` 好吧：
+```toml
+# pyproject.toml  
+[build-system]  
+requires = ["setuptools>=61", "wheel"]  
+build-backend = "setuptools.build_meta"  
+  
+[project]  
+name = "mysqlproject"  
+version = "0.1.0"  
+description = "Add your description here"  
+requires-python = "==3.10.11"  
+dependencies = [  
+    # 解析/爬虫 - 快速、容错地抽取/清洗 HTML/XML 文本  
+    "lxml",          # C 级高性能 XML/HTML 解析器，支持 XPath    "BeautifulSoup4", # 对不规则 HTML 友好的高层解析、搜索、遍历接口  
+  
+    # 数据分析 - 结构化数据二维表格化操作与统计  
+    "pandas",        # 提供 DataFrame/Series，支撑读写、过滤、聚合、透视等全套 EDA 流程  
+  
+    # 数据库 - 与 MySQL、MongoDB、向量检索引擎交互的驱动与 ORM    "pymysql",       # 纯 Python 实现的 MySQL 客户端  
+    "pymongo",       # 官方 MongoDB 驱动  
+    "faiss-cpu",     # Facebook 开源的稠密向量相似度检索库（CPU 版）  
+    "SQLAlchemy",    # Python 事实标准 ORM & SQL 工具链  
+    "mysqlclient",   # SQLAlchemy链接mysql需要，和pymysql都可以  
+  
+    # 机器学习基本工具 - 经典 ML+可视化+数值计算  
+    "numpy>=1.23,<2", # 张量/向量化计算基石，sklearn、torch 均依赖  
+    "scikit-learn",   # 传统机器学习算法（分类/回归/聚类/降维/预处理）  
+    "matplotlib",     # 2D 静态可视化，科研作图首选  
+  
+    # 深度学习库 - Transformer 生态、PyTorch 全家桶及配套评估/加速/日志组件  
+    "transformers",   # Hugging Face 社区预训练 SOTA 模型库（BERT/GPT/T5…）  
+    "datasets",       # HF 社区 1000+ 标准/自定义数据集加载、缓存与处理接口  
+    "evaluate",       # HF 统一封装 GLUE、ROUGE、BLEU 等常用评估指标  
+    "peft",           # 参数高效微调（LoRA/AdaLoRA/P-tuning）官方实现  
+    "accelerate",     # HF 分布式训练/混合精度/CPU offload 通用框架  
+    "optimum",        # 针对 Intel/ONNX/OpenVINO/NVIDIA 的推理加速与量化工具箱  
+    "sentencepiece",  # Google 子词分词器（支持 BPE/Unigram）  
+    "nltk",           # 经典 NLP 工具集（分句、词性、情感词典等）  
+    "rouge",          # 摘要/翻译评估 ROUGE-N/L/SU 指标独立包  
+    "torch==2.2.0+cu118",     # PyTorch GPU 2.2.0（CUDA 11.8）核心库  
+    "torchvision==0.17.0+cu118", # 官方视觉模型/数据变换/数据集  
+    "torchaudio==2.2.0+cu118", # 官方语音模型/特征提取/数据集  
+    "pillow>=9.0",   # 轻量级图像 I/O 与基础变换（torchvision 前置依赖）  
+    "tqdm",           # 进度条美化，训练/数据加载可视化  
+    "tensorboard",    # 训练日志可视化（兼容 pytorch-lightning、transformers）  
+    "scipy"           # 稀疏矩阵、优化、统计分布等科学计算补充  
+]  
+  
+[[tool.pip.index-url]]  
+url = "https://pypi.org/simple"  
+  
+[[tool.uv.index]]  
+url = "https://download.pytorch.org/whl/cu118"  
+  
+[tool.setuptools]  
+packages = []      # 只装依赖，不打包任何源码
+```
+
 ## 慢速开始
 注： 相关 Py 源代码见个人仓库
 ### Linux 使用技巧
@@ -638,6 +726,7 @@ PARAMETER backend ggml
 #### 7. 附录：示例 Modelfile 热门变体
 
 ##### 最小可用 Modelfile
+
 ```bash
 FROM /opt/model/small-ggml
 TEMPLATE """<|im_start|>system
@@ -654,6 +743,7 @@ PARAMETER stop "<|im_end|>"
 ```
 
 ##### 完整的 Demo
+
 ```bash
 FROM /opt/model/qwen2.5-1.8b-instruct
 TEMPLATE """
@@ -686,7 +776,6 @@ PARAMETER stop "<|im_end|>"
 ### 数据处理
 
 #### JSON（万物基于JSON）
-
 ##### 代码
 ```python
 import json as json  
@@ -736,7 +825,6 @@ with open("OutTest.json", "w", encoding="utf-8") as f:
 ```
 
 #### XML（谁？不熟，感觉是Java佬最爱）
-
 ##### XML 数据清洗
 ```python
 import xml.etree.ElementTree as et  
@@ -820,7 +908,6 @@ print(par)
 ```
 
 #### HTML（BeautifulSoup，漂亮的汤（
-
 ##### HTML 数据清洗
 ```python
 from bs4 import BeautifulSoup  
@@ -960,7 +1047,6 @@ print("find", soup.find(string="章节1"))
 ```
 
 #### pandas（你为什么不学熊猫？）
-
 ##### 样本数据生成
 ```python
 import pandas as pd  
@@ -1538,7 +1624,6 @@ print(df_M_group[["利润"]]) # 注意[["利润"]]还是一个DataFrame
 ```
 
 ### 数据库
-
 #### MySQL（没人觉得这个 DB 很诡异么？）
 ```python
 import pymysql  
@@ -1892,7 +1977,6 @@ if __name__ == "__main__":
 ```
 
 #### SQLAlchemy
-
 ##### 简单的查询
 ```python
 import sqlalchemy  
@@ -2210,13 +2294,15 @@ if __name__ == "__main__":
 ```
 
 ### 机器学习/深度学习
-
 #### Tensorflow
 
 #### Pytorch
+##### 前置知识
+参考[Perceptron_PytorchLib 项目目录](https://github.com/RobinElysia/PythonLibAction/tree/main/pytorch/Perceptron_PytorchLib)，包含手操微分、手写各种损失函数、激活函数、各种梯度算法、三层网络和BP反向传播等等。
+
+##### Pytorch Lib
 
 #### Transformers
-
 ##### Pipline
 ```python
 from transformers.pipelines import SUPPORTED_TASKS  
@@ -2525,6 +2611,376 @@ def Easy_Tokenizer():
 if __name__ == "__main__":  
     Easy_Tokenizer()
 ```
+
+##### Easy Model
+```python
+from transformers import (  
+    AutoTokenizer,  
+    AutoModel,  
+    AutoConfig,  
+    PretrainedConfig,  
+    BertConfig,  
+    BertForSequenceClassification,  
+    AutoModelForSequenceClassification, # 文本分类任务  
+)  
+import pandas as pd  
+from torch.utils.data import Dataset  
+  
+  
+class MyDataset(Dataset):  
+  
+    def __init__(self) -> None:  
+        super().__init__()  
+        self.data = pd.read_csv("./ChnSentiCorp_htl_all.csv")  
+        self.data = self.data.dropna()  
+  
+    def __getitem__(self, index):  
+        return self.data.iloc[index]["review"], self.data.iloc[index]["label"]  
+  
+    def __len__(self):  
+        return len(self.data)  
+  
+def Easy_Model():  
+    """  
+    简单的Model入门  
+    :return:  
+    """    # 预加载  
+    model = AutoModel.from_pretrained("模型名称/模型路径") # 预加载模型  
+    config = AutoConfig.from_pretrained("模型名称/模型路径") # 预加载模型配置  
+    config.output_attentions = True # 输出注意力，默认为False  
+    # PretrainedConfig, BertConfig # 更多配置在这两个类中，其中BertConfig继承PretrainedConfig  
+  
+    # 模型调用（不带Model Head）  
+    prompt = "你好"  
+    tokenizer = AutoTokenizer.from_pretrained("模型名称/模型路径")  
+    inputs = tokenizer(prompt, return_tensors="pt") # 内置tokenizer编码器  
+    print(inputs)  
+    # outputs = model(**inputs) # 模型调用，顺带解构数据。得到模型输出  
+    # 上述是简单调用  
+    # 你需要传入属性进行模型配置修改  
+    outputs = model(**inputs, output_attentions=True)  # 模型调用，顺带解构数据。得到模型输出  
+    # 输出的Attentions就带有了结果  
+    # 取出数据  
+    attentions = outputs.attentions # 获取模型输出的Attentions  
+    last_hidden_states = outputs.last_hidden_state # 获取模型输出的last_hidden_state  
+    print(attentions) # 输出Attentions  
+    print(last_hidden_states.size()) # 输出last_hidden_state的维度  
+  
+    # 模型调用（带Model Head）  
+    model = AutoModelForSequenceClassification.from_pretrained("模型名称/模型路径")  
+    outputs = model(**inputs) # 模型调用，顺带解构数据。得到模型输出  
+    print(outputs)  
+    # 相关的属性修改查看：BertForSequenceClassification  
+  
+    """  
+    关于模型带不带Head：  
+        不带Head的模型（如BertModel、AutoModel）：  
+            只包含骨干网络（Backbone），也就是Transformer的核心架构  
+            输出的是隐藏状态（hidden states）或特征表示  
+            通常返回的是最后一层的隐藏状态向量        带Head的模型（如BertForSequenceClassification、AutoModelForSequenceClassification）：  
+            包含骨干网络 + 任务特定的头部（Head）  
+            在骨干网络基础上添加了针对特定任务的输出层            直接输出任务相关的结果（如分类logits）  
+        它们前置任务类似：            输入处理：两者都使用相同的tokenizer进行分词  
+            嵌入层：都经过相同的词嵌入、位置嵌入等  
+            Transformer编码器：都通过相同的多层Transformer结构  
+            特征提取：都得到相同质量的上下文表示        关键差异在输出阶段，Head通常是一个或多个线性层（Linear Layer）  
+    """  
+if __name__ == "__main__":  
+    Easy_Model()
+```
+
+##### ComModel
+```python
+# -*- coding: utf-8 -*-  
+"""  
+中文情感分类示例（ChnSentiCorp_htl_all.csv）  
+依赖：pandas, torch, transformers, scikit-learn  
+"""  
+  
+import os  
+import random  
+import numpy as np  
+import pandas as pd  
+import torch  
+from torch.utils.data import Dataset, DataLoader, random_split  
+from transformers import (  
+    AutoTokenizer,  
+    AutoModelForSequenceClassification,  
+    pipeline,  
+)  
+from torch.optim import Adam  
+  
+# -------------------- 可配置参数 --------------------CSV_PATH = "./ChnSentiCorp_htl_all.csv"  
+MODEL_NAME = "hfl/rbt3"  
+MAX_LEN = 128  
+BATCH_SIZE = 32  
+EVAL_BATCH = 64  
+LR = 2e-5  
+EPOCHS = 3  
+LOG_STEP = 100  
+RANDOM_SEED = 42  
+DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")  
+# ---------------------------------------------------  
+  
+# 固定随机种子  
+def set_seed(seed):  
+    random.seed(seed)  
+    np.random.seed(seed)  
+    torch.manual_seed(seed)  
+    torch.cuda.manual_seed_all(seed)  
+  
+set_seed(RANDOM_SEED)  
+  
+# -------------------- 自定义数据集 --------------------class MyDataset(Dataset):  
+    def __init__(self, csv_path: str):  
+        df = pd.read_csv(csv_path).dropna()  
+        self.texts = df["text"].tolist()  
+        self.labels = df["label"].tolist()  
+  
+    def __len__(self):  
+        return len(self.texts)  
+  
+    def __getitem__(self, idx):  
+        return self.texts[idx], self.labels[idx]  
+  
+# -------------------- 数据加载函数 --------------------tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)  
+  
+def collate_fn(batch):  
+    texts, labels = zip(*batch)  
+    enc = tokenizer(  
+        list(texts),  
+        max_length=MAX_LEN,  
+        padding="max_length",  
+        truncation=True,  
+        return_tensors="pt",  
+    )  
+    enc["labels"] = torch.tensor(labels, dtype=torch.long)  
+    return enc  
+  
+# -------------------- 训练/验证 Dataloader --------------------dataset = MyDataset(CSV_PATH)  
+train_ds, valid_ds = random_split(  
+    dataset, lengths=[0.9, 0.1], generator=torch.Generator().manual_seed(RANDOM_SEED)  
+)  
+  
+train_loader = DataLoader(  
+    train_ds, batch_size=BATCH_SIZE, shuffle=True, collate_fn=collate_fn  
+)  
+valid_loader = DataLoader(  
+    valid_ds, batch_size=EVAL_BATCH, shuffle=False, collate_fn=collate_fn  
+)  
+  
+# -------------------- 模型 & 优化器 --------------------model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=2)  
+model.to(DEVICE)  
+optimizer = Adam(model.parameters(), lr=LR)  
+  
+# -------------------- 评估函数 --------------------@torch.no_grad()  
+def evaluate():  
+    model.eval()  
+    total_correct, total_num = 0, 0  
+    for batch in valid_loader:  
+        batch = {k: v.to(DEVICE) for k, v in batch.items()}  
+        outputs = model(**batch)  
+        preds = torch.argmax(outputs.logits, dim=-1)  
+        total_correct += (preds == batch["labels"]).sum().item()  
+        total_num += batch["labels"].size(0)  
+    return total_correct / total_num  
+  
+# -------------------- 训练函数 --------------------def train():  
+    global_step, total_loss, step_count = 0, 0.0, 0  
+    for epoch in range(EPOCHS):  
+        model.train()  
+        for batch in train_loader:  
+            batch = {k: v.to(DEVICE) for k, v in batch.items()}  
+            optimizer.zero_grad()  
+            outputs = model(**batch)  
+            loss = outputs.loss  
+            loss.backward()  
+            optimizer.step()  
+  
+            total_loss += loss.item()  
+            step_count += 1  
+            global_step += 1  
+  
+            if global_step % LOG_STEP == 0:  
+                avg_loss = total_loss / step_count  
+                print(f"Epoch {epoch} | Step {global_step} | Loss {avg_loss:.4f}")  
+  
+        # 每个 epoch 结束评估一次  
+        acc = evaluate()  
+        print(f"Epoch {epoch} | Val Acc {acc:.4f}")  
+  
+# -------------------- 单句预测 --------------------def predict(sentence: str):  
+    model.eval()  
+    with torch.no_grad():  
+        inputs = tokenizer(  
+            sentence,  
+            max_length=MAX_LEN,  
+            padding="max_length",  
+            truncation=True,  
+            return_tensors="pt",  
+        ).to(DEVICE)  
+        logits = model(**inputs).logits  
+        pred = torch.argmax(logits, dim=-1).item()  
+    id2label = {0: "差评！", 1: "好评！"}  
+    return id2label[pred]  
+  
+# -------------------- 主入口 --------------------if __name__ == "__main__":  
+    train()  # 训练  
+  
+    # 快速测试  
+    test_sen = "我觉得这家酒店不错，饭很好吃！"  
+    print("输入：", test_sen)  
+    print("预测：", predict(test_sen))  
+  
+    # 导出 pipeline（可选）  
+    model.config.id2label = {0: "差评！", 1: "好评！"}  
+    pipe = pipeline(  
+        "text-classification",  
+        model=model,  
+        tokenizer=tokenizer,  
+        device=0 if DEVICE.type == "cuda" else -1,  
+    )  
+    print(pipe(test_sen))
+```
+
+##### Datasets
+```python
+from datasets import load_dataset  
+from transformers import AutoTokenizer, DataCollatorWithPadding  
+from torch.utils.data import DataLoader  
+import pandas as pd  
+  
+def Easy_Datasets_DataLoad():  
+    # 简单加载普通集合  
+    datasets = load_dataset("madao33/new-title-chinese")  
+    print(datasets)  
+    # train 训练集  
+    # validation 验证集  
+    # test 测试集  
+  
+    # 加载包含子集合的训练任务  
+    # datasets = load_dataset("super_glue", "boolq") # 加载指定子集合  
+  
+    # 指定训练/验证/测试集  
+    # datasets = load_dataset("super_glue", "boolq", split = ["train", "validation", "test"])  
+  
+    # 加载集合中的指定索引/百分比位置  
+    # datasets = load_dataset("super_glue", "boolq", split = "train[0:10%]")  
+    # datasets = load_dataset("super_glue", "boolq", split = "train[0:100]")    return datasets  
+  
+def Easy_Opration_Datasets(datasets):  
+    # 直接进行字典操作  
+    print(datasets["train"][0]) # 拿到训练集的第一个数据  
+    # 切片访问  
+    print(datasets["train"][0:10]) # 拿到训练集的前10个数据  
+    # 查看某个字段的数据  
+    print(datasets["train"]["title"][0:5])  
+    # 查看有哪些字段  
+    print(datasets["train"].column_names)  
+    # 类型  
+    print(datasets["train"].features)  
+  
+    # 操作数据  
+    data_trained = datasets["train"]  
+    data_trained = data_trained.train_test_split(  
+        test_size=0.2, stratify_by_column="label"  
+    ) # 划分训练集和测试集, 默认是80%训练集，20%测试集, stratify_by_column="label"是按标签进行划分  
+  
+    # 选取与过滤  
+    data_trained_select = data_trained.select(range(10)) # 选取前10个数据，但是返回的是Dataset  
+    print(data_trained_select)  
+    # 过滤  
+    data_trained_filter = data_trained.filter(lambda x: [i for i in range(50)] in x["label"]) # 过滤掉label中50以上的数据  
+    print(data_trained_filter["title"][0:5]) # 拿到训练集的前5个数据  
+  
+    # 数据映射  
+    tokenizer = AutoTokenizer.from_pretrained(  
+        "uer/roberta-base-finetuned-dianping-chinese"  
+    ) # 预加载tokenizer，模型来自Huggingface  
+    def Process_func(examples, tokenizer=tokenizer): # 映射函数，将编码后的数据加载到原来的数据新字段中  
+        """  
+        :param examples: 原始数据  
+        :param tokenizer: 分词器  
+        :return:  
+        """        model_inputs = tokenizer(examples["content"], max_length=512, truncation=True)  
+        labels = tokenizer(examples["title"], max_length=32, truncation=True)  
+        # label就是title编码的结果  
+        model_inputs["labels"] = labels["input_ids"]  
+        return model_inputs  
+    data_trained_map = data_trained.map(Process_func, batched=True) # 映射数据，开启批量映射  
+    # 如果不是FastTokenizer，那么需要加上属性：num_proc=4，开启多线程进行映射，同时建议将tokenizer作为参数传递到映射函数中  
+    # 如果你不想要原始字段数据，你可以在调用map函数的时候删除它  
+    # data_trained_map = data_trained.map(Process_func, batched=True, remove_columns=["title"])  
+  
+    # 保存与加载  
+    data_trained_map.save_to_disk("./data")  
+    data_trained_load = load_dataset("./data")  
+    # 加载本地数据  
+    data_trained_load = load_dataset("csv", data_files="./data.csv", split="train")  
+    # 加载文件类型、路径、是否为DatasetsDict  
+    # 加上属性：split="train"是train的Dataset，不加是DatasetDict  
+    # 文件路径上可以写成[]，多个文件  
+    # 或者使用  
+    data_trained_load = datasets.from_csv("./data.csv")  
+    # 直接加载为Dataset  
+    # 直接加载整个文件夹  
+    # data_trained_load = load_dataset("csv", data_dir="./", split="train")  
+  
+    # pandas联动  
+    data = pd.read_csv("./data.csv")  
+    DataFrame_to_Dataset = datasets.from_pandas(data) # pandas数据转为Dataset  
+    Dataset_to_DataFrame = DataFrame_to_Dataset.to_pandas() # Dataset转为pandas数据  
+    """  
+    当然有很多from_XXX，比如json、xml、csv等等  
+    """  
+    # 自定义加载器，解析复杂的数据结构：参见load_script代码和cmrc2018_trial.json数据  
+    # 在这里我们只需要加载这个脚本代码就可以  
+    # data_trained_load = load_dataset("load_script.py", split="train")  
+    # 但是从 datasets 库的新版开始（>=2.14.0 起），官方已经停止支持直接从 .py 脚本文件加载自定义数据集。  
+  
+def DataCollator_Dataset():  
+    dataset = load_dataset("csv",  data_files="./data.csv", split="train")  
+    # 过滤空数据  
+    dataset = dataset.filter(lambda x: x["title"] is not None)  
+    # 数据映射  
+    tokenizer = AutoTokenizer.from_pretrained(  
+        "uer/roberta-base-finetuned-dianping-chinese"  
+    )  # 预加载tokenizer，模型来自Huggingface  
+    def Process_func(examples): # 映射函数，将编码后的数据加载到原来的数据新字段中  
+        """  
+        :param examples: 原始数据  
+        :param tokenizer: 分词器  
+        :return:  
+        """        model_inputs = tokenizer(examples["content"], max_length=512, truncation=True) # 创建新的变量保存分词  
+        labels = tokenizer(examples["title"], max_length=32, truncation=True) # 创建新的变量保存分词  
+        # label就是title编码的结果  
+        model_inputs["labels"] = labels["input_ids"] # 添加新的字段保存label编码结果  
+        return model_inputs # 返回新的字段  
+    data_trained_map = dataset.map(Process_func, batched=True, remove_columns=["title"]) # 映射数据，开启批量映射  
+    print(data_trained_map[:3]) # 拿到训练集的前3个数据  
+  
+    # 创建DataCollator  
+    data_collator = DataCollatorWithPadding(tokenizer=tokenizer) # 创建DataCollator  
+    # 把“一个 batch 里长度不等的句子”自动补齐（padding）到同一长度。  
+  
+    # 调用DataLoader：把 Dataset 给出的“一条一条样本”组装成“一个 batch 的张量”。  
+    train_dataloader = DataLoader(data_trained_map, batch_size=8, collate_fn=data_collator, shuffle=True)  
+    # 传入  
+        # 分词器映射函数对象（你的原始数据集）  
+        # 每轮迭代返回 8 条样本  
+        # 每个 epoch 都把数据顺序打乱  
+        # 如何把 8 条样本拼成一个 batch”的自定义函数  
+    print(train_dataloader) # 可以看到数据变成了Tenser  
+    # 转换成功！  
+    # 接下来就是训练数据了  
+  
+  
+if __name__ == "__main__":  
+    data = Easy_Datasets_DataLoad()  
+    Easy_Opration_Datasets(data)
+```
+
+
 
 #### sk-learn
 
