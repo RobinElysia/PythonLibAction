@@ -1,0 +1,38 @@
+import numpy as np
+
+# 随机梯度下降
+class SGD:
+    def __init__(self, lr=0.01):
+        self.lr = lr
+
+    def update(self, params, grads):
+        """
+        :param params: 参数字典
+        :param grads: 梯度字典
+        :return:
+        """
+        # 循环更新参数
+        for key in params.keys():
+            params[key] -= self.lr * grads[key]
+
+# 梯度下降算法容易陷入局部最优解，因此，为了避免陷入局部最优解，
+# 我们可以使用随机梯度下降算法。随机梯度下降算法的思路是每次只更新一个样本的梯度，而不是更新所有样本的梯度。
+# 动量法，随机梯度下降算法的一个改进版本，可以避免陷入局部最优解。
+
+class Momentum:
+    def __init__(self, lr=0.01, momentum=0.9):
+        self.lr = lr
+        self.momentum = momentum
+        self.v = None
+
+    def update(self, params, grads):
+        # 对v进行初始化
+        if self.v is None:
+            self.v = {}
+            for key, val in params.items():
+                self.v[key] = np.zeros_like(val)
+
+        # 参数更新
+        for key in params.keys():
+            self.v[key] = self.momentum * self.v[key] - self.lr * grads[key] # v = momentum * v - lr * grads
+            params[key] += self.v[key] # params = params + v
