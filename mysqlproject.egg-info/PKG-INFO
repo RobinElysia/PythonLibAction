@@ -6,13 +6,13 @@ Requires-Python: ==3.10.11
 License-File: LICENSE
 Requires-Dist: lxml
 Requires-Dist: BeautifulSoup4
+Requires-Dist: pandas
 Requires-Dist: pymysql
 Requires-Dist: pymongo
 Requires-Dist: faiss-cpu
 Requires-Dist: SQLAlchemy
 Requires-Dist: mysqlclient
 Requires-Dist: numpy<2,>=1.23
-Requires-Dist: pandas
 Requires-Dist: scikit-learn
 Requires-Dist: matplotlib
 Requires-Dist: transformers

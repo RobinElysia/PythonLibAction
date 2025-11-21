@@ -1,12 +1,12 @@
 lxml
 BeautifulSoup4
+pandas
 pymysql
 pymongo
 faiss-cpu
 SQLAlchemy
 mysqlclient
 numpy<2,>=1.23
-pandas
 scikit-learn
 matplotlib
 transformers
