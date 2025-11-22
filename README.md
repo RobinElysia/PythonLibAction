@@ -2,76 +2,93 @@
 💡 探索、学习、贡献！这是一个开放的 Python AI 第三方库学习社区。我们不仅收集和解析最酷的 Python AI 库，还鼓励你通过提交代码和案例来共同构建这份知识图谱。一起点亮 Python AI 技能树吧！
 
 ## 目录
-- [#环境配置]
-	- [#虚拟环境与 Python 安装]
-		- [#虚拟环境与 Python 安装]
-		- [#高版本系统]
-		- [#低版本系统]
-	- [#CUDA 与 cuDNN]
-		- [#CUDA]
-		- [#cuDNN]
-	- [#安装 Virtualenv、Pytorch、Tensorflow、Ollama、Model]
-		- [#Virtualenv]
-		- [#Pytorch]
-		- [#Tensorflow]
-		- [#Virtualenv 虚拟环境下安装环境（不如 uv]
-	- [#Ollama、模型安装]
-	- [#其他]
-- [#慢速开始]
-	- [#Linux 使用技巧]
-		- [#Vim]
-	- [#正则表达式（讨厌re的原因是因为它是设计给天才看的）]
-		- [#实践]
-	- [#Ollama Modelfile 权威指南]
-		- [#1. 简介：什么是 Modelfile]
-		- [#2. Modelfile 的基本结构]
-		- [#3. 常用字段详解]
-		- [#4. 模板（TEMPLATE）与停止符（STOP）]
-		- [#5. 参数（PARAMETER）详解与推荐值]
-		- [#6. 常见使用场景示例]
-		- [#7. 附录：示例 Modelfile 热门变体]
-	- [#数据处理]
-		- [#JSON（万物基于JSON）]
-		- [#XML（谁？不熟，感觉是Java佬最爱）]
-		- [#HTML（BeautifulSoup，漂亮的汤（]
-		- [#pandas（你为什么不学熊猫？）]
-			- [#Series]
-			- [#DataFrame]
-			- [#文件操作]
-			- [#缺失值]
-			- [#重复值与类型转换]
-			- [#数据变形]
-			- [#数据分箱]
-			- [#时间数据处理]
-			- [#分类聚合]
-	- [#数据库]
-		- [#MySQL（没人觉得这个 DB 很诡异么？）]
-		- [#MongoDB（MySQL 严父）]
-		- [#Faiss（超绝内存型向量数据库）]
-			- [#简单线性索引]
-			- [#自定义索引 ID]
-			- [#聚类倒排索引]
-			- [#聚类倒排量化索引]
-			- [#GPU 加速（仅限Linux平台）]
-		- [#SQLAlchemy]
-			- [#简单的查询]
-			- [#复杂的查询]
-			- [#ORM 的一切]
-	- [#机器学习/深度学习]
-		- [#Tensorflow]
-		- [#Pytorch]
-			- [#前置知识]
-			- [#Pytorch Lib]
-		- [#Transformers]
-			- [#Pipline]
-			- [#Tokenizer]
-			- [#Easy Model]
-			- [#ComModel]
-			- [#Datasets]
-		- [#sk-learn]
-		- [#peft]
-		- [#FastAPI]
-		- [#LangChain]
+- [环境配置](#环境配置)
+  - [虚拟环境与 Python 安装](#虚拟环境与-python-安装)
+    - [高版本系统](#高版本系统)
+    - [低版本系统](#低版本系统)
+  - [CUDA 与 cuDNN](#cuda-与-cudnn)
+    - [CUDA](#cuda)
+    - [cuDNN](#cudnn)
+  - [安装 Virtualenv、Pytorch、Tensorflow、Ollama、Model](#安装-virtualenvpytorchtensorflowollamamodel)
+    - [Virtualenv](#virtualenv)
+    - [Pytorch](#pytorch)
+    - [Tensorflow](#tensorflow)
+    - [Virtualenv 虚拟环境下安装环境（不如 uv）](#virtualenv-虚拟环境下安装环境不如-uv)
+    - [Ollama、模型安装](#ollama模型安装)
+  - [OpenWebUI 安装](#openwebui-安装)
+  - [其他](#其他)
+
+- [慢速开始](#慢速开始)
+  - [Linux 使用技巧](#linux-使用技巧)
+    - [Vim](#vim)
+  - [正则表达式（讨厌re的原因是因为它是设计给天才看的）](#正则表达式讨厌re的原因是因为它是设计给天才看的)
+    - [实践](#实践)
+  - [Ollama Modelfile 权威指南](#ollama-modelfile-权威指南)
+    - [1. 简介：什么是 Modelfile](#1-简介什么是-modelfile)
+    - [2. Modelfile 的基本结构](#2-modelfile-的基本结构)
+    - [3. 常用字段详解](#3-常用字段详解)
+      - [FROM](#from)
+      - [TEMPLATE](#template)
+      - [PARAMETER](#parameter)
+      - [STOP](#stop)
+    - [4. 模板（TEMPLATE）与停止符（STOP）](#4-模板template与停止符stop)
+    - [5. 参数（PARAMETER）详解与推荐值](#5-参数parameter详解与推荐值)
+    - [6. 常见使用场景示例](#6-常见使用场景示例)
+      - [6.1 简单推理服务（聊天机器人）](#61-简单推理服务聊天机器人)
+      - [6.2 指令微调（SFT）后的模型部署](#62-指令微调sft后的模型部署)
+      - [6.3 大模型量化与低内存部署](#63-大模型量化与低内存部署)
+    - [7. 附录：示例 Modelfile 热门变体](#7-附录示例-modelfile-热门变体)
+      - [最小可用 Modelfile](#最小可用-modelfile)
+      - [完整的 Demo](#完整的-demo)
+  - [数据处理](#数据处理)
+    - [JSON（万物基于JSON）](#json万物基于json)
+      - [代码](#代码)
+      - [测试 JSON 文件](#测试-json-文件)
+    - [XML（谁？不熟，感觉是Java佬最爱）](#xml谁不熟感觉是java佬最爱)
+      - [XML 数据清洗](#xml-数据清洗)
+      - [测试 XML 文件](#测试-xml-文件)
+    - [HTML（BeautifulSoup，漂亮的汤（](#htmlbeautifulsoup漂亮的汤)
+      - [HTML 数据清洗](#html-数据清洗)
+      - [测试 HTML 文件](#测试-html-文件)
+    - [pandas（你为什么不学熊猫？）](#pandas你为什么不学熊猫)
+      - [样本数据生成](#样本数据生成)
+      - [Series](#series)
+      - [DataFrame](#dataframe)
+      - [文件操作](#文件操作)
+      - [缺失值](#缺失值)
+      - [重复值与类型转换](#重复值与类型转换)
+      - [数据变形](#数据变形)
+      - [数据分箱](#数据分箱)
+      - [时间数据处理](#时间数据处理)
+      - [分类聚合](#分类聚合)
+  - [数据库](#数据库)
+    - [MySQL（没人觉得这个 DB 很诡异么？）](#mysql没人觉得这个-db-很诡异么)
+    - [MongoDB（MySQL 严父）](#mongodbmysql-严父)
+    - [Faiss（超绝内存型向量数据库）](#faiss超绝内存型向量数据库)
+      - [简单线性索引](#简单线性索引)
+      - [自定义索引 ID](#自定义索引-id)
+      - [聚类倒排索引](#聚类倒排索引)
+      - [聚类倒排量化索引](#聚类倒排量化索引)
+      - [GPU 加速（仅限Linux平台）](#gpu-加速仅限linux平台)
+    - [SQLAlchemy](#sqlalchemy)
+      - [简单的查询](#简单的查询)
+      - [复杂的查询](#复杂的查询)
+      - [ORM 的一切](#orm-的一切)
+  - [机器学习/深度学习](#机器学习深度学习)
+    - [Tensorflow](#tensorflow)
+    - [Pytorch](#pytorch-1)
+      - [前置知识](#前置知识)
+      - [Pytorch Lib](#pytorch-lib)
+    - [Transformers](#transformers)
+      - [Pipline](#pipline)
+      - [Tokenizer](#tokenizer)
+      - [Easy Model](#easy-model)
+      - [ComModel](#commodel)
+      - [Datasets](#datasets)
+    - [sk-learn](#sk-learn)
+    - [peft](#peft)
+    - [FastAPI](#fastapi)
+    - [LangChain](#langchain)
 
 ## 环境配置
 准备工作：
@@ -2979,8 +2996,6 @@ if __name__ == "__main__":
     data = Easy_Datasets_DataLoad()  
     Easy_Opration_Datasets(data)
 ```
-
-
 
 #### sk-learn
 
