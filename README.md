@@ -297,8 +297,8 @@ source /home/user/test/ProjectName/bin/activate
 # 安装依赖
 pip install /opt/torch-2.0.1-cp310-cp310-manylinux2014_aarch64.whl && pip install /opt/torch-2.0.1-cp310-cp310-manylinux2014_aarch64.whl
 
-# 验证 CUDA、cuDNN、Pytorch、Tensorflow是否安装成功
-# Pytorch
+# 验证 CUDA、cuDNN、PytorchLib、Tensorflow是否安装成功
+# PytorchLib
 python -c "import torch; print(torch.__version__); print(torch.version.cuda); print(torch.backends.cudnn.version())"
 # Tensorflow
 python -c "import tensorflow as tf; print(tf.__version__); print(tf.config.list_physical_devices('GPU'))"
@@ -443,7 +443,7 @@ dependencies = [
     "torchaudio==2.2.0+cu118", # 官方语音模型/特征提取/数据集  
     "pillow>=9.0",   # 轻量级图像 I/O 与基础变换（torchvision 前置依赖）  
     "tqdm",           # 进度条美化，训练/数据加载可视化  
-    "tensorboard",    # 训练日志可视化（兼容 pytorch-lightning、transformers）  
+    "tensorboard",    # 训练日志可视化（兼容 PytorchLib-lightning、transformers）  
     "scipy"           # 稀疏矩阵、优化、统计分布等科学计算补充  
 ]  
   
