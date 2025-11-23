@@ -1,7 +1,7 @@
 {
   "repo_notes": [
     {
-      "content": ""
+      "content": "💡 Explore, learn, and contribute! This is an open repository for learning Python third-party libraries. We collect and analyze the coolest Python libraries, encouraging you to contribute code and examples to help build this knowledge graph. Let's light up our Python skill tree together!💡 探索、学习、贡献！这是一个开放的 Python AI 第三方库学习社区。我们不仅收集和解析最酷的 Python AI 库，还鼓励你通过提交代码和案例来共同构建这份知识图谱。一起点亮 Python AI 技能树吧！"
     }
   ],
   "pages": [
@@ -10,7 +10,7 @@
       "purpose": "Introduce the PythonLibAction repository, explaining its purpose as an educational platform for AI/ML development in Python, and provide a high-level map of its components",
       "page_notes": [
         {
-          "content": ""
+          "content": "详细介绍该项目的内容"
         }
       ]
     },
@@ -19,7 +19,7 @@
       "purpose": "Comprehensive guide to setting up the development environment, including OS requirements, Python installation, GPU support, and package management",
       "page_notes": [
         {
-          "content": ""
+          "content": "结合文档和项目本身，详细介绍所有环境安装大致步骤"
         }
       ]
     },
@@ -29,7 +29,7 @@
       "parent": "Environment Setup",
       "page_notes": [
         {
-          "content": ""
+          "content": "结合文档和项目本身，详细介绍Python环境安装步骤"
         }
       ]
     },
@@ -39,7 +39,7 @@
       "parent": "Environment Setup",
       "page_notes": [
         {
-          "content": ""
+          "content": "结合文档和项目本身，详细介绍CUDA/cuDNN环境安装步骤"
         }
       ]
     },
@@ -49,7 +49,7 @@
       "parent": "Environment Setup",
       "page_notes": [
         {
-          "content": ""
+          "content": "结合文档和项目本身，详细介绍包管理工具环境安装步骤"
         }
       ]
     },
@@ -58,7 +58,7 @@
       "purpose": "Overview of the data processing ecosystem, from extraction to transformation to storage",
       "page_notes": [
         {
-          "content": ""
+          "content": "结合文档和项目本身，详细介绍Python数据处理相关的大致内容"
         }
       ]
     },
@@ -68,7 +68,7 @@
       "parent": "Data Processing Pipeline",
       "page_notes": [
         {
-          "content": ""
+          "content": "结合文档和项目本身，详细介绍Python数据处理相关的所有内容（JSON, XML, HTML, CSV）"
         }
       ]
     },
@@ -78,7 +78,7 @@
       "parent": "Data Processing Pipeline",
       "page_notes": [
         {
-          "content": ""
+          "content": "结合文档和项目本身，详细介绍Python Pandas数据处理相关的所有内容"
         }
       ]
     },
@@ -88,7 +88,7 @@
       "parent": "Data Processing Pipeline",
       "page_notes": [
         {
-          "content": ""
+          "content": "结合文档和项目本身，详细介绍Python链接数据库相关的大致内容"
         }
       ]
     },
@@ -98,7 +98,7 @@
       "parent": "Data Processing Pipeline",
       "page_notes": [
         {
-          "content": ""
+          "content": "结合文档和项目本身，详细介绍Python和MySQL等数据库的连接与操作"
         }
       ]
     },
@@ -108,7 +108,7 @@
       "parent": "Data Processing Pipeline",
       "page_notes": [
         {
-          "content": ""
+          "content": "结合文档和项目本身，详细介绍Python和MongoDB数据库的连接与操作"
         }
       ]
     },
@@ -118,7 +118,7 @@
       "parent": "Data Processing Pipeline",
       "page_notes": [
         {
-          "content": ""
+          "content": "结合文档和项目本身，详细介绍Python和Faiss数据库的连接与操作"
         }
       ]
     },
