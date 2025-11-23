@@ -1,0 +1,282 @@
+{
+  "repo_notes": [
+    {
+      "content": "💡 Explore, learn, and contribute! This is an open repository for learning Python third-party libraries. We collect and analyze the coolest Python libraries, encouraging you to contribute code and examples to help build this knowledge graph. Let's light up our Python skill tree together!💡 探索、学习、贡献！这是一个开放的 Python AI 第三方库学习社区。我们不仅收集和解析最酷的 Python AI 库，还鼓励你通过提交代码和案例来共同构建这份知识图谱。一起点亮 Python AI 技能树吧！"
+    }
+  ],
+  "pages": [
+    {
+      "title": "Overview",
+      "purpose": "Introduce the PythonLibAction repository, explaining its purpose as an educational platform for AI/ML development in Python, and provide a high-level map of its components",
+      "page_notes": [
+        {
+          "content": "详细介绍该项目的内容"
+        }
+      ]
+    },
+    {
+      "title": "Environment Setup",
+      "purpose": "Comprehensive guide to setting up the development environment, including OS requirements, Python installation, GPU support, and package management",
+      "page_notes": [
+        {
+          "content": "结合文档和项目本身，详细介绍所有环境安装大致步骤"
+        }
+      ]
+    },
+    {
+      "title": "Operating System and Python Installation",
+      "purpose": "Detail the WSL2 Ubuntu setup and Python 3.10.11 installation process, including manual compilation for low-version systems",
+      "parent": "Environment Setup",
+      "page_notes": [
+        {
+          "content": "结合文档和项目本身，详细介绍Python环境安装步骤"
+        }
+      ]
+    },
+    {
+      "title": "GPU Support (CUDA and cuDNN)",
+      "purpose": "Explain CUDA 11.8 and cuDNN 8.9.7 installation, environment variable configuration, and verification procedures",
+      "parent": "Environment Setup",
+      "page_notes": [
+        {
+          "content": "结合文档和项目本身，详细介绍CUDA/cuDNN环境安装步骤"
+        }
+      ]
+    },
+    {
+      "title": "Package Management",
+      "purpose": "Cover modern Python package management using uv and virtualenv, including pyproject.toml configuration and offline installation strategies",
+      "parent": "Environment Setup",
+      "page_notes": [
+        {
+          "content": "结合文档和项目本身，详细介绍包管理工具环境安装步骤"
+        }
+      ]
+    },
+    {
+      "title": "Data Processing Pipeline",
+      "purpose": "Overview of the data processing ecosystem, from extraction to transformation to storage",
+      "page_notes": [
+        {
+          "content": "结合文档和项目本身，详细介绍Python数据处理相关的大致内容"
+        }
+      ]
+    },
+    {
+      "title": "Data Extraction and Parsing",
+      "purpose": "Demonstrate parsing various data formats (JSON, XML, HTML, CSV) using lxml, BeautifulSoup4, and pandas",
+      "parent": "Data Processing Pipeline",
+      "page_notes": [
+        {
+          "content": "结合文档和项目本身，详细介绍Python数据处理相关的所有内容（JSON, XML, HTML, CSV）"
+        }
+      ]
+    },
+    {
+      "title": "Data Analysis with Pandas",
+      "purpose": "Comprehensive guide to pandas DataFrame and Series operations, including cleaning, transformation, and aggregation",
+      "parent": "Data Processing Pipeline",
+      "page_notes": [
+        {
+          "content": "结合文档和项目本身，详细介绍Python Pandas数据处理相关的所有内容"
+        }
+      ]
+    },
+    {
+      "title": "Database Systems",
+      "purpose": "Overview of the three database paradigms supported: relational (MySQL), document (MongoDB), and vector (FAISS)",
+      "parent": "Data Processing Pipeline",
+      "page_notes": [
+        {
+          "content": "结合文档和项目本身，详细介绍Python链接数据库相关的大致内容"
+        }
+      ]
+    },
+    {
+      "title": "MySQL with SQLAlchemy ORM",
+      "purpose": "Detailed guide to SQLAlchemy 2.0 ORM patterns, including Engine setup, declarative models, Session management, and CRUD operations with the Person entity example",
+      "parent": "Data Processing Pipeline",
+      "page_notes": [
+        {
+          "content": "结合文档和项目本身，详细介绍Python和MySQL等数据库的连接与操作"
+        }
+      ]
+    },
+    {
+      "title": "MongoDB with PyMongo",
+      "purpose": "Explain MongoDB document database operations using the pymongo driver",
+      "parent": "Data Processing Pipeline",
+      "page_notes": [
+        {
+          "content": "结合文档和项目本身，详细介绍Python和MongoDB数据库的连接与操作"
+        }
+      ]
+    },
+    {
+      "title": "FAISS Vector Search",
+      "purpose": "Cover FAISS library for efficient similarity search and vector indexing, including IndexFlatL2, IndexIVFFlat, and GPU acceleration",
+      "parent": "Data Processing Pipeline",
+      "page_notes": [
+        {
+          "content": "结合文档和项目本身，详细介绍Python和Faiss数据库的连接与操作"
+        }
+      ]
+    },
+    {
+      "title": "Machine Learning Frameworks",
+      "purpose": "Overview of the deep learning frameworks supported (PyTorch and TensorFlow) and their role in the ecosystem",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "PyTorch Basics",
+      "purpose": "Introduction to PyTorch tensor operations, including creation methods (torch.tensor vs torch.Tensor), dtypes, and basic operations",
+      "parent": "Machine Learning Frameworks",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "TensorFlow Setup",
+      "purpose": "Explain TensorFlow 2.12.1 installation and verification with GPU support",
+      "parent": "Machine Learning Frameworks",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "HuggingFace Transformers Ecosystem",
+      "purpose": "Comprehensive overview of the Transformers library ecosystem, including models, tokenizers, datasets, training infrastructure, and evaluation",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Getting Started with Transformers",
+      "purpose": "Introduction to the Transformers library, covering Auto* classes, model loading, and basic inference patterns",
+      "parent": "HuggingFace Transformers Ecosystem",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Tokenization",
+      "purpose": "Detailed guide to AutoTokenizer usage, including tokenization methods, padding, truncation, special tokens, attention masks, and Fast vs Slow tokenizers",
+      "parent": "HuggingFace Transformers Ecosystem",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Models and Pipelines",
+      "purpose": "Explain the Pipeline API for high-level inference, covering supported tasks (NLP, CV, Audio), configuration options, and comparison with manual model usage",
+      "parent": "HuggingFace Transformers Ecosystem",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Working with Datasets",
+      "purpose": "Comprehensive guide to the HuggingFace datasets library, including loading from Hub/CSV/JSON, dataset operations, tokenization mapping, and DataLoader preparation",
+      "parent": "HuggingFace Transformers Ecosystem",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Model Training and Evaluation",
+      "purpose": "Explain the Trainer API, TrainingArguments configuration, custom metrics with the evaluate library, and complete training workflows",
+      "parent": "HuggingFace Transformers Ecosystem",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Advanced Training Techniques",
+      "purpose": "Cover PEFT (Parameter-Efficient Fine-Tuning), LoRA, accelerate for distributed training, optimum for hardware optimization, and mixed precision training",
+      "parent": "HuggingFace Transformers Ecosystem",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "LLM Deployment",
+      "purpose": "Overview of local LLM deployment using Ollama and OpenWebUI for production-ready model serving",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Ollama Setup and Configuration",
+      "purpose": "Detailed guide to Ollama installation, Modelfile syntax (FROM, TEMPLATE, PARAMETER, STOP), model creation, and runtime execution",
+      "parent": "LLM Deployment",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "OpenWebUI Interface",
+      "purpose": "Explain OpenWebUI 0.6.36 installation, SQLite3 upgrade requirements, ChromaDB patching for pysqlite3, and web interface usage",
+      "parent": "LLM Deployment",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Complete Examples and Tutorials",
+      "purpose": "Collection of end-to-end examples demonstrating complete workflows from data loading to model deployment",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Sentiment Analysis Tutorial",
+      "purpose": "Complete walkthrough of building a Chinese sentiment classifier using the ChnSentiCorp dataset, including custom Dataset class, training loop, and inference",
+      "parent": "Complete Examples and Tutorials",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Custom Dataset Loading",
+      "purpose": "Demonstrate creating custom dataset loaders using the datasets library, with CMRC2018 question-answering dataset as an example",
+      "parent": "Complete Examples and Tutorials",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    }
+  ]
+}
