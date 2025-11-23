@@ -43,7 +43,7 @@ def tokenize_fn(example):
         example["text"],
         truncation=True,
         padding="max_length",  # 或 dynamic padding: padding="longest"
-        max_length=256,
+        max_length=256, # 减小，则可以降低显存占用和时间
     )
 
 
@@ -102,9 +102,18 @@ training_args = TrainingArguments(
 
     # === 训练参数 ===
     num_train_epochs=1,              # 演示用 1 epoch（实际可增大）
-    per_device_train_batch_size=16,  # 每块 GPU 上的 batch
-    per_device_eval_batch_size=16,
-    gradient_accumulation_steps=1,   # 梯度累积
+    per_device_train_batch_size=4,  # 每块 GPU 上的 batch
+    per_device_eval_batch_size=4,
+    gradient_accumulation_steps=32,   # 32 个 step 累积梯度
+    # 可将 gradient_accumulation_steps 设置为 32
+    # per_device_eval_batch_size 和 per_device_train_batch_size 改为 1
+    # 这个时候显存会减少，但训练时间会大幅增加
+
+    gradient_checkpointing=True, # 启用 gradient checkpointing
+    # 可以降低一点显存占用，但是不如上述来的快，但是时间会更大
+
+    # 也可以指定优化器，切换压力较小的优化器
+    optim="adafactor", # 默认为 AdamW，切换可以在OptimizerNames看
 
     # === 优化器相关 ===
     learning_rate=5e-5,
@@ -123,9 +132,17 @@ training_args = TrainingArguments(
     fp16=True,                       # 如果有 GPU，则开启混合精度
 )
 
+# ---------------------------------------------------------
+# 7. 冻结层
+# ---------------------------------------------------------
+# 遍历模型的所有参数，将名称中不包含"classifier"的参数设置为不可训练状态（冻结参数）。
+# 大幅减少时间和显存占用
+for name, param in model.named_parameters():
+    if "classifier" not in name:
+        param.requires_grad = False
 
 # ---------------------------------------------------------
-# 7. 创建 Trainer
+# 8. 创建 Trainer
 # ---------------------------------------------------------
 trainer = Trainer(
     model=model,
@@ -138,16 +155,16 @@ trainer = Trainer(
 
 
 # ---------------------------------------------------------
-# 8. 开始训练
+# 9. 开始训练
 # ---------------------------------------------------------
 print(trainer.train())
 
 # ---------------------------------------------------------
-# 9. 评估模型
+# 10. 评估模型
 # ---------------------------------------------------------
 print(trainer.evaluate(tokenized_ds["test"]))
 
 # ---------------------------------------------------------
-# 10. 模型预测
+# 11. 模型预测
 # ---------------------------------------------------------
 print(trainer.predict(tokenized_ds["test"]))
