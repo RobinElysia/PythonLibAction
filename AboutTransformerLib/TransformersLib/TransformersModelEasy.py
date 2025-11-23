@@ -76,4 +76,7 @@ def Easy_Model():
     """
 
 if __name__ == "__main__":
+    """
+    Transformers模型对象的简单入门
+    """
     Easy_Model()

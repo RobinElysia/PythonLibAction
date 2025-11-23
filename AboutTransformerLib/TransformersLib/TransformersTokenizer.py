@@ -93,4 +93,7 @@ def Easy_Tokenizer():
     # 有的模型需要在远程进行加载，比如远程加载模型，需要在创建对象的时候加上属性：trust_remote_code=True
 
 if __name__ == "__main__":
+    """
+    Transformers编码器工具
+    """
     Easy_Tokenizer()

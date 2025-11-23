@@ -133,5 +133,8 @@ def DataCollator_Dataset():
 
 
 if __name__ == "__main__":
+    """
+    Transformers数据处理工具
+    """
     data = Easy_Datasets_DataLoad()
     Easy_Opration_Datasets(data)

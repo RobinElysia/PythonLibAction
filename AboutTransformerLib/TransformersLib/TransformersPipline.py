@@ -240,6 +240,7 @@ def Backend_Pipline():
 if __name__ == '__main__':
     """
     预处理Tokenizer——》模型预测Model——》后处理Post Processing 
+    Transformers任务工具
     """
     # Look_ST() # 查看任务分类
     print("----------")
