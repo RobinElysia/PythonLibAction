@@ -3,92 +3,96 @@
 
 ## 目录
 - [环境配置](#环境配置)
-  - [虚拟环境与 Python 安装](#虚拟环境与-python-安装)
-    - [高版本系统](#高版本系统)
-    - [低版本系统](#低版本系统)
-  - [CUDA 与 cuDNN](#cuda-与-cudnn)
-    - [CUDA](#cuda)
-    - [cuDNN](#cudnn)
-  - [安装 Virtualenv、Pytorch、Tensorflow、Ollama、Model](#安装-virtualenvpytorchtensorflowollamamodel)
-    - [Virtualenv](#virtualenv)
-    - [Pytorch](#pytorch)
-    - [Tensorflow](#tensorflow)
-    - [Virtualenv 虚拟环境下安装环境（不如 uv）](#virtualenv-虚拟环境下安装环境不如-uv)
-    - [Ollama、模型安装](#ollama模型安装)
-  - [OpenWebUI 安装](#openwebui-安装)
-  - [其他](#其他)
+	- [虚拟环境与 Python 安装](#虚拟环境与-python-安装)
+	  - [高版本系统](#高版本系统)
+	  - [低版本系统](#低版本系统)
+	- [CUDA 与 cuDNN](#cuda-与-cudnn)
+	  - [CUDA](#cuda)
+	  - [cuDNN](#cudnn)
+	- [安装 Virtualenv、Pytorch、Tensorflow、Ollama、Model](#安装-virtualenvpytorchtensorflowollamamodel)
+	  - [Virtualenv](#virtualenv)
+	  - [Pytorch](#pytorch)
+	  - [Tensorflow](#tensorflow)
+	  - [Virtualenv 虚拟环境下安装环境（不如 uv）](#virtualenv-虚拟环境下安装环境不如-uv)
+	  - [Ollama、模型安装](#ollama模型安装)
+	- [OpenWebUI 安装](#openwebui-安装)
+	- [其他](#其他)
 
 - [慢速开始](#慢速开始)
-  - [Linux 使用技巧](#linux-使用技巧)
-    - [Vim](#vim)
-  - [正则表达式（讨厌re的原因是因为它是设计给天才看的）](#正则表达式讨厌re的原因是因为它是设计给天才看的)
-    - [实践](#实践)
-  - [Ollama Modelfile 权威指南](#ollama-modelfile-权威指南)
-    - [1. 简介：什么是 Modelfile](#1-简介什么是-modelfile)
-    - [2. Modelfile 的基本结构](#2-modelfile-的基本结构)
-    - [3. 常用字段详解](#3-常用字段详解)
-      - [FROM](#from)
-      - [TEMPLATE](#template)
-      - [PARAMETER](#parameter)
-      - [STOP](#stop)
-    - [4. 模板（TEMPLATE）与停止符（STOP）](#4-模板template与停止符stop)
-    - [5. 参数（PARAMETER）详解与推荐值](#5-参数parameter详解与推荐值)
-    - [6. 常见使用场景示例](#6-常见使用场景示例)
-      - [6.1 简单推理服务（聊天机器人）](#61-简单推理服务聊天机器人)
-      - [6.2 指令微调（SFT）后的模型部署](#62-指令微调sft后的模型部署)
-      - [6.3 大模型量化与低内存部署](#63-大模型量化与低内存部署)
-    - [7. 附录：示例 Modelfile 热门变体](#7-附录示例-modelfile-热门变体)
-      - [最小可用 Modelfile](#最小可用-modelfile)
-      - [完整的 Demo](#完整的-demo)
-  - [数据处理](#数据处理)
-    - [JSON（万物基于JSON）](#json万物基于json)
-      - [代码](#代码)
-      - [测试 JSON 文件](#测试-json-文件)
-    - [XML（谁？不熟，感觉是Java佬最爱）](#xml谁不熟感觉是java佬最爱)
-      - [XML 数据清洗](#xml-数据清洗)
-      - [测试 XML 文件](#测试-xml-文件)
-    - [HTML（BeautifulSoup，漂亮的汤（](#htmlbeautifulsoup漂亮的汤)
-      - [HTML 数据清洗](#html-数据清洗)
-      - [测试 HTML 文件](#测试-html-文件)
-    - [pandas（你为什么不学熊猫？）](#pandas你为什么不学熊猫)
-      - [样本数据生成](#样本数据生成)
-      - [Series](#series)
-      - [DataFrame](#dataframe)
-      - [文件操作](#文件操作)
-      - [缺失值](#缺失值)
-      - [重复值与类型转换](#重复值与类型转换)
-      - [数据变形](#数据变形)
-      - [数据分箱](#数据分箱)
-      - [时间数据处理](#时间数据处理)
-      - [分类聚合](#分类聚合)
-  - [数据库](#数据库)
-    - [MySQL（没人觉得这个 DB 很诡异么？）](#mysql没人觉得这个-db-很诡异么)
-    - [MongoDB（MySQL 严父）](#mongodbmysql-严父)
-    - [Faiss（超绝内存型向量数据库）](#faiss超绝内存型向量数据库)
-      - [简单线性索引](#简单线性索引)
-      - [自定义索引 ID](#自定义索引-id)
-      - [聚类倒排索引](#聚类倒排索引)
-      - [聚类倒排量化索引](#聚类倒排量化索引)
-      - [GPU 加速（仅限Linux平台）](#gpu-加速仅限linux平台)
-    - [SQLAlchemy](#sqlalchemy)
-      - [简单的查询](#简单的查询)
-      - [复杂的查询](#复杂的查询)
-      - [ORM 的一切](#orm-的一切)
-  - [机器学习/深度学习](#机器学习深度学习)
-    - [Tensorflow](#tensorflow)
-    - [Pytorch](#pytorch-1)
-      - [前置知识](#前置知识)
-      - [Pytorch Lib](#pytorch-lib)
-    - [Transformers](#transformers)
-      - [Pipline](#pipline)
-      - [Tokenizer](#tokenizer)
-      - [Easy Model](#easy-model)
-      - [ComModel](#commodel)
-      - [Datasets](#datasets)
-    - [sk-learn](#sk-learn)
-    - [peft](#peft)
-    - [FastAPI](#fastapi)
-    - [LangChain](#langchain)
+	- [Linux 使用技巧](#linux-使用技巧)
+	  - [Vim](#vim)
+	- [正则表达式（讨厌re的原因是因为它是设计给天才看的）](#正则表达式讨厌re的原因是因为它是设计给天才看的)
+	  - [实践](#实践)
+	- [Ollama Modelfile 权威指南](#ollama-modelfile-权威指南)
+	  - [1. 简介：什么是 Modelfile](#1-简介什么是-modelfile)
+	  - [2. Modelfile 的基本结构](#2-modelfile-的基本结构)
+	  - [3. 常用字段详解](#3-常用字段详解)
+	    - [FROM](#from)
+	    - [TEMPLATE](#template)
+	    - [PARAMETER](#parameter)
+	    - [STOP](#stop)
+	  - [4. 模板（TEMPLATE）与停止符（STOP）](#4-模板template与停止符stop)
+	  - [5. 参数（PARAMETER）详解与推荐值](#5-参数parameter详解与推荐值)
+	  - [6. 常见使用场景示例](#6-常见使用场景示例)
+	    - [6.1 简单推理服务（聊天机器人）](#61-简单推理服务聊天机器人)
+	    - [6.2 指令微调（SFT）后的模型部署](#62-指令微调sft后的模型部署)
+	    - [6.3 大模型量化与低内存部署](#63-大模型量化与低内存部署)
+	  - [7. 附录：示例 Modelfile 热门变体](#7-附录示例-modelfile-热门变体)
+	    - [最小可用 Modelfile](#最小可用-modelfile)
+	    - [完整的 Demo](#完整的-demo)
+	- [数据处理](#数据处理)
+	  - [JSON（万物基于JSON）](#json万物基于json)
+	    - [代码](#代码)
+	    - [测试 JSON 文件](#测试-json-文件)
+	  - [XML（谁？不熟，感觉是Java佬最爱）](#xml谁不熟感觉是java佬最爱)
+	    - [XML 数据清洗](#xml-数据清洗)
+	    - [测试 XML 文件](#测试-xml-文件)
+	  - [HTML（BeautifulSoup，漂亮的汤（](#htmlbeautifulsoup漂亮的汤)
+	    - [HTML 数据清洗](#html-数据清洗)
+	    - [测试 HTML 文件](#测试-html-文件)
+	  - [pandas（你为什么不学熊猫？）](#pandas你为什么不学熊猫)
+	    - [样本数据生成](#样本数据生成)
+	    - [Series](#series)
+	    - [DataFrame](#dataframe)
+	    - [文件操作](#文件操作)
+	    - [缺失值](#缺失值)
+	    - [重复值与类型转换](#重复值与类型转换)
+	    - [数据变形](#数据变形)
+	    - [数据分箱](#数据分箱)
+	    - [时间数据处理](#时间数据处理)
+	    - [分类聚合](#分类聚合)
+	- [数据库](#数据库)
+	  - [MySQL（没人觉得这个 DB 很诡异么？）](#mysql没人觉得这个-db-很诡异么)
+	  - [MongoDB（MySQL 严父）](#mongodbmysql-严父)
+	  - [Faiss（超绝内存型向量数据库）](#faiss超绝内存型向量数据库)
+	    - [简单线性索引](#简单线性索引)
+	    - [自定义索引 ID](#自定义索引-id)
+	    - [聚类倒排索引](#聚类倒排索引)
+	    - [聚类倒排量化索引](#聚类倒排量化索引)
+	    - [GPU 加速（仅限Linux平台）](#gpu-加速仅限linux平台)
+	  - [SQLAlchemy](#sqlalchemy)
+	    - [简单的查询](#简单的查询)
+	    - [复杂的查询](#复杂的查询)
+	    - [ORM 的一切](#orm-的一切)
+	- [机器学习/深度学习](#机器学习深度学习)
+	  - [Tensorflow](#tensorflow)
+	  - [Pytorch](#pytorch-1)
+	    - [前置知识](#前置知识)
+	    - [Pytorch Lib](#pytorch-lib)
+		    - [CreateTensor](#CreateTensor)
+		    - [TransAndAlgTensor](#TransAndAlgTensor)
+	  - [Transformers](#transformers)
+	    - [Pipline](#pipline)
+	    - [Tokenizer](#tokenizer)
+	    - [Easy Model](#easy-model)
+	    - [ComModel](#commodel)
+	    - [Datasets](#datasets)
+	    - [Evaluate](#Evaluate)
+	    - [Trainer](#Trainer)
+	  - [sk-learn](#sk-learn)
+	  - [peft](#peft)
+	  - [FastAPI](#fastapi)
+	  - [LangChain](#langchain)
 
 ## 环境配置
 准备工作：
@@ -297,8 +301,8 @@ source /home/user/test/ProjectName/bin/activate
 # 安装依赖
 pip install /opt/torch-2.0.1-cp310-cp310-manylinux2014_aarch64.whl && pip install /opt/torch-2.0.1-cp310-cp310-manylinux2014_aarch64.whl
 
-# 验证 CUDA、cuDNN、PytorchLib、Tensorflow是否安装成功
-# PytorchLib
+# 验证 CUDA、cuDNN、Pytorch、Tensorflow是否安装成功
+# Pytorch
 python -c "import torch; print(torch.__version__); print(torch.version.cuda); print(torch.backends.cudnn.version())"
 # Tensorflow
 python -c "import tensorflow as tf; print(tf.__version__); print(tf.config.list_physical_devices('GPU'))"
@@ -443,7 +447,7 @@ dependencies = [
     "torchaudio==2.2.0+cu118", # 官方语音模型/特征提取/数据集  
     "pillow>=9.0",   # 轻量级图像 I/O 与基础变换（torchvision 前置依赖）  
     "tqdm",           # 进度条美化，训练/数据加载可视化  
-    "tensorboard",    # 训练日志可视化（兼容 PytorchLib-lightning、transformers）  
+    "tensorboard",    # 训练日志可视化（兼容 pytorch-lightning、transformers）  
     "scipy"           # 稀疏矩阵、优化、统计分布等科学计算补充  
 ]  
   
@@ -2318,6 +2322,259 @@ if __name__ == "__main__":
 参考[Perceptron_PytorchLib 项目目录](https://github.com/RobinElysia/PythonLibAction/tree/main/pytorch/Perceptron_PytorchLib)，包含手操微分、手写各种损失函数、激活函数、各种梯度算法、三层网络和BP反向传播等等。
 
 ##### Pytorch Lib
+###### CreateTensor
+```python
+import torch  
+import numpy as np  
+  
+def Easy_tensor():  
+    """  
+    简单创建  
+    :return:  
+    """    x = torch.tensor(1.0)  
+    x2 = torch.tensor([1.0, 2.0])  
+    print(x)  
+    print(x.dtype) # 默认为float32, numpy默认是float64，整数默认是int64（torch）  
+    print(x.size()) # 默认为空[]，因为是标量  
+    """  
+    tensor(1.)    torch.float32    torch.Size([])    """  
+    print(x2)  
+    print(x2.dtype)  
+    print(x2.size())  
+    """  
+    tensor([1., 2.])    torch.float32    torch.Size([2])    """  
+    x3 = torch.tensor(np.array([[1.0, 2.0], [3.0, 4.0]]))  
+    print(x3)  
+    print(x3.dtype)  
+    print(x3.size())  
+    """  
+    tensor([[1., 2.],        [3., 4.]], dtype=torch.float64)    torch.float64    torch.Size([2, 2])    """  
+def Easy_Tensor():  
+    """  
+    指定维度大小预先创建，不管元素是什么，始终是float32  
+    且创建始为向量/矩阵，不可能是标量  
+    :return:  
+    """    x = torch.Tensor(2, 3, 4)  
+    print(x)  
+    print(x.size())  
+    print(x.dtype)  
+    """  
+    tensor([[[-3.8086e-01,  1.4041e-42,  0.0000e+00,  0.0000e+00],         [ 0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00],         [ 0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00]],  
+        [[ 0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00],         [ 0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00],         [ 0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00]]])    torch.Size([2, 3, 4])    torch.float32    """  
+    x2 = torch.Tensor([[1, 2], [2, 3]])  
+    print(x2)  
+    print(x2.size())  
+    print(x2.dtype)  
+    """  
+    tensor([[1., 2.],        [2., 3.]])    torch.Size([2, 2])    torch.float32    """  
+    x3 = torch.Tensor(10)  
+    print(x3)  
+    print(x3.size())  
+    print(x3.dtype)  
+    """  
+    注意，是向量，不再是标量了！！！  
+    tensor([9.3592e+15, 1.7166e-42, 0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00,        0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00])    torch.Size([10])    torch.float32    """  
+def Type_Tensor_or_tensor():  
+    """  
+    类型前缀和属性指定类型  
+    :return:  
+    """    x = torch.FloatTensor(2, 3, 4) # 形状生成  
+    # LongTensor、DoubleTensor、IntTensor、ShortTensor、ByteTensor、HalfTensor、BoolTensor  
+    print(x)  
+    print(x.size())  
+    print(x.dtype)  
+    """  
+    tensor([[[3.8707e+25, 1.7628e-42, 0.0000e+00, 0.0000e+00],         [0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00],         [0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00]],  
+        [[0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00],         [0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00],         [0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00]]])    torch.Size([2, 3, 4])    torch.float32    """    x1 = torch.tensor([1, 2, 3], dtype=torch.float) # 内容生成  
+    print(x1)  
+    print(x1.size())  
+    print(x1.dtype)  
+    """  
+    tensor([1., 2., 3.])    torch.Size([3])    torch.float32    """  
+def Interval_tensor():  
+    """  
+    生成指定区间的tensor  
+    :return:  
+    """    x = torch.arange(0, 10, 2) # 0-10，步长为2，左闭右开  
+    print(x)  
+  
+    x1 = torch.linspace(0, 10, 5) # 0-10，生成5个，左闭右闭  
+    print(x1)  
+  
+    x2 = torch.logspace(0, 10, 5, base=2) # 0-10，生成5个，左闭右闭，底数是2  
+    print(x2)  
+  
+def full_tensor():  
+    """  
+    生成全0/1/x的tensor  
+    :return:  
+    """    x = torch.zeros(2, 3, 4) # 生成全0的tensor  
+    print(x)  
+    x1 = torch.ones(2, 3, 4) # 生成全1的tensor  
+    print(x1)  
+    x2 = torch.full((2, 3, 4), 5) # 生成全5的tensor  
+    print(x2)  
+    x3 = torch.empty(2, 3, 4) # 随机生成指定大小的tensor  
+    print(x3)  
+  
+    # 根据已知张量生成  
+    x4 = torch.zeros_like(x) # 根据x生成全0的tensor  
+    print(x4)  
+    x5 = torch.ones_like(x) # 根据x生成全1的tensor  
+    print(x5)  
+    x6 = torch.full_like(x, 5) # 根据x生成全5的tensor  
+    print(x6)  
+    x7 = torch.empty_like(x) # 根据x生成随机的tensor  
+    print(x7)  
+  
+    # 单位阵  
+    x8 = torch.eye(3) # 单位阵  
+    print(x8)  
+    x9 = torch.eye(3, 4) # 3行4列  
+    print(x9)  
+    """  
+    tensor([[1., 0., 0.],        [0., 1., 0.],        [0., 0., 1.]])    tensor([[1., 0., 0., 0.],        [0., 1., 0., 0.],        [0., 0., 1., 0.]])    """  
+def random_tensor():  
+    """  
+    生成随机数  
+    :return:  
+    """    x = torch.rand(2, 3, 4) # 均匀分布随机生成三维[0,1)的 tensor    print(x)  
+    x1 = torch.randint(0, 10, (2, 3, 4)) # 均匀分布随机生成三维[0,10)的 int tensor    print(x1)  
+    x2 = torch.randn(2, 3, 4) # 标准正态分布随机生成三维[-1,1)的 tensor    print(x2)  
+    x3 = torch.normal(0, 1, (2, 3, 4)) # 正态分布随机生成三维均值为 0，方差为 1 的 tensor  
+    # 根据已有张量生成  
+    x4 = torch.rand_like(x)  
+    print(x4)  
+    x5 = torch.randint_like(x, 0, 10) # 根据已有张量生成，在[0,10)内  
+    print(x5)  
+    x6 = torch.randn_like(x) # 根据已有张量生成，标准正态分布  
+  
+def perm_tensor():  
+    """  
+    对tensor洗牌  
+    :return:  
+    """    x = torch.randperm(10) # 0-9，随机排序  
+    print(x)  
+    print(torch.random.initial_seed()) # 获取当前种子  
+    torch.random.manual_seed(42) # 设置种子  
+  
+if __name__ == '__main__':  
+    # Easy_tensor()  
+    print("==========")  
+    # Easy_Tensor()  
+    print("==========")  
+    # Type_Tensor_or_tensor()  
+    print("==========")  
+    # Interval_tensor()  
+    print("==========")  
+    # full_tensor()  
+    print("==========")  
+    # random_tensor()  
+    print("==========")  
+    # perm_tensor()
+```
+
+###### TransAndAlgTensor
+```python
+import torch  
+import numpy as np  
+  
+def trans_type_tensor():  
+    """  
+    张量的改变类型  
+    :return:  
+    """    x = torch.tensor([1, 2, 3], dtype=torch.float)  
+    print(x.dtype)  
+    # 类型转换  
+    x1 = x.type(torch.int)  
+    print(x1.dtype)  
+    # 或者直接调用函数  
+    x2 = x.half()  
+    print(x2.dtype)  
+    # 再或者  
+    x3 = x.to(torch.complex64) # 64位复数  
+    print(x3.dtype)  
+  
+def trans_np_tensor():  
+    """  
+    ndarray与tensor的转换  
+    :return:  
+    """    # 设置打印选项  
+    np.set_printoptions(precision=4)  
+    torch.set_printoptions(precision=4)  
+  
+    x = np.array([1, 2, 3])  
+    x1 = torch.from_numpy(x) # ndarray 转 tensor    print(x1.dtype)  
+    x2 = x1.numpy() # tensor 转 ndarray    # 上述转换是浅拷贝，即 x 和 x2 都指向同一块内存，如果 x1 改变，x2 也会改变  
+  
+    # 取消内存共享  
+    # x2 = x1.numpy().copy() # 创建新的数组  
+    # x1 = torch.from_numpy(x2.copy()) # 创建新的张量  
+  
+def Scalar_to_Tensor():  
+    """  
+    标量与张量的转换  
+    :return:  
+    """    x = torch.tensor(10) # 创建张量  
+    # x = torch.tensor([10]) 也可以  
+    # x = torch.tensor([[10]]) # 也也可以  
+    print(x)  
+    # 转换为标量  
+    print(x.item())  
+  
+def Alg_tensor():  
+    """  
+    张量的运算  
+    :return:  
+    """    x = torch.randint(10, 100, (2, 3))  
+    print(x + 10)  
+    print(x - 10)  
+    print(-x)  
+    print(x * 10)  
+    print(x / 10)  
+    print(x ** 2)  
+    print(x // 10)  
+  
+    # 函数  
+    print(x.add(10)) # 加  
+    print(x.neg()) # 取负数  
+    print(x.sub(10)) # 减  
+    print(x.mul(10)) # 乘，哈达玛积，即对应位置相乘  
+    print(x.div(10)) # 除  
+    print(x.pow(2)) # 幂  
+    print(x.sqrt()) # 平方根  
+    print(x.exp()) # 指数  
+  
+    # 取代原对象数据（注意类型不一不可进行该操作）  
+    # print(x.add_(10))  # 加  
+    # print(x.neg_())  # 取负数  
+    # print(x.sub_(10))  # 减  
+    # print(x.mul_(10))  # 乘，哈达玛积，即对应位置相乘  
+    # print(x.div_(10))  # 除  
+    # print(x.pow_(2))  # 幂，可以传分数实现开方  
+    # print(x.sqrt_())  # 平方根  
+    # ...  
+  
+    # 矩阵乘法  
+    x = torch.randint(10, 100, (2, 3))  
+    y = torch.randint(10, 100, (3, 4))  
+    print(x @ y) # 语法糖  
+    print(torch.matmul(x, y)) # 多维矩阵乘法  
+    print(torch.mm(x, y)) # 二维专用矩阵乘法  
+  
+if __name__ == '__main__':  
+    """  
+    转换和计算tensor  
+    """    # trans_type_tensor()  
+    print("==========")  
+    # trans_np_tensor()  
+    print("==========")  
+    # Scalar_to_Tensor()  
+    print("==========")  
+    # Alg_tensor()  
+    print("==========")
+```
+
 
 #### Transformers
 ##### Pipline
@@ -2995,6 +3252,231 @@ def DataCollator_Dataset():
 if __name__ == "__main__":  
     data = Easy_Datasets_DataLoad()  
     Easy_Opration_Datasets(data)
+```
+
+##### Evaluate
+```python
+import evaluate  
+from evaluate.visualization import radar_plot # 可视化雷达图  
+  
+def Easy_Evaluate():  
+    """  
+    简单介绍  
+    :return:  
+    """    # 查看评估工具包支持的模型  
+    for i in evaluate.list_evaluation_modules():  
+        print(i)  
+    # 不想要社区实现的模型评估  
+    # print(evaluate.list_evaluation_modules(include_community=False))  
+    # 查看细节  
+    # print(evaluate.list_evaluation_modules(with_details=True))  
+  
+    # 加载评估函数  
+    accuracy = evaluate.load("accuracy") # 在上述打印中有 accuracy    # 查看函数说明  
+    print(accuracy.description)  
+    """  
+    Accuracy is the proportion of correct predictions among the total number of cases processed. It can be computed with:    Accuracy = (TP + TN) / (TP + TN + FP + FN)     Where:    TP: True positive    TN: True negative    FP: False positive    FN: False negative    """    print(accuracy.inputs_description) # 输入参数说明  
+    """  
+    Examples:        Example 1-A simple example            >>> accuracy_metric = evaluate.load("accuracy")            >>> results = accuracy_metric.compute(references=[0, 1, 2, 0, 1, 2], predictions=[0, 1, 1, 2, 1, 0])            >>> print(results)            {'accuracy': 0.5}            Example 2-The same as Example 1, except with `normalize` set to `False`.  
+            >>> accuracy_metric = evaluate.load("accuracy")            >>> results = accuracy_metric.compute(references=[0, 1, 2, 0, 1, 2], predictions=[0, 1, 1, 2, 1, 0], normalize=False)            >>> print(results)            {'accuracy': 3.0}            Example 3-The same as Example 1, except with `sample_weight` set.  
+            >>> accuracy_metric = evaluate.load("accuracy")            >>> results = accuracy_metric.compute(references=[0, 1, 2, 0, 1, 2], predictions=[0, 1, 1, 2, 1, 0], sample_weight=[0.5, 2, 0.7, 0.5, 9, 0.4])            >>> print(results)            {'accuracy': 0.8778625954198473}    """    # 或者直接全部打印  
+    print(accuracy)  
+  
+def Algorithm_Evaluate():  
+    """  
+    算法评估  
+    :return:  
+    """    # 加载评估函数  
+    accuracy = evaluate.load("accuracy")  
+    print("简单的模型评估：", accuracy.compute(  
+        references=[0, 1, 2, 0, 1, 2],  
+        predictions=[0, 1, 1, 2, 1, 0],  
+        sample_weight=[0.5, 2, 0.7, 0.5, 9, 0.4]  
+    )) # 输出计算评估结果，references是预测结果，predictions是真实结果，sample_weight是权重  
+  
+    # 或者，迭代计算  
+    for ref, pred in zip([0, 1, 2, 0, 1, 2], [0, 1, 1, 2, 1, 0]):  
+        accuracy.add(references=ref, predictions=pred)  
+    print("迭代评估计算：", accuracy.compute())  
+  
+    # 或者，使用add_batch方法  
+    for ref, pred in zip([[0,0],[1,1]], [[2,1],[0,2]]):  
+        accuracy.add_batch(references=ref, predictions=pred) # 不能使用sample_weight  
+    print("批量评估计算：", accuracy.compute())  
+  
+def Mult_Algorithm_Evaluate():  
+    """  
+    多个评估指标计算  
+    :return:  
+    """    # 加载多个评估函数  
+    metric = evaluate.combine(evaluations=["accuracy", "precision", "recall", "f1"])  
+    print(metric)  
+    # precision_score / recall_score / f1_score 等默认在二分类场景下只返回“正类”的分数，一旦类别数 >2 就不知道该返回哪一类了，于是抛出 ValueError。  
+  
+    # 简单计算  
+    print(metric.compute(references=[1, 1, 1, 0, 1, 0],  
+        predictions=[0, 1, 1, 0, 1, 1]))  
+  
+def Vision_Evaluate():  
+    """  
+    可视化  
+    """    data = [  
+        {'accuracy': 0.95, 'precision': 1.00, 'recall': 0.55, 'f1': 0.71},  
+        {'accuracy': 0.60, 'precision': 0.65, 'recall': 0.95, 'f1': 0.78},  
+        {'accuracy': 0.75, 'precision': 0.70, 'recall': 0.60, 'f1': 0.65},  
+        {'accuracy': 0.50, 'precision': 0.55, 'recall': 0.50, 'f1': 0.52}  
+    ] # 评估结果  
+    models = ['model_1', 'model_2', 'model_3', 'model_4'] # 模型名称  
+    plot = radar_plot(data, models) # 绘制雷达图  
+    plot.show()  
+  
+if __name__ == '__main__':  
+    """  
+    Transformers模型评估工具包  
+    """    # Easy_Evaluate()  
+    # Algorithm_Evaluate()    # Mult_Algorithm_Evaluate()    Vision_Evaluate()
+```
+
+##### Trainer
+```python
+# 一些自带的模型是支持的，但是对于魔改的输入输出模型是不支持的  
+# ---------------------------------------------------------  
+# 一个可运行的 Trainer + TrainingArguments 示例  
+# 任务：使用 DistilBERT 在 IMDB 数据集上做情感分类  
+# ---------------------------------------------------------  
+from datasets import load_dataset  
+from transformers import (  
+    AutoTokenizer,  
+    AutoModelForSequenceClassification,  
+    TrainingArguments,  
+    Trainer,  
+)  
+import numpy as np  
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support  
+  
+  
+# ---------------------------------------------------------  
+# 1. 加载数据集  
+# ---------------------------------------------------------  
+# HuggingFace 会自动下载 IMDB 数据集（训练 25k，测试 25k）  
+dataset = load_dataset("imdb")  
+  
+# 数据集字段为：{"text": ..., "label": 0/1}  
+  
+  
+# ---------------------------------------------------------  
+# 2. 加载 Tokenizer# ---------------------------------------------------------  
+model_name = "distilbert-base-uncased"  
+tokenizer = AutoTokenizer.from_pretrained(model_name)  
+  
+  
+# ---------------------------------------------------------  
+# 3. 编写 tokenize 函数  
+# ---------------------------------------------------------  
+def tokenize_fn(example):  
+    """  
+    对每条样本进行 tokenization    truncation=True 会自动截断过长文本  
+    padding=True 在批处理时让长度对齐（dynamic padding）  
+    """    return tokenizer(  
+        example["text"],  
+        truncation=True,  
+        padding="max_length",  # 或 dynamic padding: padding="longest"        max_length=256,  
+    )  
+  
+  
+# 将 tokenize 函数应用到整个数据集  
+tokenized_ds = dataset.map(tokenize_fn, batched=True)  
+  
+# Trainer 要求输入中必须包含 input_ids / attention_mask / labelstokenized_ds = tokenized_ds.rename_column("label", "labels")  
+  
+# 使数据集只保留必要字段  
+tokenized_ds.set_format(  
+    type="torch",  
+    columns=["input_ids", "attention_mask", "labels"],  
+)  
+  
+  
+# ---------------------------------------------------------  
+# 4. 加载预训练模型（分类头自动加载）  
+# ---------------------------------------------------------  
+model = AutoModelForSequenceClassification.from_pretrained(  
+    model_name,  
+    num_labels=2,  # IMDB 是二分类任务  
+)  
+  
+  
+# ---------------------------------------------------------  
+# 5. 定义评价指标  
+# ---------------------------------------------------------  
+def compute_metrics(eval_pred):  
+    """  
+    eval_pred 包含两个元素：  
+    - logits（模型输出）  
+    - labels（真实标签）  
+    """    logits, labels = eval_pred  
+    preds = np.argmax(logits, axis=1)  
+  
+    acc = accuracy_score(labels, preds)  
+    prec, recall, f1, _ = precision_recall_fscore_support(  
+        labels, preds, average="binary"  
+    )  
+  
+    return {  
+        "accuracy": acc,  
+        "precision": prec,  
+        "recall": recall,  
+        "f1": f1,  
+    }  
+  
+  
+# ---------------------------------------------------------  
+# 6. 创建 TrainingArguments# ---------------------------------------------------------  
+training_args = TrainingArguments(  
+    output_dir="./imdb_distilbert",  # 模型保存位置  
+  
+    # === 训练参数 ===    num_train_epochs=1,              # 演示用 1 epoch（实际可增大）  
+    per_device_train_batch_size=16,  # 每块 GPU 上的 batch    per_device_eval_batch_size=16,  
+    gradient_accumulation_steps=1,   # 梯度累积  
+  
+    # === 优化器相关 ===    learning_rate=5e-5,  
+    weight_decay=0.01,  
+  
+    # === 日志 / 保存 ===    logging_steps=50,                # 每 50 step 打印日志  
+    evaluation_strategy="epoch",     # 每个 epoch 结束时 eval    save_strategy="epoch",           # 每个 epoch 保存 checkpoint    save_total_limit=2,              # 最多保留2个checkpoint  
+  
+    # === 其他设置 ===    load_best_model_at_end=True,     # 根据指标自动加载最佳模型  
+    metric_for_best_model="accuracy",# 评价指标  
+  
+    fp16=True,                       # 如果有 GPU，则开启混合精度  
+)  
+  
+  
+# ---------------------------------------------------------  
+# 7. 创建 Trainer# ---------------------------------------------------------  
+trainer = Trainer(  
+    model=model,  
+    args=training_args,  
+    train_dataset=tokenized_ds["train"],  
+    eval_dataset=tokenized_ds["test"],  
+    tokenizer=tokenizer,  
+    compute_metrics=compute_metrics,   # 自定义评估  
+)  
+  
+  
+# ---------------------------------------------------------  
+# 8. 开始训练  
+# ---------------------------------------------------------  
+print(trainer.train())  
+  
+# ---------------------------------------------------------  
+# 9. 评估模型  
+# ---------------------------------------------------------  
+print(trainer.evaluate(tokenized_ds["test"]))  
+  
+# ---------------------------------------------------------  
+# 10. 模型预测  
+# ---------------------------------------------------------  
+print(trainer.predict(tokenized_ds["test"]))
 ```
 
 #### sk-learn
