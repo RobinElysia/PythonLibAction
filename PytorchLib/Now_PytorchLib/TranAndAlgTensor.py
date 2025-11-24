@@ -96,6 +96,48 @@ def Alg_tensor():
     # 你可以使用以下操作来节省内存
     # x[0:0] = x @ y，但是形状会出问题，缺的数据会被有的数据广播覆盖，所以这么用得符合广播的规则
 
+def Alg_Func_tensor():
+    """
+    函数统计运算
+    """
+    x = torch.randint(10, 100, (2, 3, 4))
+    print(x)
+    print(x.sum(dim=0)) # 矩阵去第三维求和
+    print(x.sum(dim=1)) # 矩阵去第二维求和
+    print(x.sum(dim=2)) # 矩阵去第一维求和
+
+    # 均值
+    # 只能是复数或者浮点数
+    print(x.mean(dim=0))
+    print(x.mean(dim=1))
+    print(x.mean(dim=2))
+
+    # 标准差
+    print(x.std(dim=0))
+    print(x.std(dim=1))
+    print(x.std(dim=2))
+
+    # 最大值
+    print(x.max(dim=0))
+    print(x.max(dim=1))
+    print(x.max(dim=2))
+    # 最小值
+    print(x.min(dim=0))
+    print(x.min(dim=1))
+    print(x.min(dim=2))
+    # 得到的是最大值和最小值的索引和值
+
+    # 或者直接得到索引
+    print(x.argmax(dim=0))
+    print(x.argmin(dim=0))
+
+    # 去重
+    print(x.unique()) # 也可以加维度
+
+    # 排序
+    print(x.sort()) # 默认升序，有值和索引，可以加维度
+
+
 if __name__ == '__main__':
     """
     转换和计算tensor
@@ -108,3 +150,4 @@ if __name__ == '__main__':
     print("==========")
     # Alg_tensor()
     print("==========")
+    # Alg_Func_tensor()
