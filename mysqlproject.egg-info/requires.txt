@@ -23,3 +23,5 @@ torchvision==0.19.0+cu118
 torchaudio==2.4.0+cu118
 tqdm==4.66.5
 tensorboard==2.13.0
+watchdog
+streamlit

@@ -29,3 +29,5 @@ Requires-Dist: torchvision==0.19.0+cu118
 Requires-Dist: torchaudio==2.4.0+cu118
 Requires-Dist: tqdm==4.66.5
 Requires-Dist: tensorboard==2.13.0
+Requires-Dist: watchdog
+Requires-Dist: streamlit

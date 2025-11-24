@@ -43,6 +43,10 @@ dependencies = [
     "torchaudio==2.4.0+cu118", # 官方语音模型/特征提取/数据集
     "tqdm==4.66.5",           # 进度条美化，训练/数据加载可视化
     "tensorboard==2.13.0",    # 训练日志可视化（兼容 PytorchLib-lightning、transformers）
+
+    # 页面开发
+    "watchdog",
+    "streamlit"
 ]
 
 [[tool.pip.index-url]]
