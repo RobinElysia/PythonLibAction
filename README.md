@@ -1779,12 +1779,12 @@ print("-----------------更新--------------------")
 # options (可选): 额外选项，如 upsertmyquery = {"address": "Highway 37"}  
 values = {"$set": {"address": "Highway 37, New York"}}  
 mydbMap.update_one(myquery, values) # 更新第一个匹配的文档  
-print("文档更新成功")  
+print("文档更新成功")
   
-print("-----------------删除--------------------")  
+print("-----------------删除--------------------")
 # 删除单个  
-myquery = { "name": "Taobao" }  
-mydbMap.delete_one(myquery)  
+myquery = { "name": "Taobao" }
+mydbMap.delete_one(myquery)
   
 # 批量删除  
 # 删除以"Q"开头的  
@@ -1834,7 +1834,8 @@ np.random.seed(0) # 设置随机数种子
 def simple_index():  
     """  
     简单的线性索引  
-    """    data = np.random.rand(10000, 256) # 随机生成10000行256列的数据  
+    """    
+	data = np.random.rand(10000, 256) # 随机生成10000行256列的数据  
     # 参数为索引维度  
     index = faiss.IndexFlatL2(256) # L2范数，欧式索引  
     """  
@@ -2331,7 +2332,8 @@ def Easy_tensor():
     """  
     简单创建  
     :return:  
-    """    x = torch.tensor(1.0)  
+    """
+	x = torch.tensor(1.0)  
     x2 = torch.tensor([1.0, 2.0])  
     print(x)  
     print(x.dtype) # 默认为float32, numpy默认是float64，整数默认是int64（torch）  
@@ -2354,7 +2356,8 @@ def Easy_Tensor():
     指定维度大小预先创建，不管元素是什么，始终是float32  
     且创建始为向量/矩阵，不可能是标量  
     :return:  
-    """    x = torch.Tensor(2, 3, 4)  
+    """
+	x = torch.Tensor(2, 3, 4)  
     print(x)  
     print(x.size())  
     print(x.dtype)  
@@ -2378,7 +2381,8 @@ def Type_Tensor_or_tensor():
     """  
     类型前缀和属性指定类型  
     :return:  
-    """    x = torch.FloatTensor(2, 3, 4) # 形状生成  
+    """
+	x = torch.FloatTensor(2, 3, 4) # 形状生成  
     # LongTensor、DoubleTensor、IntTensor、ShortTensor、ByteTensor、HalfTensor、BoolTensor  
     print(x)  
     print(x.size())  
@@ -2395,7 +2399,8 @@ def Interval_tensor():
     """  
     生成指定区间的tensor  
     :return:  
-    """    x = torch.arange(0, 10, 2) # 0-10，步长为2，左闭右开  
+    """
+	x = torch.arange(0, 10, 2) # 0-10，步长为2，左闭右开  
     print(x)  
   
     x1 = torch.linspace(0, 10, 5) # 0-10，生成5个，左闭右闭  
@@ -2438,7 +2443,8 @@ def random_tensor():
     """  
     生成随机数  
     :return:  
-    """    x = torch.rand(2, 3, 4) # 均匀分布随机生成三维[0,1)的 tensor    print(x)  
+    """
+	x = torch.rand(2, 3, 4) # 均匀分布随机生成三维[0,1)的 tensor    print(x)  
     x1 = torch.randint(0, 10, (2, 3, 4)) # 均匀分布随机生成三维[0,10)的 int tensor    print(x1)  
     x2 = torch.randn(2, 3, 4) # 标准正态分布随机生成三维[-1,1)的 tensor    print(x2)  
     x3 = torch.normal(0, 1, (2, 3, 4)) # 正态分布随机生成三维均值为 0，方差为 1 的 tensor  
@@ -2476,102 +2482,115 @@ if __name__ == '__main__':
 
 ###### TransAndAlgTensor
 ```python
-import torch  
-import numpy as np  
-  
-def trans_type_tensor():  
-    """  
-    张量的改变类型  
-    :return:  
-    """    x = torch.tensor([1, 2, 3], dtype=torch.float)  
-    print(x.dtype)  
-    # 类型转换  
-    x1 = x.type(torch.int)  
-    print(x1.dtype)  
-    # 或者直接调用函数  
-    x2 = x.half()  
-    print(x2.dtype)  
-    # 再或者  
-    x3 = x.to(torch.complex64) # 64位复数  
-    print(x3.dtype)  
-  
-def trans_np_tensor():  
-    """  
-    ndarray与tensor的转换  
-    :return:  
-    """    # 设置打印选项  
-    np.set_printoptions(precision=4)  
-    torch.set_printoptions(precision=4)  
-  
-    x = np.array([1, 2, 3])  
-    x1 = torch.from_numpy(x) # ndarray 转 tensor    print(x1.dtype)  
-    x2 = x1.numpy() # tensor 转 ndarray    # 上述转换是浅拷贝，即 x 和 x2 都指向同一块内存，如果 x1 改变，x2 也会改变  
-  
-    # 取消内存共享  
-    # x2 = x1.numpy().copy() # 创建新的数组  
-    # x1 = torch.from_numpy(x2.copy()) # 创建新的张量  
-  
-def Scalar_to_Tensor():  
-    """  
-    标量与张量的转换  
-    :return:  
-    """    x = torch.tensor(10) # 创建张量  
-    # x = torch.tensor([10]) 也可以  
-    # x = torch.tensor([[10]]) # 也也可以  
-    print(x)  
-    # 转换为标量  
-    print(x.item())  
-  
-def Alg_tensor():  
-    """  
-    张量的运算  
-    :return:  
-    """    x = torch.randint(10, 100, (2, 3))  
-    print(x + 10)  
-    print(x - 10)  
-    print(-x)  
-    print(x * 10)  
-    print(x / 10)  
-    print(x ** 2)  
-    print(x // 10)  
-  
-    # 函数  
-    print(x.add(10)) # 加  
-    print(x.neg()) # 取负数  
-    print(x.sub(10)) # 减  
-    print(x.mul(10)) # 乘，哈达玛积，即对应位置相乘  
-    print(x.div(10)) # 除  
-    print(x.pow(2)) # 幂  
-    print(x.sqrt()) # 平方根  
-    print(x.exp()) # 指数  
-  
-    # 取代原对象数据（注意类型不一不可进行该操作）  
-    # print(x.add_(10))  # 加  
-    # print(x.neg_())  # 取负数  
-    # print(x.sub_(10))  # 减  
-    # print(x.mul_(10))  # 乘，哈达玛积，即对应位置相乘  
-    # print(x.div_(10))  # 除  
-    # print(x.pow_(2))  # 幂，可以传分数实现开方  
-    # print(x.sqrt_())  # 平方根  
-    # ...  
-  
-    # 矩阵乘法  
-    x = torch.randint(10, 100, (2, 3))  
-    y = torch.randint(10, 100, (3, 4))  
-    print(x @ y) # 语法糖  
-    print(torch.matmul(x, y)) # 多维矩阵乘法  
-    print(torch.mm(x, y)) # 二维专用矩阵乘法  
-  
-if __name__ == '__main__':  
-    """  
-    转换和计算tensor  
-    """    # trans_type_tensor()  
-    print("==========")  
-    # trans_np_tensor()  
-    print("==========")  
-    # Scalar_to_Tensor()  
-    print("==========")  
-    # Alg_tensor()  
+import torch
+import numpy as np
+
+def trans_type_tensor():
+    """
+    张量的改变类型
+    :return:
+    """
+    x = torch.tensor([1, 2, 3], dtype=torch.float)
+    print(x.dtype)
+    # 类型转换
+    x1 = x.type(torch.int)
+    print(x1.dtype)
+    # 或者直接调用函数
+    x2 = x.half()
+    print(x2.dtype)
+    # 再或者
+    x3 = x.to(torch.complex64) # 64位复数
+    print(x3.dtype)
+
+def trans_np_tensor():
+    """
+    ndarray与tensor的转换
+    :return:
+    """
+    # 设置打印选项
+    np.set_printoptions(precision=4)
+    torch.set_printoptions(precision=4)
+
+    x = np.array([1, 2, 3])
+    x1 = torch.from_numpy(x) # ndarray 转 tensor
+    print(x1.dtype)
+    x2 = x1.numpy() # tensor 转 ndarray
+    # 上述转换是浅拷贝，即 x 和 x2 都指向同一块内存，如果 x1 改变，x2 也会改变
+
+    # 取消内存共享
+    # x2 = x1.numpy().copy() # 创建新的数组
+    # x1 = torch.from_numpy(x2.copy()) # 创建新的张量
+
+def Scalar_to_Tensor():
+    """
+    标量与张量的转换
+    :return:
+    """
+    x = torch.tensor(10) # 创建张量
+    # x = torch.tensor([10]) 也可以
+    # x = torch.tensor([[10]]) # 也也可以
+    print(x)
+    # 转换为标量
+    print(x.item())
+
+def Alg_tensor():
+    """
+    张量的运算
+    :return:
+    """
+    x = torch.randint(10, 100, (2, 3))
+    print(x + 10)
+    print(x - 10)
+    print(-x)
+    print(x * 10)
+    print(x / 10)
+    print(x ** 2)
+    print(x // 10)
+
+    # 函数
+    print(x.add(10)) # 加
+    print(x.neg()) # 取负数
+    print(x.sub(10)) # 减
+    print(x.mul(10)) # 乘，哈达玛积，即对应位置相乘
+    print(x.div(10)) # 除
+    print(x.pow(2)) # 幂
+    print(x.sqrt()) # 平方根
+    print(x.exp()) # 指数
+
+    # 取代原对象数据（注意类型不一不可进行该操作）
+    # print(x.add_(10))  # 加
+    # print(x.neg_())  # 取负数
+    # print(x.sub_(10))  # 减
+    # print(x.mul_(10))  # 乘，哈达玛积，即对应位置相乘
+    # print(x.div_(10))  # 除
+    # print(x.pow_(2))  # 幂，可以传分数实现开方
+    # print(x.sqrt_())  # 平方根
+    # ...
+
+    # 矩阵乘法
+    x = torch.randint(10, 100, (2, 3))
+    y = torch.randint(10, 100, (3, 4))
+    print(x @ y) # 语法糖
+    print(torch.matmul(x, y)) # 多维矩阵乘法
+    print(torch.mm(x, y)) # 二维专用矩阵乘法
+
+    # 注意：x += 10和x = x + 10的区别。两者是不同的，前者是原地操作，后者是创建新的张量。
+    # x += 10类似于x = x.add_(10)，x = x + 10类似于x = x.add(10)。
+    # 其他的一样，@=不同上的原理，张量运算的形状发生变化不可以赋值回去，ndarray也是一样的，形状不同直接报错
+    # 你可以使用以下操作来节省内存
+    # x[0:0] = x @ y，但是形状会出问题，缺的数据会被有的数据广播覆盖，所以这么用得符合广播的规则
+
+if __name__ == '__main__':
+    """
+    转换和计算tensor
+    """
+    # trans_type_tensor()
+    print("==========")
+    # trans_np_tensor()
+    print("==========")
+    # Scalar_to_Tensor()
+    print("==========")
+    # Alg_tensor()
     print("==========")
 ```
 
