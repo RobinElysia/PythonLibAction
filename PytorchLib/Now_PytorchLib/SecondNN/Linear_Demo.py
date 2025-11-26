@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 from torch import nn, optim  # 模型、损失函数和优化器
 from torch.utils.data import TensorDataset, DataLoader  # 数据集和数据加载器
 
+"""
+基于torch的简单的线性回归
+"""
+
 # 构建数据集
 X = torch.randn(100, 1)  # 输入
 w = torch.tensor([2.5])  # 权重

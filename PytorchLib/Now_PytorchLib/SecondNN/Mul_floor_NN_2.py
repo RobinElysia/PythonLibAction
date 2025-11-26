@@ -1,6 +1,10 @@
 import torch.nn as nn
 import torch
 
+"""
+使用pytorch自带的网络定义Sequential创建深度神经网络模型
+"""
+
 # 构建模型
 model = nn.Sequential(
     nn.Linear(3, 4),

@@ -1,5 +1,4 @@
 import torch
-import torch.nn as nn
 
 def NN_Sigmoid():
     x = torch.randn(1, 1)
@@ -18,4 +17,7 @@ def NN_Softmax():
     print(x.softmax(dim=1))
 
 if __name__ == '__main__':
+    """
+    torch实现的激活函数
+    """
     NN_Sigmoid()
