@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-
+from torchsummary import summary
 
 class ComNN(nn.Module):
     """
@@ -46,3 +46,15 @@ if __name__ == "__main__":
     print(output.shape)
     print("\n输出每行的和（应接近1，因为使用了softmax）:")
     print(torch.sum(output, dim=1))
+
+    print()
+
+    # for name, param in net.named_parameters(): # 查看信息
+    #     print(f"参数名称: {name}")
+    #     print(f"参数形状: {param.shape}")
+    #     print(f"参数值: {param}")
+    #     print()
+    #
+    # print(net.state_dict()) # 查看状态
+
+    summary(net, (2, 2), batch_size=10, device="cpu")
