@@ -1,101 +1,113 @@
-# PythonLibAction！  
+# PythonLibAction！
+
 💡 探索、学习、贡献！这是一个开放的 Python AI 第三方库学习社区。我们不仅收集和解析最酷的 Python AI 库，还鼓励你通过提交代码和案例来共同构建这份知识图谱。一起点亮 Python AI 技能树吧！
 
 ## 目录
+
 - [环境配置](#环境配置)
-	- [虚拟环境与 Python 安装](#虚拟环境与-python-安装)
-	  - [高版本系统](#高版本系统)
-	  - [低版本系统](#低版本系统)
-	- [CUDA 与 cuDNN](#cuda-与-cudnn)
-	  - [CUDA](#cuda)
-	  - [cuDNN](#cudnn)
-	- [安装 Virtualenv、Pytorch、Tensorflow、Ollama、Model](#安装-virtualenvpytorchtensorflowollamamodel)
-	  - [Virtualenv](#virtualenv)
-	  - [Pytorch](#pytorch)
-	  - [Tensorflow](#tensorflow)
-	  - [Virtualenv 虚拟环境下安装环境（不如 uv）](#virtualenv-虚拟环境下安装环境不如-uv)
-	  - [Ollama、模型安装](#ollama模型安装)
-	- [OpenWebUI 安装](#openwebui-安装)
-	- [其他](#其他)
+  - [虚拟环境与 Python 安装](#虚拟环境与-python-安装)
+    - [高版本系统](#高版本系统)
+    - [低版本系统](#低版本系统)
+  - [CUDA 与 cuDNN](#cuda-与-cudnn)
+    - [CUDA](#cuda)
+    - [cuDNN](#cudnn)
+  - [安装 Virtualenv、Pytorch、Tensorflow、Ollama、Model](#安装-virtualenvpytorchtensorflowollamamodel)
+    - [Virtualenv](#virtualenv)
+    - [Pytorch](#pytorch)
+    - [Tensorflow](#tensorflow)
+    - [Virtualenv 虚拟环境下安装环境（不如 uv）](#virtualenv-虚拟环境下安装环境不如-uv)
+    - [Ollama、模型安装](#ollama模型安装)
+  - [OpenWebUI 安装](#openwebui-安装)
+  - [其他](#其他)
 
 - [慢速开始](#慢速开始)
-	- [Linux 使用技巧](#linux-使用技巧)
-	  - [Vim](#vim)
-	- [正则表达式（讨厌re的原因是因为它是设计给天才看的）](#正则表达式讨厌re的原因是因为它是设计给天才看的)
-	  - [实践](#实践)
-	- [Ollama Modelfile 权威指南](#ollama-modelfile-权威指南)
-	  - [1. 简介：什么是 Modelfile](#1-简介什么是-modelfile)
-	  - [2. Modelfile 的基本结构](#2-modelfile-的基本结构)
-	  - [3. 常用字段详解](#3-常用字段详解)
-	    - [FROM](#from)
-	    - [TEMPLATE](#template)
-	    - [PARAMETER](#parameter)
-	    - [STOP](#stop)
-	  - [4. 模板（TEMPLATE）与停止符（STOP）](#4-模板template与停止符stop)
-	  - [5. 参数（PARAMETER）详解与推荐值](#5-参数parameter详解与推荐值)
-	  - [6. 常见使用场景示例](#6-常见使用场景示例)
-	    - [6.1 简单推理服务（聊天机器人）](#61-简单推理服务聊天机器人)
-	    - [6.2 指令微调（SFT）后的模型部署](#62-指令微调sft后的模型部署)
-	    - [6.3 大模型量化与低内存部署](#63-大模型量化与低内存部署)
-	  - [7. 附录：示例 Modelfile 热门变体](#7-附录示例-modelfile-热门变体)
-	    - [最小可用 Modelfile](#最小可用-modelfile)
-	    - [完整的 Demo](#完整的-demo)
-	- [数据处理](#数据处理)
-	  - [JSON（万物基于JSON）](#json万物基于json)
-	    - [代码](#代码)
-	    - [测试 JSON 文件](#测试-json-文件)
-	  - [XML（谁？不熟，感觉是Java佬最爱）](#xml谁不熟感觉是java佬最爱)
-	    - [XML 数据清洗](#xml-数据清洗)
-	    - [测试 XML 文件](#测试-xml-文件)
-	  - [HTML（BeautifulSoup，漂亮的汤（](#htmlbeautifulsoup漂亮的汤)
-	    - [HTML 数据清洗](#html-数据清洗)
-	    - [测试 HTML 文件](#测试-html-文件)
-	  - [pandas（你为什么不学熊猫？）](#pandas你为什么不学熊猫)
-	    - [样本数据生成](#样本数据生成)
-	    - [Series](#series)
-	    - [DataFrame](#dataframe)
-	    - [文件操作](#文件操作)
-	    - [缺失值](#缺失值)
-	    - [重复值与类型转换](#重复值与类型转换)
-	    - [数据变形](#数据变形)
-	    - [数据分箱](#数据分箱)
-	    - [时间数据处理](#时间数据处理)
-	    - [分类聚合](#分类聚合)
-	- [数据库](#数据库)
-	  - [MySQL（没人觉得这个 DB 很诡异么？）](#mysql没人觉得这个-db-很诡异么)
-	  - [MongoDB（MySQL 严父）](#mongodbmysql-严父)
-	  - [Faiss（超绝内存型向量数据库）](#faiss超绝内存型向量数据库)
-	    - [简单线性索引](#简单线性索引)
-	    - [自定义索引 ID](#自定义索引-id)
-	    - [聚类倒排索引](#聚类倒排索引)
-	    - [聚类倒排量化索引](#聚类倒排量化索引)
-	    - [GPU 加速（仅限Linux平台）](#gpu-加速仅限linux平台)
-	  - [SQLAlchemy](#sqlalchemy)
-	    - [简单的查询](#简单的查询)
-	    - [复杂的查询](#复杂的查询)
-	    - [ORM 的一切](#orm-的一切)
-	- [机器学习/深度学习](#机器学习深度学习)
-	  - [Tensorflow](#tensorflow)
-	  - [Pytorch](#pytorch-1)
-	    - [前置知识](#前置知识)
-	    - [Pytorch Lib](#pytorch-lib)
-		    - [CreateTensor](#CreateTensor)
-		    - [TransAndAlgTensor](#TransAndAlgTensor)
-	  - [Transformers](#transformers)
-	    - [Pipline](#pipline)
-	    - [Tokenizer](#tokenizer)
-	    - [Easy Model](#easy-model)
-	    - [ComModel](#commodel)
-	    - [Datasets](#datasets)
-	    - [Evaluate](#Evaluate)
-	    - [Trainer](#Trainer)
-	  - [sk-learn](#sk-learn)
-	  - [peft](#peft)
-	  - [FastAPI](#fastapi)
-	  - [LangChain](#langchain)
+  - [Linux 使用技巧](#linux-使用技巧)
+    - [Vim](#vim)
+  - [正则表达式（讨厌re的原因是因为它是设计给天才看的）](#正则表达式讨厌re的原因是因为它是设计给天才看的)
+    - [实践](#实践)
+  - [Ollama Modelfile 权威指南](#ollama-modelfile-权威指南)
+    - [1. 简介：什么是 Modelfile](#1-简介什么是-modelfile)
+    - [2. Modelfile 的基本结构](#2-modelfile-的基本结构)
+    - [3. 常用字段详解](#3-常用字段详解)
+      - [FROM](#from)
+      - [TEMPLATE](#template)
+      - [PARAMETER](#parameter)
+      - [STOP](#stop)
+    - [4. 模板（TEMPLATE）与停止符（STOP）](#4-模板template与停止符stop)
+    - [5. 参数（PARAMETER）详解与推荐值](#5-参数parameter详解与推荐值)
+    - [6. 常见使用场景示例](#6-常见使用场景示例)
+      - [6.1 简单推理服务（聊天机器人）](#61-简单推理服务聊天机器人)
+      - [6.2 指令微调（SFT）后的模型部署](#62-指令微调sft后的模型部署)
+      - [6.3 大模型量化与低内存部署](#63-大模型量化与低内存部署)
+    - [7. 附录：示例 Modelfile 热门变体](#7-附录示例-modelfile-热门变体)
+      - [最小可用 Modelfile](#最小可用-modelfile)
+      - [完整的 Demo](#完整的-demo)
+  - [数据处理](#数据处理)
+    - [JSON（万物基于JSON）](#json万物基于json)
+      - [代码](#代码)
+      - [测试 JSON 文件](#测试-json-文件)
+    - [XML（谁？不熟，感觉是Java佬最爱）](#xml谁不熟感觉是java佬最爱)
+      - [XML 数据清洗](#xml-数据清洗)
+      - [测试 XML 文件](#测试-xml-文件)
+    - [HTML（BeautifulSoup，漂亮的汤（](#htmlbeautifulsoup漂亮的汤)
+      - [HTML 数据清洗](#html-数据清洗)
+      - [测试 HTML 文件](#测试-html-文件)
+    - [pandas（你为什么不学熊猫？）](#pandas你为什么不学熊猫)
+      - [样本数据生成](#样本数据生成)
+      - [Series](#series)
+      - [DataFrame](#dataframe)
+      - [文件操作](#文件操作)
+      - [缺失值](#缺失值)
+      - [重复值与类型转换](#重复值与类型转换)
+      - [数据变形](#数据变形)
+      - [数据分箱](#数据分箱)
+      - [时间数据处理](#时间数据处理)
+      - [分类聚合](#分类聚合)
+  - [数据库](#数据库)
+    - [MySQL（没人觉得这个 DB 很诡异么？）](#mysql没人觉得这个-db-很诡异么)
+    - [MongoDB（MySQL 严父）](#mongodbmysql-严父)
+    - [Faiss（超绝内存型向量数据库）](#faiss超绝内存型向量数据库)
+      - [简单线性索引](#简单线性索引)
+      - [自定义索引 ID](#自定义索引-id)
+      - [聚类倒排索引](#聚类倒排索引)
+      - [聚类倒排量化索引](#聚类倒排量化索引)
+      - [GPU 加速（仅限Linux平台）](#gpu-加速仅限linux平台)
+    - [SQLAlchemy](#sqlalchemy)
+      - [简单的查询](#简单的查询)
+      - [复杂的查询](#复杂的查询)
+      - [ORM 的一切](#orm-的一切)
+  - [机器学习/深度学习](#机器学习深度学习)
+    - [Tensorflow](#tensorflow)
+    - [Pytorch](#pytorch-1)
+      - [前置知识](#前置知识)
+      - [Pytorch Lib](#pytorch-lib)
+        - [CreateTensor（Tensor基本使用）](#CreateTensor（Tensor基本使用）)
+        - [TransAndAlgTensor（Tensor的转换与运算）](#TransAndAlgTensor（Tensor的转换与运算）)
+          - [IndexAndChangeTensor（Tensor维度形状改变）](#TransAndAlgTensor（Tensor的转换与运算）)
+          - [AutoGrad（动态计算图微分入门）](#AutoGrad（动态计算图微分入门）)
+          - [ActFunc（Torch的激活函数）](#ActFunc（Torch的激活函数）)
+          - [ValueInitAndDropout（w与b的初始化与正则化）](#ValueInitAndDropout（w与b的初始化与正则化）)
+        - [practice（实践）](#practice（实践）)
+          - [LinearDemo（线性回归简单实现）](#LinearDemo（线性回归简单实现）)
+          - [手动实现自定义神经网络](#手动实现自定义神经网络)
+          - [torch自带实现自定义神经网络](#torch自带实现自定义神经网络)
+    - [Transformers](#transformers)
+      - [Pipline（模型任务管线）](#Pipline（模型任务管线）)
+      - [Tokenizer（分词器）](#Tokenizer（分词器）)
+      - [EasyModel（模型）](#EasyModel（模型）)
+      - [ComModel（模型）](#ComModel（模型）)
+      - [Datasets（数据集）](#Datasets（数据集）)
+      - [Evaluate（模型评估）](#Evaluate（模型评估）)
+      - [Trainer（模型训练）](#Trainer（模型训练）)
+    - [sk-learn](#sk-learn)
+    - [peft](#peft)
+    - [FastAPI](#fastapi)
+    - [LangChain](#langchain)
 
 ## 环境配置
+
 准备工作：
+
 1. 虚拟机：WSL Ubuntu 20.04 以上版本（不含20.04，低版本系统处理方案我会放在文中）
 2. Python：3.10
 3. [virtualenv：任意版本](https://pypi.org/project/virtualenv/#files)
@@ -143,7 +155,6 @@ https://mirrors.ustc.edu.cn/python/3.10.8/Python-3.10.8.tar.xz
 步骤如下：
 
 ```bash
-
 # 进入到opt中
 cd /opt
 # 下载安装包
@@ -184,7 +195,6 @@ sudo make install
 #### CUDA
 
 ```bash
-
 # 在普通用户下，检测最高支持的 CUDA 版本
 nvidia-smi # 这一步比赛忽略
 
@@ -217,6 +227,7 @@ Build cuda_11.8.r11.8/compiler.31833905_0
 ```
 
 #### cuDNN
+
 压缩包安装：
 
 ```bash
@@ -239,8 +250,8 @@ sudo chmod a+r /usr/local/cuda-11.8/include/cudnn*.h /usr/local/cuda/lib64/libcu
 ```
 
 deb安装：
-```bash
 
+```bash
 # dpkg：Debin package
 dpkg -i XXX.deb
 
@@ -251,7 +262,6 @@ dpkg -i XXX.deb
 #### Virtualenv
 
 ```bash
-
 # 进入 opt
 cd /opt
 # 下载 whl
@@ -263,10 +273,10 @@ pip install /opt/virtualenv-20.35.4-py3-none-any.whl
 ```
 
 以下是直接在全局进行安装 Pytorch Tensorflow
+
 #### Pytorch
 
 ```bash
-
 # 在 opt 下
 wget https://files.pythonhosted.org/packages/21/33/4925decd863ce88ed9190a4bd872b01c146243ee68db08c72923984fe335/torch-2.0.1-cp310-cp310-manylinux2014_aarch64.whl
 
@@ -278,7 +288,6 @@ pip install /opt/torch-2.0.1-cp310-cp310-manylinux2014_aarch64.whl
 #### Tensorflow
 
 ```bash
-
 # 在 opt 下
 wget https://files.pythonhosted.org/packages/21/33/4925decd863ce88ed9190a4bd872b01c146243ee68db08c72923984fe335/torch-2.0.1-cp310-cp310-manylinux2014_aarch64.whl
 
@@ -288,10 +297,10 @@ pip install /opt/torch-2.0.1-cp310-cp310-manylinux2014_aarch64.whl
 ```
 
 或者使用Virtualenv新建虚拟环境进行安装：
+
 #### Virtualenv 虚拟环境下安装环境（不如 uv
 
 ```bash
-
 # 假如在 /home/user/test 下
 virtualenv -p python3.10 ProjectName
 # 新建虚拟环境 ProjectName
@@ -309,6 +318,7 @@ python -c "import tensorflow as tf; print(tf.__version__); print(tf.config.list_
 ```
 
 #### Ollama、模型安装
+
 ```bash
 # 解压Ollama
 sudo tar -C /usr/ollama -xvf 文件名.文件后缀
@@ -392,79 +402,91 @@ open-webui serve
 ```
 
 ### 其他
+
 标准库：json、os、xml和re无需下载，直接导入使用
 第三方库：
+
 1. pymysql：直接pip install就可以
 2. pymongo：同上
 3. faiss：Windows平台仅支持cpu版本，py版本在3.14 ~ 9（我使用的是3.10.X版本）；gpu加速版本仅限Linux平台，版本限制在3.10 ~ 6。官方建议在conda虚拟环境上安装，但是没必要，我将使用权威的 uv。
 4. sqlite3：仅限Linux平台，自己搭建可能需要手动编译>=3.35.0版本，编译完成后重新让Py链接sqlite3的依赖（这部分如果你的py也是编译的，那就重新编译一遍）
 5. BeautifulSoup：使用4.X版本
-	1. 需要下载 lxml
+   1. 需要下载 lxml
 6. SQLAlchemy：2.0.44版本的，尽量使用2.X版本
 
 因为我使用的是权威的 `uv` 项目管理器，所以直接给出 `toml` 好吧：
+
 ```toml
-# pyproject.toml  
-[build-system]  
-requires = ["setuptools>=61", "wheel"]  
-build-backend = "setuptools.build_meta"  
-  
-[project]  
-name = "mysqlproject"  
-version = "0.1.0"  
-description = "Add your description here"  
-requires-python = "==3.10.11"  
-dependencies = [  
-    # 解析/爬虫 - 快速、容错地抽取/清洗 HTML/XML 文本  
-    "lxml",          # C 级高性能 XML/HTML 解析器，支持 XPath    "BeautifulSoup4", # 对不规则 HTML 友好的高层解析、搜索、遍历接口  
-  
-    # 数据分析 - 结构化数据二维表格化操作与统计  
-    "pandas",        # 提供 DataFrame/Series，支撑读写、过滤、聚合、透视等全套 EDA 流程  
-  
-    # 数据库 - 与 MySQL、MongoDB、向量检索引擎交互的驱动与 ORM    "pymysql",       # 纯 Python 实现的 MySQL 客户端  
-    "pymongo",       # 官方 MongoDB 驱动  
-    "faiss-cpu",     # Facebook 开源的稠密向量相似度检索库（CPU 版）  
-    "SQLAlchemy",    # Python 事实标准 ORM & SQL 工具链  
-    "mysqlclient",   # SQLAlchemy链接mysql需要，和pymysql都可以  
-  
-    # 机器学习基本工具 - 经典 ML+可视化+数值计算  
-    "numpy>=1.23,<2", # 张量/向量化计算基石，sklearn、torch 均依赖  
-    "scikit-learn",   # 传统机器学习算法（分类/回归/聚类/降维/预处理）  
-    "matplotlib",     # 2D 静态可视化，科研作图首选  
-  
-    # 深度学习库 - Transformer 生态、PyTorch 全家桶及配套评估/加速/日志组件  
-    "transformers",   # Hugging Face 社区预训练 SOTA 模型库（BERT/GPT/T5…）  
-    "datasets",       # HF 社区 1000+ 标准/自定义数据集加载、缓存与处理接口  
-    "evaluate",       # HF 统一封装 GLUE、ROUGE、BLEU 等常用评估指标  
-    "peft",           # 参数高效微调（LoRA/AdaLoRA/P-tuning）官方实现  
-    "accelerate",     # HF 分布式训练/混合精度/CPU offload 通用框架  
-    "optimum",        # 针对 Intel/ONNX/OpenVINO/NVIDIA 的推理加速与量化工具箱  
-    "sentencepiece",  # Google 子词分词器（支持 BPE/Unigram）  
-    "nltk",           # 经典 NLP 工具集（分句、词性、情感词典等）  
-    "rouge",          # 摘要/翻译评估 ROUGE-N/L/SU 指标独立包  
-    "torch==2.2.0+cu118",     # PyTorch GPU 2.2.0（CUDA 11.8）核心库  
-    "torchvision==0.17.0+cu118", # 官方视觉模型/数据变换/数据集  
-    "torchaudio==2.2.0+cu118", # 官方语音模型/特征提取/数据集  
-    "pillow>=9.0",   # 轻量级图像 I/O 与基础变换（torchvision 前置依赖）  
-    "tqdm",           # 进度条美化，训练/数据加载可视化  
-    "tensorboard",    # 训练日志可视化（兼容 pytorch-lightning、transformers）  
-    "scipy"           # 稀疏矩阵、优化、统计分布等科学计算补充  
-]  
-  
-[[tool.pip.index-url]]  
-url = "https://pypi.org/simple"  
-  
-[[tool.uv.index]]  
-url = "https://download.pytorch.org/whl/cu118"  
-  
-[tool.setuptools]  
+# pyproject.toml
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mysqlproject"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = "==3.10.11"
+dependencies = [
+    # 解析/爬虫 - 快速、容错地抽取/清洗 HTML/XML 文本
+    "lxml==6.0.2",          # C 级高性能 XML/HTML 解析器，支持 XPath
+    "BeautifulSoup4==4.12.3", # 对不规则 HTML 友好的高层解析、搜索、遍历接口
+
+    # 数据分析 - 结构化数据二维表格化操作与统计
+    "pandas==2.2.3",        # 提供 DataFrame/Series，支撑读写、过滤、聚合、透视等全套 EDA 流程
+    "pyarrow==17.0.0",
+
+    # 数据库 - 与 MySQL、MongoDB、向量检索引擎交互的驱动与 ORM
+    "pymysql==1.1.1",       # 纯 Python 实现的 MySQL 客户端
+    "pymongo==4.15.4",       # 官方 MongoDB 驱动
+    "faiss-cpu==1.9.0",     # Facebook 开源的稠密向量相似度检索库（CPU 版）
+    "SQLAlchemy==2.0.36",    # Python 事实标准 ORM & SQL 工具链
+    "mysqlclient",   # SQLAlchemy链接mysql需要，和pymysql都可以
+
+    # 机器学习基本工具 - 经典 ML+可视化+数值计算
+    "numpy>=1.25.0", # 张量/向量化计算基石，sklearn、torch 均依赖
+    "scikit-learn==1.7.2",   # 传统机器学习算法（分类/回归/聚类/降维/预处理）
+    "matplotlib",     # 2D 静态可视化，科研作图首选
+
+    # 深度学习库 - Transformer 生态、PyTorch 全家桶及配套评估/加速/日志组件
+    "transformers==4.45.2",   # Hugging Face 社区预训练 SOTA 模型库（BERT/GPT/T5…）
+    "datasets==2.18.0",       # HF 社区 1000+ 标准/自定义数据集加载、缓存与处理接口
+    "evaluate",       # HF 统一封装 GLUE、ROUGE、BLEU 等常用评估指标
+    "peft==0.10.0",           # 参数高效微调（LoRA/AdaLoRA/P-tuning）官方实现
+    "accelerate==0.27.0",     # HF 分布式训练/混合精度/CPU offload 通用框架
+    "optimum",        # 针对 Intel/ONNX/OpenVINO/NVIDIA 的推理加速与量化工具箱
+    "sentencepiece==0.1.99",  # Google 子词分词器（支持 BPE/Unigram）
+    "nltk==3.9.1",           # 经典 NLP 工具集（分句、词性、情感词典等）
+    "torch==2.4.0+cu118",     # PyTorch GPU 2.2.0（CUDA 11.8）核心库
+    "torchvision==0.19.0+cu118", # 官方视觉模型/数据变换/数据集
+    "torchaudio==2.4.0+cu118", # 官方语音模型/特征提取/数据集
+    "tqdm==4.66.5",           # 进度条美化，训练/数据加载可视化
+    "tensorboard==2.13.0",    # 训练日志可视化（兼容 PytorchLib-lightning、transformers）
+    "torchsummary==1.5.1",
+
+    # 页面开发
+    "watchdog",
+    "streamlit"
+]
+
+[[tool.pip.index-url]]
+url = "https://pypi.org/simple"
+
+[[tool.uv.index]]
+url = "https://download.pytorch.org/whl/cu118"
+
+[tool.setuptools]
 packages = []      # 只装依赖，不打包任何源码
 ```
 
 ## 慢速开始
+
 注： 相关 Py 源代码见个人仓库
+
 ### Linux 使用技巧
+
 #### Vim
+
 在默认模式下 `gg` 跳转到文件开头；`G` 跳转到末尾；`数字 + G` 跳转到指定行数
 默认模式下 `H` 跳转到当前窗口首行；`M` 跳转到中间；`L` 最后行
 默认模式下输入 `/关键字` 可以进行搜索；`n` 下一个；`N` 上一个结果
@@ -479,6 +501,7 @@ tabe
 默认模式下输入 `:tabe 文件名` 创建一个新的页面，你可以打开多个文件。使用`先g后t`进行切换
 
 ### 正则表达式（讨厌re的原因是因为它是设计给天才看的）
+
 ```bash
 # 单字符限定
 ? 代表前 1 个字符或 0 个字符
@@ -527,7 +550,6 @@ b$：匹配行尾b
 #### 实践
 
 ```bash
-
 # 匹配所有 HTML 标签
 <.+?>
 
@@ -581,19 +603,23 @@ PARAMETER stop "<|im_end|>"
 #### 3. 常用字段详解
 
 ##### FROM
+
 - 指定基础模型路径或镜像，例如一个本地模型目录或系统提供的基础镜像。
 - 可以是相对路径或绝对路径，视平台而定。
 
 ##### TEMPLATE
+
 - 用于定义对话格式（prompt template）。通常用多行文本包裹，支持占位符如 `{{ .System }}`, `{{ range .Messages }}` 等。
 - 模板决定模型输入怎样被序列化到模型上下文，关系到 token 使用和输出一致性。
 
 ##### PARAMETER
+
 - 用于定义运行时参数。每一行设置一个键值对。
 - 常见参数：`temperature`, `top_p`, `max_tokens`, `stop`, `num_beams`, `repetition_penalty` 等。
 - 值可以是数字、字符串或布尔值，取决于参数类型。
 
 ##### STOP
+
 - 有些实现把 stop 作为专门字段。它用于定义输出终止符号或 token 序列，避免生成过长或滥生成。
 
 #### 4. 模板（TEMPLATE）与停止符（STOP）
@@ -640,7 +666,6 @@ You are a helpful assistant. Follow instructions precisely.
 停止符示例：`PARAMETER stop "<|im_end|>"`，当模型生成完成后，是这个样子的：
 
 ```bash
-
 <|im_start|>assistant
 我推荐您考虑日本北海道或冰岛，这些地方在夏季凉爽宜人，风景优美。
 PARAMETER stop "<|im_end|>"
@@ -650,7 +675,6 @@ PARAMETER stop "<|im_end|>"
 总结：
 
 ```bash
-
 TEMPLATE """<|im_start|>system
 {{ .System }}              # 系统提示
 <|im_end|>
@@ -706,6 +730,7 @@ PARAMETER stop "<|im_end|>"
 ##### 6.2 指令微调（SFT）后的模型部署
 
 对 SFT 模型，建议：
+
 - 在 TEMPLATE 中明确 system 指令，避免模型偏离调优目标。
 - 将 SFT 权重放在安全路径并从 `FROM` 指向。
 
@@ -797,7 +822,9 @@ PARAMETER stop "<|im_end|>"
 ### 数据处理
 
 #### JSON（万物基于JSON）
+
 ##### 代码
+
 ```python
 import json as json  
   
@@ -829,24 +856,27 @@ with open("OutTest.json", "w", encoding="utf-8") as f:
 ```
 
 ##### 测试 JSON 文件
+
 ```JSON
-{  
-  "name": "张三",  
-  "age": 25,  
-  "city": "北京",  
-  "occupation": "软件工程师",  
-  "hobbies": ["读书", "游泳", "编程"],  
-  "contact": {  
-    "email": "zhangsan@example.com",  
-    "phone": "13800138000"  
-  },  
-  "is_student": false,  
-  "score": 95.5  
+{
+  "name": "张三",
+  "age": 25,
+  "city": "北京",
+  "occupation": "软件工程师",
+  "hobbies": ["读书", "游泳", "编程"],
+  "contact": {
+    "email": "zhangsan@example.com",
+    "phone": "13800138000"
+  },
+  "is_student": false,
+  "score": 95.5
 }
 ```
 
 #### XML（谁？不熟，感觉是Java佬最爱）
+
 ##### XML 数据清洗
+
 ```python
 import xml.etree.ElementTree as et  
 import xml.dom.minidom as Doc  
@@ -907,29 +937,33 @@ print(par)
 ```
 
 ##### 测试 XML 文件
+
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>  
-<root title="你好">  
-    <person id="1">  
-        <name>张三</name>  
-        <age>25</age>  
-        <email>zhangsan@example.com</email>  
+<?xml version="1.0" encoding="UTF-8"?>
+<root title="你好">
+    <person id="1">
+        <name>张三</name>
+        <age>25</age>
+        <email>zhangsan@example.com</email>
     </person>
-    <person id="2">  
-        <name>李四</name>  
-        <age>30</age>  
-        <email>lisi@example.com</email>  
+    <person id="2">
+        <name>李四</name>
+        <age>30</age>
+        <email>lisi@example.com</email>
     </person>
     <company>
-	    <name>示例科技有限公司</name>  
-        <founded>2010</founded>  
-        <employees>50</employees>  
+        <name>示例科技有限公司</name>
+        <founded>2010</founded>
+        <employees>50</employees>
     </company>
 </root>
+
 ```
 
 #### HTML（BeautifulSoup，漂亮的汤（
+
 ##### HTML 数据清洗
+
 ```python
 from bs4 import BeautifulSoup  
   
@@ -1017,58 +1051,74 @@ print("find", soup.find(string="章节1"))
 ```
 
 ##### 测试 HTML 文件
+
 ```HTML
-<!DOCTYPE html>  
-<html lang="zh-CN">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>HTML5 测试文件</title>  
-</head>  
-<body>  
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 测试文件</title>
+</head>
+<body>
     <header>
-	    <h1>欢迎来到HTML5测试页面</h1>  
-    </header>  
+        <h1>欢迎来到HTML5测试页面</h1>
+    </header>
+
     <nav>
-		<ul>
-			<li><a href="#section1">章节1</a></li>  
-            <li><a href="#section2">章节2</a></li>  
-            <li><a href="#section3">章节3</a></li>  
+        <ul>
+            <li><a href="#section1">章节1</a></li>
+            <li><a href="#section2">章节2</a></li>
+            <li><a href="#section3">章节3</a></li>
         </ul>
-	</nav>  
+    </nav>
+
     <main>
-	    <section id="section1">  
-            <h2>章节1</h2>  
-            <p>这是HTML5测试文件的第一个章节。</p>  
+        <section id="section1">
+            <h2>章节1</h2>
+            <p>这是HTML5测试文件的第一个章节。</p>
             <article>
-	            <h3>文章标题</h3>  
-                <p>这是一篇示例文章的内容。</p>  
+                <h3>文章标题</h3>
+                <p>这是一篇示例文章的内容。</p>
             </article>
-	    </section>  
-        <section id="section2">  
-            <h2>章节2</h2>  
-            <p>这里展示了一些HTML5的新元素。</p>  
-            <aside>                <h4>侧边栏</h4>  
-                <p>这是页面的附加信息。</p>  
-            </aside>        </section>  
-        <section id="section3">  
-            <h3 class="aaa">HTML5新元素</h3>  
-            <h2>章节3</h2>  
-            <form>                <label for="name">姓名:</label>  
-                <input type="text" id="name" name="name" required>  
-  
-                <label for="email">邮箱:</label>  
-                <input type="email" id="email" name="email" required>  
-  
-                <button type="submit">提交</button>  
-            </form>        </section>    </main>  
-    <footer>        <p>&copy; 2023 HTML5测试文件</p>  
-    </footer></body>  
+        </section>
+
+        <section id="section2">
+            <h2>章节2</h2>
+            <p>这里展示了一些HTML5的新元素。</p>
+            <aside>
+                <h4>侧边栏</h4>
+                <p>这是页面的附加信息。</p>
+            </aside>
+        </section>
+
+        <section id="section3">
+            <h3 class="aaa">HTML5新元素</h3>
+            <h2>章节3</h2>
+            <form>
+                <label for="name">姓名:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">邮箱:</label>
+                <input type="email" id="email" name="email" required>
+
+                <button type="submit">提交</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 HTML5测试文件</p>
+    </footer>
+</body>
 </html>
+
 ```
 
 #### pandas（你为什么不学熊猫？）
+
 ##### 样本数据生成
+
 ```python
 import pandas as pd  
 import numpy as np  
@@ -1151,6 +1201,7 @@ print(df.isnull().sum())
 ```
 
 ##### Series
+
 ```python
 import pandas as pd  
 import numpy as np  
@@ -1260,6 +1311,7 @@ print(s8.nlargest(5))
 ```
 
 ##### DataFrame
+
 ```python
 import numpy as np  
 import pandas as pd  
@@ -1352,6 +1404,7 @@ print(df.nlargest(3, "col1")) # 取最大的3行
 ```
 
 ##### 文件操作
+
 ```python
 import pandas as pd  
 import json  
@@ -1381,6 +1434,7 @@ df_json.to_json("new_json.json", orient="records", indent=4, force_ascii=False)
 ```
 
 ##### 缺失值
+
 ```python
 import numpy as np  
 import pandas as pd  
@@ -1438,6 +1492,7 @@ print(df[["客户评分"]])
 ```
 
 ##### 重复值与类型转换
+
 ```python
 import pandas as pd  
   
@@ -1467,6 +1522,7 @@ print("转换后的：\n", df.dtypes)
 ```
 
 ##### 数据变形
+
 ```python
 import pandas as pd  
   
@@ -1500,6 +1556,7 @@ print(df)
 ```
 
 ##### 数据分箱
+
 ```python
 import pandas as pd  
 import numpy as np  
@@ -1555,6 +1612,7 @@ print(df) # 重命名列和索引, 设置为 inplace=true 会修改原数据
 ```
 
 ##### 时间数据处理
+
 ```python
 import pandas as pd  
 import numpy as np  
@@ -1616,6 +1674,7 @@ print(df[["客户评分", "利润"]].resample("QE").mean()) # 季度平均重采
 ```
 
 ##### 分类聚合
+
 ```python
 import pandas as pd  
   
@@ -1645,7 +1704,9 @@ print(df_M_group[["利润"]]) # 注意[["利润"]]还是一个DataFrame
 ```
 
 ### 数据库
+
 #### MySQL（没人觉得这个 DB 很诡异么？）
+
 ```python
 import pymysql  
 from pymysql.connections import Connection  
@@ -1699,6 +1760,7 @@ if __name__ == "__main__":
 ```
 
 #### MongoDB（MySQL 严父）
+
 ```python
 import pymongo  
   
@@ -1824,6 +1886,7 @@ result2 = mydbMap.delete_many({"alexa": {"$gt": 80}})
 #### Faiss（超绝内存型向量数据库）
 
 ##### 简单线性索引
+
 ```python
 import faiss  
 import numpy as np  
@@ -1874,6 +1937,7 @@ if __name__ == "__main__":
 ```
 
 ##### 自定义索引 ID
+
 ```python
 import faiss  
 import numpy as np  
@@ -1895,6 +1959,7 @@ if __name__ == "__main__":
 ```
 
 ##### 聚类倒排索引
+
 ```python
 import faiss  
 import numpy as np  
@@ -1929,6 +1994,7 @@ if __name__ == '__main__':
 ```
 
 ##### 聚类倒排量化索引
+
 ```python
 import faiss  
 import numpy as np  
@@ -1968,6 +2034,7 @@ if __name__ == "__main__":
 ```
 
 ##### GPU 加速（仅限Linux平台）
+
 ```python
 import faiss  
 import numpy as np  
@@ -1999,7 +2066,9 @@ if __name__ == "__main__":
 ```
 
 #### SQLAlchemy
+
 ##### 简单的查询
+
 ```python
 import sqlalchemy  
 from sqlalchemy.sql import and_, or_, not_  
@@ -2089,6 +2158,7 @@ with en.connect() as con:
 ```
 
 ##### 复杂的查询
+
 ```python
 from typing import Tuple  
   
@@ -2160,6 +2230,7 @@ if __name__ == "__main__":
 ```
 
 ##### ORM 的一切
+
 ```python
 from typing import Type, List  
 from sqlalchemy import Engine, insert, select  
@@ -2316,14 +2387,19 @@ if __name__ == "__main__":
 ```
 
 ### 机器学习/深度学习
+
 #### Tensorflow
 
 #### Pytorch
+
 ##### 前置知识
+
 参考[Perceptron_PytorchLib 项目目录](https://github.com/RobinElysia/PythonLibAction/tree/main/pytorch/Perceptron_PytorchLib)，包含手操微分、手写各种损失函数、激活函数、各种梯度算法、三层网络和BP反向传播等等。
 
 ##### Pytorch Lib
+
 ###### CreateTensor（Tensor基本使用）
+
 ```python
 import torch
 import numpy as np
@@ -2547,6 +2623,7 @@ if __name__ == '__main__':
 ```
 
 ###### TransAndAlgTensor（Tensor的转换与运算）
+
 ```python
 import torch
 import numpy as np
@@ -2704,6 +2781,7 @@ if __name__ == '__main__':
 ```
 
 ###### IndexAndChangeTensor（Tensor维度形状改变）
+
 ```python
 import torch
 import numpy as np
@@ -2818,6 +2896,7 @@ if __name__ == '__main__':
 ```
 
 ###### AutoGrad（动态计算图微分入门）
+
 ```python
 import torch
 
@@ -2879,6 +2958,7 @@ if __name__ == "__main__":
 ```
 
 ###### ActFunc（Torch的激活函数）
+
 ```python
 import torch
 
@@ -2906,6 +2986,7 @@ if __name__ == '__main__':
 ```
 
 ###### ValueInitAndDropout（w与b的初始化与正则化）
+
 ```python
 import torch.nn as nn
 import torch
@@ -3018,6 +3099,7 @@ if __name__ == '__main__':
 ```
 
 ###### ClassificationAndRegression（分类与回归）
+
 ```python
 import torch
 import torch.nn as nn
@@ -3056,7 +3138,9 @@ if __name__ == "__main__":
 ```
 
 ##### practice（实践）
+
 ###### LinearDemo（线性回归简单实现）
+
 ```python
 import torch
 import matplotlib.pyplot as plt
@@ -3109,6 +3193,7 @@ plt.show()
 ```
 
 ###### 手动实现自定义神经网络
+
 ```python
 import torch
 import torch.nn as nn
@@ -3172,7 +3257,8 @@ if __name__ == "__main__":
     summary(net, (2, 2), batch_size=10, device="cuda")
 ```
 
-###### torch自带实现
+###### torch自带实现自定义神经网络
+
 ```python
 import torch.nn as nn
 import torch
@@ -3206,7 +3292,9 @@ print("输出：\n", output)
 ```
 
 #### Transformers
-##### Pipline
+
+##### Pipline（模型任务管线）
+
 ```python
 from transformers.pipelines import SUPPORTED_TASKS  
 from transformers import pipelines, AutoModelForSequenceClassification, AutoTokenizer  
@@ -3419,103 +3507,110 @@ if __name__ == '__main__':
     # Backend_Pipline()
 ```
 
-##### Tokenizer
+##### Tokenizer（分词器）
+
 ```python
-from transformers.pipelines import SUPPORTED_TASKS  
-from transformers import pipelines, AutoModelForSequenceClassification, AutoTokenizer  
-import torch  
-  
-def Easy_Tokenizer():  
-    text = "你好"  
-    tokenizer = AutoTokenizer.from_pretrained("uer/roberta-base-finetuned-dianping-chinese") # 预加载tokenizer，模型来自Huggingface  
-    # 也可以是本地路径  
-    print(tokenizer) # <tokenizers.models.bert.BertWordPieceTokenizer object at 0x7f9d0a0c0e80>  
-    # tokenizer.save_pretrained("保存路径") # 保存tokenizer模型  
-  
-    # 分词  
-    token = tokenizer.tokenize(text)  
-    print(token) # ['你', '好']  
-  
-    # 查看字典  
-    # print(tokenizer.vocab) # 所有字典数据  
-    print(tokenizer.vocab_size) # 字典大小  
-  
-    # 索引转换以便进入神经网络  
-    ids = tokenizer.encode(text)  
-    ids_1 = tokenizer.convert_tokens_to_ids(text)  
-    print("encode", ids) # [101, 872, 1962, 102]  
-    print("encode", ids_1)  
-    # 转回来  
-    token = tokenizer.decode(ids)  
-    token_1 = tokenizer.convert_ids_to_tokens(ids_1)  
-    print("decode", token)  
-    print("decode", token_1)  
-    # 转成String  
-    print("转成String", tokenizer.convert_tokens_to_string(token_1))  
-    # en/decode与convert的区别在于，单个句子中，en/de会有句子开始和句子结束的标记，但是covert没有  
-    # 可以使用 tokenizer.encode/decode(text, add_special_tokens=False)不适用特殊的标记  
-  
-    # 填充与截断  
-    ids = tokenizer.encode(text, max_length=5, truncation=True) # text数据源、最大长度、是否截断  
-    # 截断会算上句子开始和结束标记  
-    print(ids)  
-  
-    # 其他  
-    attention_mask = tokenizer.get_attention_mask(ids) # 获取一个句子的attention_mask  
-    # 就是为了区分那部分是句子，那部分是补的0  
-    print(attention_mask)  
-    token_type_ids = tokenizer.get_token_type_ids(ids) # 获取一个句子的token_type_ids  
-    # 就是为了区分是属于哪个句子  
-    print(token_type_ids)  
-  
-    # 直接进行超级编码（直接获取所有编码结果）  
-    ids_plus = tokenizer.encode_plus(text, max_length=5, truncation=True)  
-    # 返回一个字典，有input_ids、attention_mask、token_type_ids  
-    # 或者直接  
-    ids_plus = tokenizer(text, max_length=5, truncation=True)  
-    # 同样返回一个字典，有input_ids、attention_mask、token_type_ids  
-  
-    # 批数据处理  
-    texts = ["你好", "你妈妈"]  
-    ids = tokenizer(texts, max_length=5, truncation=True)  
-  
-    # Fast/SlowTokenizer  
-    # FastTokenizer是使用Rust实现的  
-    # SlowTokenizer是Python实现的  
-    print(tokenizer.is_fast) # True  
-  
-    tokenizer_fast = AutoTokenizer.from_pretrained(  
-        "uer/roberta-base-finetuned-dianping-chinese", use_fast=True  
-    ) # 多一个offset_mapping  
-    input = tokenizer_fast(texts, max_length=5, truncation=True, return_offsets_mapping=True)  
-    print(input.get("offset_mapping")) # 得到offset_mapping  
-    """  
-    例子：  
-        原文："I love AI"  
-        分词后：["I", "love", "AI"]  
-        offset_mapping = [(0,1), (2,6), (7,9)]        如果模型告诉你“第 2 个 token 是答案”，你就知道答案是原文 2:6 → "love"。  
-    """    print(input.word_ids) # 获取单词的索引  
-    """  
-    例子：  
-        原文："ChatGPT is amazing"  
-        分词后：["Chat", "##G", "##PT", "is", "amazing"]  
-        word_ids() = [0, 0, 0, 1, 2]        你就知道前 3 个子词都属于第 0 号单词，后面依次是第 1、2 号单词。  
-    """    # 这两个是Fast独有的  
-  
-    # SlowTokenizer  
-    tokenizer_slow = AutoTokenizer.from_pretrained(  
-        "uer/roberta-base-finetuned-dianping-chinese", use_fast=False  
-    )  
-    # 有的模型可能不支持FastTokenizer，如果你不支持，那就受着吧  
-  
-    # 特殊的  
-    # 有的模型需要在远程进行加载，比如远程加载模型，需要在创建对象的时候加上属性：trust_remote_code=True  
-  
-if __name__ == "__main__":  
+from transformers import AutoTokenizer
+
+def Easy_Tokenizer():
+    text = "你好"
+    tokenizer = AutoTokenizer.from_pretrained("uer/roberta-base-finetuned-dianping-chinese") # 预加载tokenizer，模型来自Huggingface
+    # 也可以是本地路径
+    print(tokenizer) # <tokenizers.models.bert.BertWordPieceTokenizer object at 0x7f9d0a0c0e80>
+    # tokenizer.save_pretrained("保存路径") # 保存tokenizer模型
+
+    # 分词
+    token = tokenizer.tokenize(text)
+    print(token) # ['你', '好']
+
+    # 查看字典
+    # print(tokenizer.vocab) # 所有字典数据
+    print(tokenizer.vocab_size) # 字典大小
+
+    # 索引转换以便进入神经网络
+    ids = tokenizer.encode(text)
+    ids_1 = tokenizer.convert_tokens_to_ids(text)
+    print("encode", ids) # [101, 872, 1962, 102]
+    print("encode", ids_1)
+    # 转回来
+    token = tokenizer.decode(ids)
+    token_1 = tokenizer.convert_ids_to_tokens(ids_1)
+    print("decode", token)
+    print("decode", token_1)
+    # 转成String
+    print("转成String", tokenizer.convert_tokens_to_string(token_1))
+    # en/decode与convert的区别在于，单个句子中，en/de会有句子开始和句子结束的标记，但是covert没有
+    # 可以使用 tokenizer.encode/decode(text, add_special_tokens=False)不适用特殊的标记
+
+    # 填充与截断
+    ids = tokenizer.encode(text, max_length=5, truncation=True) # text数据源、最大长度、是否截断
+    # 截断会算上句子开始和结束标记
+    print(ids)
+
+    # 其他
+    attention_mask = tokenizer.get_attention_mask(ids) # 获取一个句子的attention_mask
+    # 就是为了区分那部分是句子，那部分是补的0
+    print(attention_mask)
+    token_type_ids = tokenizer.get_token_type_ids(ids) # 获取一个句子的token_type_ids
+    # 就是为了区分是属于哪个句子
+    print(token_type_ids)
+
+    # 直接进行超级编码（直接获取所有编码结果）
+    ids_plus = tokenizer.encode_plus(text, max_length=5, truncation=True)
+    # 返回一个字典，有input_ids、attention_mask、token_type_ids
+    # 或者直接
+    ids_plus = tokenizer(text, max_length=5, truncation=True)
+    # 同样返回一个字典，有input_ids、attention_mask、token_type_ids
+
+    # 批数据处理
+    texts = ["你好", "你妈妈"]
+    ids = tokenizer(texts, max_length=5, truncation=True)
+
+    # Fast/SlowTokenizer
+    # FastTokenizer是使用Rust实现的
+    # SlowTokenizer是Python实现的
+    print(tokenizer.is_fast) # True
+
+    tokenizer_fast = AutoTokenizer.from_pretrained(
+        "uer/roberta-base-finetuned-dianping-chinese", use_fast=True
+    ) # 多一个offset_mapping
+    input = tokenizer_fast(texts, max_length=5, truncation=True, return_offsets_mapping=True)
+    print(input.get("offset_mapping")) # 得到offset_mapping
+    """
+    例子：
+        原文："I love AI"
+        分词后：["I", "love", "AI"]
+        offset_mapping = [(0,1), (2,6), (7,9)]
+        如果模型告诉你“第 2 个 token 是答案”，你就知道答案是原文 2:6 → "love"。
+    """
+    print(input.word_ids) # 获取单词的索引
+    """
+    例子：
+        原文："ChatGPT is amazing"
+        分词后：["Chat", "##G", "##PT", "is", "amazing"]
+        word_ids() = [0, 0, 0, 1, 2]
+        你就知道前 3 个子词都属于第 0 号单词，后面依次是第 1、2 号单词。
+    """
+    # 这两个是Fast独有的
+
+    # SlowTokenizer
+    tokenizer_slow = AutoTokenizer.from_pretrained(
+        "uer/roberta-base-finetuned-dianping-chinese", use_fast=False
+    )
+    # 有的模型可能不支持FastTokenizer，如果你不支持，那就受着吧
+
+    # 特殊的
+    # 有的模型需要在远程进行加载，比如远程加载模型，需要在创建对象的时候加上属性：trust_remote_code=True
+
+if __name__ == "__main__":
+    """
+    Transformers编码器工具
+    """
     Easy_Tokenizer()
 ```
 
-##### Easy Model
+##### EasyModel（模型）
+
 ```python
 from transformers import (  
     AutoTokenizer,  
@@ -3580,10 +3675,13 @@ def Easy_Model():
         不带Head的模型（如BertModel、AutoModel）：  
             只包含骨干网络（Backbone），也就是Transformer的核心架构  
             输出的是隐藏状态（hidden states）或特征表示  
-            通常返回的是最后一层的隐藏状态向量        带Head的模型（如BertForSequenceClassification、AutoModelForSequenceClassification）：  
+            通常返回的是最后一层的隐藏状态向量
+            带Head的模型（如BertForSequenceClassification、AutoModelForSequenceClassification）：  
             包含骨干网络 + 任务特定的头部（Head）  
-            在骨干网络基础上添加了针对特定任务的输出层            直接输出任务相关的结果（如分类logits）  
-        它们前置任务类似：            输入处理：两者都使用相同的tokenizer进行分词  
+            在骨干网络基础上添加了针对特定任务的输出层
+            直接输出任务相关的结果（如分类logits）  
+        它们前置任务类似：
+	        输入处理：两者都使用相同的tokenizer进行分词  
             嵌入层：都经过相同的词嵌入、位置嵌入等  
             Transformer编码器：都通过相同的多层Transformer结构  
             特征提取：都得到相同质量的上下文表示        关键差异在输出阶段，Head通常是一个或多个线性层（Linear Layer）  
@@ -3592,7 +3690,8 @@ if __name__ == "__main__":
     Easy_Model()
 ```
 
-##### ComModel
+##### ComModel（模型）
+
 ```python
 # -*- coding: utf-8 -*-  
 """  
@@ -3746,365 +3845,441 @@ def evaluate():
     print(pipe(test_sen))
 ```
 
-##### Datasets
+##### Datasets（数据集）
+
 ```python
-from datasets import load_dataset  
-from transformers import AutoTokenizer, DataCollatorWithPadding  
-from torch.utils.data import DataLoader  
-import pandas as pd  
-  
-def Easy_Datasets_DataLoad():  
-    # 简单加载普通集合  
-    datasets = load_dataset("madao33/new-title-chinese")  
-    print(datasets)  
-    # train 训练集  
-    # validation 验证集  
-    # test 测试集  
-  
-    # 加载包含子集合的训练任务  
-    # datasets = load_dataset("super_glue", "boolq") # 加载指定子集合  
-  
-    # 指定训练/验证/测试集  
-    # datasets = load_dataset("super_glue", "boolq", split = ["train", "validation", "test"])  
-  
-    # 加载集合中的指定索引/百分比位置  
-    # datasets = load_dataset("super_glue", "boolq", split = "train[0:10%]")  
-    # datasets = load_dataset("super_glue", "boolq", split = "train[0:100]")    return datasets  
-  
-def Easy_Opration_Datasets(datasets):  
-    # 直接进行字典操作  
-    print(datasets["train"][0]) # 拿到训练集的第一个数据  
-    # 切片访问  
-    print(datasets["train"][0:10]) # 拿到训练集的前10个数据  
-    # 查看某个字段的数据  
-    print(datasets["train"]["title"][0:5])  
-    # 查看有哪些字段  
-    print(datasets["train"].column_names)  
-    # 类型  
-    print(datasets["train"].features)  
-  
-    # 操作数据  
-    data_trained = datasets["train"]  
-    data_trained = data_trained.train_test_split(  
-        test_size=0.2, stratify_by_column="label"  
-    ) # 划分训练集和测试集, 默认是80%训练集，20%测试集, stratify_by_column="label"是按标签进行划分  
-  
-    # 选取与过滤  
-    data_trained_select = data_trained.select(range(10)) # 选取前10个数据，但是返回的是Dataset  
-    print(data_trained_select)  
-    # 过滤  
-    data_trained_filter = data_trained.filter(lambda x: [i for i in range(50)] in x["label"]) # 过滤掉label中50以上的数据  
-    print(data_trained_filter["title"][0:5]) # 拿到训练集的前5个数据  
-  
-    # 数据映射  
-    tokenizer = AutoTokenizer.from_pretrained(  
-        "uer/roberta-base-finetuned-dianping-chinese"  
-    ) # 预加载tokenizer，模型来自Huggingface  
-    def Process_func(examples, tokenizer=tokenizer): # 映射函数，将编码后的数据加载到原来的数据新字段中  
-        """  
-        :param examples: 原始数据  
-        :param tokenizer: 分词器  
-        :return:  
-        """        model_inputs = tokenizer(examples["content"], max_length=512, truncation=True)  
-        labels = tokenizer(examples["title"], max_length=32, truncation=True)  
-        # label就是title编码的结果  
-        model_inputs["labels"] = labels["input_ids"]  
-        return model_inputs  
-    data_trained_map = data_trained.map(Process_func, batched=True) # 映射数据，开启批量映射  
-    # 如果不是FastTokenizer，那么需要加上属性：num_proc=4，开启多线程进行映射，同时建议将tokenizer作为参数传递到映射函数中  
-    # 如果你不想要原始字段数据，你可以在调用map函数的时候删除它  
-    # data_trained_map = data_trained.map(Process_func, batched=True, remove_columns=["title"])  
-  
-    # 保存与加载  
-    data_trained_map.save_to_disk("./data")  
-    data_trained_load = load_dataset("./data")  
-    # 加载本地数据  
-    data_trained_load = load_dataset("csv", data_files="./data.csv", split="train")  
-    # 加载文件类型、路径、是否为DatasetsDict  
-    # 加上属性：split="train"是train的Dataset，不加是DatasetDict  
-    # 文件路径上可以写成[]，多个文件  
-    # 或者使用  
-    data_trained_load = datasets.from_csv("./data.csv")  
-    # 直接加载为Dataset  
-    # 直接加载整个文件夹  
-    # data_trained_load = load_dataset("csv", data_dir="./", split="train")  
-  
-    # pandas联动  
-    data = pd.read_csv("./data.csv")  
-    DataFrame_to_Dataset = datasets.from_pandas(data) # pandas数据转为Dataset  
-    Dataset_to_DataFrame = DataFrame_to_Dataset.to_pandas() # Dataset转为pandas数据  
-    """  
-    当然有很多from_XXX，比如json、xml、csv等等  
-    """  
-    # 自定义加载器，解析复杂的数据结构：参见load_script代码和cmrc2018_trial.json数据  
-    # 在这里我们只需要加载这个脚本代码就可以  
-    # data_trained_load = load_dataset("load_script.py", split="train")  
-    # 但是从 datasets 库的新版开始（>=2.14.0 起），官方已经停止支持直接从 .py 脚本文件加载自定义数据集。  
-  
-def DataCollator_Dataset():  
-    dataset = load_dataset("csv",  data_files="./data.csv", split="train")  
-    # 过滤空数据  
-    dataset = dataset.filter(lambda x: x["title"] is not None)  
-    # 数据映射  
-    tokenizer = AutoTokenizer.from_pretrained(  
-        "uer/roberta-base-finetuned-dianping-chinese"  
-    )  # 预加载tokenizer，模型来自Huggingface  
-    def Process_func(examples): # 映射函数，将编码后的数据加载到原来的数据新字段中  
-        """  
-        :param examples: 原始数据  
-        :param tokenizer: 分词器  
-        :return:  
-        """        model_inputs = tokenizer(examples["content"], max_length=512, truncation=True) # 创建新的变量保存分词  
-        labels = tokenizer(examples["title"], max_length=32, truncation=True) # 创建新的变量保存分词  
-        # label就是title编码的结果  
-        model_inputs["labels"] = labels["input_ids"] # 添加新的字段保存label编码结果  
-        return model_inputs # 返回新的字段  
-    data_trained_map = dataset.map(Process_func, batched=True, remove_columns=["title"]) # 映射数据，开启批量映射  
-    print(data_trained_map[:3]) # 拿到训练集的前3个数据  
-  
-    # 创建DataCollator  
-    data_collator = DataCollatorWithPadding(tokenizer=tokenizer) # 创建DataCollator  
-    # 把“一个 batch 里长度不等的句子”自动补齐（padding）到同一长度。  
-  
-    # 调用DataLoader：把 Dataset 给出的“一条一条样本”组装成“一个 batch 的张量”。  
-    train_dataloader = DataLoader(data_trained_map, batch_size=8, collate_fn=data_collator, shuffle=True)  
-    # 传入  
-        # 分词器映射函数对象（你的原始数据集）  
-        # 每轮迭代返回 8 条样本  
-        # 每个 epoch 都把数据顺序打乱  
-        # 如何把 8 条样本拼成一个 batch”的自定义函数  
-    print(train_dataloader) # 可以看到数据变成了Tenser  
-    # 转换成功！  
-    # 接下来就是训练数据了  
-  
-  
-if __name__ == "__main__":  
-    data = Easy_Datasets_DataLoad()  
+from datasets import load_dataset
+from transformers import AutoTokenizer, DataCollatorWithPadding
+from torch.utils.data import DataLoader
+import pandas as pd
+
+def Easy_Datasets_DataLoad():
+    # 简单加载普通集合
+    datasets = load_dataset("madao33/new-title-chinese")
+    print(datasets)
+    # train 训练集
+    # validation 验证集
+    # test 测试集
+
+    # 加载包含子集合的训练任务
+    # datasets = load_dataset("super_glue", "boolq") # 加载指定子集合
+
+    # 指定训练/验证/测试集
+    # datasets = load_dataset("super_glue", "boolq", split = ["train", "validation", "test"])
+
+    # 加载集合中的指定索引/百分比位置
+    # datasets = load_dataset("super_glue", "boolq", split = "train[0:10%]")
+    # datasets = load_dataset("super_glue", "boolq", split = "train[0:100]")
+    return datasets
+
+def Easy_Opration_Datasets(datasets):
+    # 直接进行字典操作
+    print(datasets["train"][0]) # 拿到训练集的第一个数据
+    # 切片访问
+    print(datasets["train"][0:10]) # 拿到训练集的前10个数据
+    # 查看某个字段的数据
+    print(datasets["train"]["title"][0:5])
+    # 查看有哪些字段
+    print(datasets["train"].column_names)
+    # 类型
+    print(datasets["train"].features)
+
+    # 操作数据
+    data_trained = datasets["train"]
+    data_trained = data_trained.train_test_split(
+        test_size=0.2, stratify_by_column="label"
+    ) # 划分训练集和测试集, 默认是80%训练集，20%测试集, stratify_by_column="label"是按标签进行划分
+
+    # 选取与过滤
+    data_trained_select = data_trained.select(range(10)) # 选取前10个数据，但是返回的是Dataset
+    print(data_trained_select)
+    # 过滤
+    data_trained_filter = data_trained.filter(lambda x: [i for i in range(50)] in x["label"]) # 过滤掉label中50以上的数据
+    print(data_trained_filter["title"][0:5]) # 拿到训练集的前5个数据
+
+    # 数据映射
+    tokenizer = AutoTokenizer.from_pretrained(
+        "uer/roberta-base-finetuned-dianping-chinese"
+    ) # 预加载tokenizer，模型来自Huggingface
+    def Process_func(examples, tokenizer=tokenizer): # 映射函数，将编码后的数据加载到原来的数据新字段中
+        """
+        :param examples: 原始数据
+        :param tokenizer: 分词器
+        :return:
+        """
+        model_inputs = tokenizer(examples["content"], max_length=512, truncation=True)
+        labels = tokenizer(examples["title"], max_length=32, truncation=True)
+        # label就是title编码的结果
+        model_inputs["labels"] = labels["input_ids"]
+        return model_inputs
+    data_trained_map = data_trained.map(Process_func, batched=True) # 映射数据，开启批量映射
+    # 如果不是FastTokenizer，那么需要加上属性：num_proc=4，开启多线程进行映射，同时建议将tokenizer作为参数传递到映射函数中
+    # 如果你不想要原始字段数据，你可以在调用map函数的时候删除它
+    # data_trained_map = data_trained.map(Process_func, batched=True, remove_columns=["title"])
+
+    # 保存与加载
+    data_trained_map.save_to_disk("./data")
+    data_trained_load = load_dataset("./data")
+    # 加载本地数据
+    data_trained_load = load_dataset("csv", data_files="./data.csv", split="train")
+    # 加载文件类型、路径、是否为DatasetsDict
+    # 加上属性：split="train"是train的Dataset，不加是DatasetDict
+    # 文件路径上可以写成[]，多个文件
+    # 或者使用
+    data_trained_load = datasets.from_csv("./data.csv")
+    # 直接加载为Dataset
+    # 直接加载整个文件夹
+    # data_trained_load = load_dataset("csv", data_dir="./", split="train")
+
+    # pandas联动
+    data = pd.read_csv("./data.csv")
+    DataFrame_to_Dataset = datasets.from_pandas(data) # pandas数据转为Dataset
+    Dataset_to_DataFrame = DataFrame_to_Dataset.to_pandas() # Dataset转为pandas数据
+    """
+    当然有很多from_XXX，比如json、xml、csv等等
+    """
+
+    # 自定义加载器，解析复杂的数据结构：参见load_script代码和cmrc2018_trial.json数据
+    # 在这里我们只需要加载这个脚本代码就可以
+    # data_trained_load = load_dataset("load_script.py", split="train")
+    # 但是从 datasets 库的新版开始（>=2.14.0 起），官方已经停止支持直接从 .py 脚本文件加载自定义数据集。
+
+def DataCollator_Dataset():
+    dataset = load_dataset("csv",  data_files="./data.csv", split="train")
+    # 过滤空数据
+    dataset = dataset.filter(lambda x: x["title"] is not None)
+    # 数据映射
+    tokenizer = AutoTokenizer.from_pretrained(
+        "uer/roberta-base-finetuned-dianping-chinese"
+    )  # 预加载tokenizer，模型来自Huggingface
+    def Process_func(examples): # 映射函数，将编码后的数据加载到原来的数据新字段中
+        """
+        :param examples: 原始数据
+        :param tokenizer: 分词器
+        :return:
+        """
+        model_inputs = tokenizer(examples["content"], max_length=512, truncation=True) # 创建新的变量保存分词
+        labels = tokenizer(examples["title"], max_length=32, truncation=True) # 创建新的变量保存分词
+        # label就是title编码的结果
+        model_inputs["labels"] = labels["input_ids"] # 添加新的字段保存label编码结果
+        return model_inputs # 返回新的字段
+    data_trained_map = dataset.map(Process_func, batched=True, remove_columns=["title"]) # 映射数据，开启批量映射
+    print(data_trained_map[:3]) # 拿到训练集的前3个数据
+
+    # 创建DataCollator
+    data_collator = DataCollatorWithPadding(tokenizer=tokenizer) # 创建DataCollator
+    # 把“一个 batch 里长度不等的句子”自动补齐（padding）到同一长度。
+
+    # 调用DataLoader：把 Dataset 给出的“一条一条样本”组装成“一个 batch 的张量”。
+    train_dataloader = DataLoader(data_trained_map, batch_size=8, collate_fn=data_collator, shuffle=True)
+    # 传入
+        # 分词器映射函数对象（你的原始数据集）
+        # 每轮迭代返回 8 条样本
+        # 每个 epoch 都把数据顺序打乱
+        # 如何把 8 条样本拼成一个 batch”的自定义函数
+    print(train_dataloader) # 可以看到数据变成了Tenser
+    # 转换成功！
+    # 接下来就是训练数据了
+
+
+if __name__ == "__main__":
+    """
+    Transformers数据处理工具
+    """
+    data = Easy_Datasets_DataLoad()
     Easy_Opration_Datasets(data)
+
 ```
 
-##### Evaluate
+##### Evaluate（模型评估）
+
 ```python
-import evaluate  
-from evaluate.visualization import radar_plot # 可视化雷达图  
-  
-def Easy_Evaluate():  
-    """  
-    简单介绍  
-    :return:  
-    """    # 查看评估工具包支持的模型  
-    for i in evaluate.list_evaluation_modules():  
-        print(i)  
-    # 不想要社区实现的模型评估  
-    # print(evaluate.list_evaluation_modules(include_community=False))  
-    # 查看细节  
-    # print(evaluate.list_evaluation_modules(with_details=True))  
-  
-    # 加载评估函数  
-    accuracy = evaluate.load("accuracy") # 在上述打印中有 accuracy    # 查看函数说明  
-    print(accuracy.description)  
-    """  
-    Accuracy is the proportion of correct predictions among the total number of cases processed. It can be computed with:    Accuracy = (TP + TN) / (TP + TN + FP + FN)     Where:    TP: True positive    TN: True negative    FP: False positive    FN: False negative    """    print(accuracy.inputs_description) # 输入参数说明  
-    """  
-    Examples:        Example 1-A simple example            >>> accuracy_metric = evaluate.load("accuracy")            >>> results = accuracy_metric.compute(references=[0, 1, 2, 0, 1, 2], predictions=[0, 1, 1, 2, 1, 0])            >>> print(results)            {'accuracy': 0.5}            Example 2-The same as Example 1, except with `normalize` set to `False`.  
-            >>> accuracy_metric = evaluate.load("accuracy")            >>> results = accuracy_metric.compute(references=[0, 1, 2, 0, 1, 2], predictions=[0, 1, 1, 2, 1, 0], normalize=False)            >>> print(results)            {'accuracy': 3.0}            Example 3-The same as Example 1, except with `sample_weight` set.  
-            >>> accuracy_metric = evaluate.load("accuracy")            >>> results = accuracy_metric.compute(references=[0, 1, 2, 0, 1, 2], predictions=[0, 1, 1, 2, 1, 0], sample_weight=[0.5, 2, 0.7, 0.5, 9, 0.4])            >>> print(results)            {'accuracy': 0.8778625954198473}    """    # 或者直接全部打印  
-    print(accuracy)  
-  
-def Algorithm_Evaluate():  
-    """  
-    算法评估  
-    :return:  
-    """    # 加载评估函数  
-    accuracy = evaluate.load("accuracy")  
-    print("简单的模型评估：", accuracy.compute(  
-        references=[0, 1, 2, 0, 1, 2],  
-        predictions=[0, 1, 1, 2, 1, 0],  
-        sample_weight=[0.5, 2, 0.7, 0.5, 9, 0.4]  
-    )) # 输出计算评估结果，references是预测结果，predictions是真实结果，sample_weight是权重  
-  
-    # 或者，迭代计算  
-    for ref, pred in zip([0, 1, 2, 0, 1, 2], [0, 1, 1, 2, 1, 0]):  
-        accuracy.add(references=ref, predictions=pred)  
-    print("迭代评估计算：", accuracy.compute())  
-  
-    # 或者，使用add_batch方法  
-    for ref, pred in zip([[0,0],[1,1]], [[2,1],[0,2]]):  
-        accuracy.add_batch(references=ref, predictions=pred) # 不能使用sample_weight  
-    print("批量评估计算：", accuracy.compute())  
-  
-def Mult_Algorithm_Evaluate():  
-    """  
-    多个评估指标计算  
-    :return:  
-    """    # 加载多个评估函数  
-    metric = evaluate.combine(evaluations=["accuracy", "precision", "recall", "f1"])  
-    print(metric)  
-    # precision_score / recall_score / f1_score 等默认在二分类场景下只返回“正类”的分数，一旦类别数 >2 就不知道该返回哪一类了，于是抛出 ValueError。  
-  
-    # 简单计算  
-    print(metric.compute(references=[1, 1, 1, 0, 1, 0],  
-        predictions=[0, 1, 1, 0, 1, 1]))  
-  
-def Vision_Evaluate():  
-    """  
-    可视化  
-    """    data = [  
-        {'accuracy': 0.95, 'precision': 1.00, 'recall': 0.55, 'f1': 0.71},  
-        {'accuracy': 0.60, 'precision': 0.65, 'recall': 0.95, 'f1': 0.78},  
-        {'accuracy': 0.75, 'precision': 0.70, 'recall': 0.60, 'f1': 0.65},  
-        {'accuracy': 0.50, 'precision': 0.55, 'recall': 0.50, 'f1': 0.52}  
-    ] # 评估结果  
-    models = ['model_1', 'model_2', 'model_3', 'model_4'] # 模型名称  
-    plot = radar_plot(data, models) # 绘制雷达图  
-    plot.show()  
-  
-if __name__ == '__main__':  
-    """  
-    Transformers模型评估工具包  
-    """    # Easy_Evaluate()  
-    # Algorithm_Evaluate()    # Mult_Algorithm_Evaluate()    Vision_Evaluate()
+import evaluate
+from evaluate.visualization import radar_plot # 可视化雷达图
+
+def Easy_Evaluate():
+    """
+    简单介绍
+    :return:
+    """
+    # 查看评估工具包支持的模型
+    for i in evaluate.list_evaluation_modules():
+        print(i)
+    # 不想要社区实现的模型评估
+    # print(evaluate.list_evaluation_modules(include_community=False))
+    # 查看细节
+    # print(evaluate.list_evaluation_modules(with_details=True))
+
+    # 加载评估函数
+    accuracy = evaluate.load("accuracy") # 在上述打印中有 accuracy
+    # 查看函数说明
+    print(accuracy.description)
+    """
+    Accuracy is the proportion of correct predictions among the total number of cases processed. It can be computed with:
+    Accuracy = (TP + TN) / (TP + TN + FP + FN)
+     Where:
+    TP: True positive
+    TN: True negative
+    FP: False positive
+    FN: False negative
+    """
+    print(accuracy.inputs_description) # 输入参数说明
+    """
+    Examples:
+        Example 1-A simple example
+            >>> accuracy_metric = evaluate.load("accuracy")
+            >>> results = accuracy_metric.compute(references=[0, 1, 2, 0, 1, 2], predictions=[0, 1, 1, 2, 1, 0])
+            >>> print(results)
+            {'accuracy': 0.5}
+    
+        Example 2-The same as Example 1, except with `normalize` set to `False`.
+            >>> accuracy_metric = evaluate.load("accuracy")
+            >>> results = accuracy_metric.compute(references=[0, 1, 2, 0, 1, 2], predictions=[0, 1, 1, 2, 1, 0], normalize=False)
+            >>> print(results)
+            {'accuracy': 3.0}
+    
+        Example 3-The same as Example 1, except with `sample_weight` set.
+            >>> accuracy_metric = evaluate.load("accuracy")
+            >>> results = accuracy_metric.compute(references=[0, 1, 2, 0, 1, 2], predictions=[0, 1, 1, 2, 1, 0], sample_weight=[0.5, 2, 0.7, 0.5, 9, 0.4])
+            >>> print(results)
+            {'accuracy': 0.8778625954198473}
+    """
+    # 或者直接全部打印
+    print(accuracy)
+
+def Algorithm_Evaluate():
+    """
+    算法评估
+    :return:
+    """
+    # 加载评估函数
+    accuracy = evaluate.load("accuracy")
+    print("简单的模型评估：", accuracy.compute(
+        references=[0, 1, 2, 0, 1, 2],
+        predictions=[0, 1, 1, 2, 1, 0],
+        sample_weight=[0.5, 2, 0.7, 0.5, 9, 0.4]
+    )) # 输出计算评估结果，references是预测结果，predictions是真实结果，sample_weight是权重
+
+    # 或者，迭代计算
+    for ref, pred in zip([0, 1, 2, 0, 1, 2], [0, 1, 1, 2, 1, 0]):
+        accuracy.add(references=ref, predictions=pred)
+    print("迭代评估计算：", accuracy.compute())
+
+    # 或者，使用add_batch方法
+    for ref, pred in zip([[0,0],[1,1]], [[2,1],[0,2]]):
+        accuracy.add_batch(references=ref, predictions=pred) # 不能使用sample_weight
+    print("批量评估计算：", accuracy.compute())
+
+def Mult_Algorithm_Evaluate():
+    """
+    多个评估指标计算
+    :return:
+    """
+    # 加载多个评估函数
+    metric = evaluate.combine(evaluations=["accuracy", "precision", "recall", "f1"])
+    print(metric)
+    # precision_score / recall_score / f1_score 等默认在二分类场景下只返回“正类”的分数，一旦类别数 >2 就不知道该返回哪一类了，于是抛出 ValueError。
+
+    # 简单计算
+    print(metric.compute(references=[1, 1, 1, 0, 1, 0],
+        predictions=[0, 1, 1, 0, 1, 1]))
+
+def Vision_Evaluate():
+    """
+    可视化
+    """
+    data = [
+        {'accuracy': 0.95, 'precision': 1.00, 'recall': 0.55, 'f1': 0.71},
+        {'accuracy': 0.60, 'precision': 0.65, 'recall': 0.95, 'f1': 0.78},
+        {'accuracy': 0.75, 'precision': 0.70, 'recall': 0.60, 'f1': 0.65},
+        {'accuracy': 0.50, 'precision': 0.55, 'recall': 0.50, 'f1': 0.52}
+    ] # 评估结果
+    models = ['model_1', 'model_2', 'model_3', 'model_4'] # 模型名称
+    plot = radar_plot(data, models) # 绘制雷达图
+    plot.show()
+
+if __name__ == '__main__':
+    """
+    Transformers模型评估工具包
+    """
+    # Easy_Evaluate()
+    # Algorithm_Evaluate()
+    # Mult_Algorithm_Evaluate()
+    Vision_Evaluate()
 ```
 
-##### Trainer
+##### Trainer（模型训练）
+
 ```python
-# 一些自带的模型是支持的，但是对于魔改的输入输出模型是不支持的  
-# ---------------------------------------------------------  
-# 一个可运行的 Trainer + TrainingArguments 示例  
-# 任务：使用 DistilBERT 在 IMDB 数据集上做情感分类  
-# ---------------------------------------------------------  
-from datasets import load_dataset  
-from transformers import (  
-    AutoTokenizer,  
-    AutoModelForSequenceClassification,  
-    TrainingArguments,  
-    Trainer,  
-)  
-import numpy as np  
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support  
-  
-  
-# ---------------------------------------------------------  
-# 1. 加载数据集  
-# ---------------------------------------------------------  
-# HuggingFace 会自动下载 IMDB 数据集（训练 25k，测试 25k）  
-dataset = load_dataset("imdb")  
-  
-# 数据集字段为：{"text": ..., "label": 0/1}  
-  
-  
-# ---------------------------------------------------------  
-# 2. 加载 Tokenizer# ---------------------------------------------------------  
-model_name = "distilbert-base-uncased"  
-tokenizer = AutoTokenizer.from_pretrained(model_name)  
-  
-  
-# ---------------------------------------------------------  
-# 3. 编写 tokenize 函数  
-# ---------------------------------------------------------  
-def tokenize_fn(example):  
-    """  
-    对每条样本进行 tokenization    truncation=True 会自动截断过长文本  
-    padding=True 在批处理时让长度对齐（dynamic padding）  
-    """    return tokenizer(  
-        example["text"],  
-        truncation=True,  
-        padding="max_length",  # 或 dynamic padding: padding="longest"        max_length=256,  
-    )  
-  
-  
-# 将 tokenize 函数应用到整个数据集  
-tokenized_ds = dataset.map(tokenize_fn, batched=True)  
-  
-# Trainer 要求输入中必须包含 input_ids / attention_mask / labelstokenized_ds = tokenized_ds.rename_column("label", "labels")  
-  
-# 使数据集只保留必要字段  
-tokenized_ds.set_format(  
-    type="torch",  
-    columns=["input_ids", "attention_mask", "labels"],  
-)  
-  
-  
-# ---------------------------------------------------------  
-# 4. 加载预训练模型（分类头自动加载）  
-# ---------------------------------------------------------  
-model = AutoModelForSequenceClassification.from_pretrained(  
-    model_name,  
-    num_labels=2,  # IMDB 是二分类任务  
-)  
-  
-  
-# ---------------------------------------------------------  
-# 5. 定义评价指标  
-# ---------------------------------------------------------  
-def compute_metrics(eval_pred):  
-    """  
-    eval_pred 包含两个元素：  
-    - logits（模型输出）  
-    - labels（真实标签）  
-    """    logits, labels = eval_pred  
-    preds = np.argmax(logits, axis=1)  
-  
-    acc = accuracy_score(labels, preds)  
-    prec, recall, f1, _ = precision_recall_fscore_support(  
-        labels, preds, average="binary"  
-    )  
-  
-    return {  
-        "accuracy": acc,  
-        "precision": prec,  
-        "recall": recall,  
-        "f1": f1,  
-    }  
-  
-  
-# ---------------------------------------------------------  
-# 6. 创建 TrainingArguments# ---------------------------------------------------------  
-training_args = TrainingArguments(  
-    output_dir="./imdb_distilbert",  # 模型保存位置  
-  
-    # === 训练参数 ===    num_train_epochs=1,              # 演示用 1 epoch（实际可增大）  
-    per_device_train_batch_size=16,  # 每块 GPU 上的 batch    per_device_eval_batch_size=16,  
-    gradient_accumulation_steps=1,   # 梯度累积  
-  
-    # === 优化器相关 ===    learning_rate=5e-5,  
-    weight_decay=0.01,  
-  
-    # === 日志 / 保存 ===    logging_steps=50,                # 每 50 step 打印日志  
-    evaluation_strategy="epoch",     # 每个 epoch 结束时 eval    save_strategy="epoch",           # 每个 epoch 保存 checkpoint    save_total_limit=2,              # 最多保留2个checkpoint  
-  
-    # === 其他设置 ===    load_best_model_at_end=True,     # 根据指标自动加载最佳模型  
-    metric_for_best_model="accuracy",# 评价指标  
-  
-    fp16=True,                       # 如果有 GPU，则开启混合精度  
-)  
-  
-  
-# ---------------------------------------------------------  
-# 7. 创建 Trainer# ---------------------------------------------------------  
-trainer = Trainer(  
-    model=model,  
-    args=training_args,  
-    train_dataset=tokenized_ds["train"],  
-    eval_dataset=tokenized_ds["test"],  
-    tokenizer=tokenizer,  
-    compute_metrics=compute_metrics,   # 自定义评估  
-)  
-  
-  
-# ---------------------------------------------------------  
-# 8. 开始训练  
-# ---------------------------------------------------------  
-print(trainer.train())  
-  
-# ---------------------------------------------------------  
-# 9. 评估模型  
-# ---------------------------------------------------------  
-print(trainer.evaluate(tokenized_ds["test"]))  
-  
-# ---------------------------------------------------------  
-# 10. 模型预测  
-# ---------------------------------------------------------  
+# 一些自带的模型是支持的，但是对于魔改的输入输出模型是不支持的
+# ---------------------------------------------------------
+# 一个可运行的 Trainer + TrainingArguments 示例
+# 任务：使用 DistilBERT 在 IMDB 数据集上做情感分类
+# ---------------------------------------------------------
+from datasets import load_dataset
+from transformers import (
+    AutoTokenizer,
+    AutoModelForSequenceClassification,
+    TrainingArguments,
+    Trainer,
+)
+import numpy as np
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+
+
+# ---------------------------------------------------------
+# 1. 加载数据集
+# ---------------------------------------------------------
+# HuggingFace 会自动下载 IMDB 数据集（训练 25k，测试 25k）
+dataset = load_dataset("imdb")
+
+# 数据集字段为：{"text": ..., "label": 0/1}
+
+
+# ---------------------------------------------------------
+# 2. 加载 Tokenizer
+# ---------------------------------------------------------
+model_name = "distilbert-base-uncased"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+
+# ---------------------------------------------------------
+# 3. 编写 tokenize 函数
+# ---------------------------------------------------------
+def tokenize_fn(example):
+    """
+    对每条样本进行 tokenization
+    truncation=True 会自动截断过长文本
+    padding=True 在批处理时让长度对齐（dynamic padding）
+    """
+    return tokenizer(
+        example["text"],
+        truncation=True,
+        padding="max_length",  # 或 dynamic padding: padding="longest"
+        max_length=256, # 减小，则可以降低显存占用和时间
+    )
+
+
+# 将 tokenize 函数应用到整个数据集
+tokenized_ds = dataset.map(tokenize_fn, batched=True)
+
+# Trainer 要求输入中必须包含 input_ids / attention_mask / labels
+tokenized_ds = tokenized_ds.rename_column("label", "labels")
+
+# 使数据集只保留必要字段
+tokenized_ds.set_format(
+    type="torch",
+    columns=["input_ids", "attention_mask", "labels"],
+)
+
+
+# ---------------------------------------------------------
+# 4. 加载预训练模型（分类头自动加载）
+# ---------------------------------------------------------
+model = AutoModelForSequenceClassification.from_pretrained(
+    model_name,
+    num_labels=2,  # IMDB 是二分类任务
+)
+
+
+# ---------------------------------------------------------
+# 5. 定义评价指标
+# ---------------------------------------------------------
+def compute_metrics(eval_pred):
+    """
+    eval_pred 包含两个元素：
+    - logits（模型输出）
+    - labels（真实标签）
+    """
+    logits, labels = eval_pred
+    preds = np.argmax(logits, axis=1)
+
+    acc = accuracy_score(labels, preds)
+    prec, recall, f1, _ = precision_recall_fscore_support(
+        labels, preds, average="binary"
+    )
+
+    return {
+        "accuracy": acc,
+        "precision": prec,
+        "recall": recall,
+        "f1": f1,
+    }
+
+
+# ---------------------------------------------------------
+# 6. 创建 TrainingArguments
+# ---------------------------------------------------------
+training_args = TrainingArguments(
+    output_dir="./imdb_distilbert",  # 模型保存位置
+
+    # === 训练参数 ===
+    num_train_epochs=1,              # 演示用 1 epoch（实际可增大）
+    per_device_train_batch_size=4,  # 每块 GPU 上的 batch
+    per_device_eval_batch_size=4,
+    gradient_accumulation_steps=32,   # 32 个 step 累积梯度
+    # 可将 gradient_accumulation_steps 设置为 32
+    # per_device_eval_batch_size 和 per_device_train_batch_size 改为 1
+    # 这个时候显存会减少，但训练时间会大幅增加
+
+    gradient_checkpointing=True, # 启用 gradient checkpointing
+    # 可以降低一点显存占用，但是不如上述来的快，但是时间会更大
+
+    # 也可以指定优化器，切换压力较小的优化器
+    optim="adafactor", # 默认为 AdamW，切换可以在OptimizerNames看
+
+    # === 优化器相关 ===
+    learning_rate=5e-5,
+    weight_decay=0.01,
+
+    # === 日志 / 保存 ===
+    logging_steps=50,                # 每 50 step 打印日志
+    evaluation_strategy="epoch",     # 每个 epoch 结束时 eval
+    save_strategy="epoch",           # 每个 epoch 保存 checkpoint
+    save_total_limit=2,              # 最多保留2个checkpoint
+
+    # === 其他设置 ===
+    load_best_model_at_end=True,     # 根据指标自动加载最佳模型
+    metric_for_best_model="accuracy",# 评价指标
+
+    fp16=True,                       # 如果有 GPU，则开启混合精度
+)
+
+# ---------------------------------------------------------
+# 7. 冻结层
+# ---------------------------------------------------------
+# 遍历模型的所有参数，将名称中不包含"classifier"的参数设置为不可训练状态（冻结参数）。
+# 大幅减少时间和显存占用
+for name, param in model.named_parameters():
+    if "classifier" not in name:
+        param.requires_grad = False
+
+# ---------------------------------------------------------
+# 8. 创建 Trainer
+# ---------------------------------------------------------
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=tokenized_ds["train"],
+    eval_dataset=tokenized_ds["test"],
+    tokenizer=tokenizer,
+    compute_metrics=compute_metrics,   # 自定义评估
+)
+
+
+# ---------------------------------------------------------
+# 9. 开始训练
+# ---------------------------------------------------------
+print(trainer.train())
+
+# ---------------------------------------------------------
+# 10. 评估模型
+# ---------------------------------------------------------
+print(trainer.evaluate(tokenized_ds["test"]))
+
+# ---------------------------------------------------------
+# 11. 模型预测
+# ---------------------------------------------------------
 print(trainer.predict(tokenized_ds["test"]))
 ```
 

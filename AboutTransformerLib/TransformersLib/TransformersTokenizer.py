@@ -1,6 +1,4 @@
-from transformers.pipelines import SUPPORTED_TASKS
-from transformers import pipelines, AutoModelForSequenceClassification, AutoTokenizer
-import torch
+from transformers import AutoTokenizer
 
 def Easy_Tokenizer():
     text = "你好"
