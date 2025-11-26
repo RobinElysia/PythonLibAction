@@ -37,6 +37,14 @@ def Easy_tensor():
     torch.Size([2, 2])
     """
 
+    # GPU数据
+    cuda = torch.tensor([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], dtype=torch.float64, device='cuda')
+    # 转换数据
+    x.to(device='cuda')
+    print(cuda.device)
+    print(x.device)
+
+
 def Easy_Tensor():
     """
     指定维度大小预先创建，不管元素是什么，始终是float32

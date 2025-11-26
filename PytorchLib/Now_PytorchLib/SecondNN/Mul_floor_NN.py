@@ -27,11 +27,11 @@ class ComNN(nn.Module):
 
 if __name__ == "__main__":
     # 测试网络
-    # 创建一个具有2个输入节点、隐藏层为[10, 8]、3个输出节点的网络
-    net = ComNN(input_dim=2, hidden_dim=[10, 8], output_dim=3)
+    # 创建一个具有2个输入节点、隐藏层为[10, 8, 6,4]、3个输出节点的网络
+    net = ComNN(input_dim=2, hidden_dim=[10, 8, 6, 4], output_dim=3).to(device="cuda")
     
     # 创建一些测试数据
-    test_input = torch.randn(5, 2)  # 5个样本，每个样本有2个特征
+    test_input = torch.randn(5, 2, device="cuda")  # 5个样本，每个样本有2个特征
     
     # 前向传播
     output = net(test_input)
@@ -57,4 +57,4 @@ if __name__ == "__main__":
     #
     # print(net.state_dict()) # 查看状态
 
-    summary(net, (2, 2), batch_size=10, device="cpu")
+    summary(net, (2, 2), batch_size=10, device="cuda")
