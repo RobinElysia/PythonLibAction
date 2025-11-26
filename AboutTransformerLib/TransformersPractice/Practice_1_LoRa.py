@@ -122,19 +122,17 @@ if __name__ == "__main__":
     # 开启梯度检查点，节省显存（用计算换显存）
     model.enable_input_require_grads()
 
-    # 5.3 冻结前6层权重 (题目特定要求)
-    # 虽然使用了LoRA，但题目要求显式冻结基础模型的前几层，可能是为了演示层级操作
-    print("\n🚀 3. 正在冻结模型前6层权重...")
-    for param in model.parameters():
-        param.requires_grad = False  # 先冻结所有
-
     # 这里的逻辑是：如果找到 layers 属性，则再次确认前6层是冻结的
     # 实际上，使用LoRA时，基础模型通常全是冻结的。这里的代码可能是为了确保某些特殊层不参与计算。
     if hasattr(model, 'model') and hasattr(model.model, 'layers'):
-        layers_to_freeze = model.model.layers[:6]
+        layers_to_freeze = model.model.layers[:6] # 获取前6层
         for layer in layers_to_freeze:
             for p in layer.parameters():
                 p.requires_grad = False
+    # 检查 model 对象是否有 model 属性
+        # 并且检查 model.model 对象是否有 layers 属性
+        # 这是为了确保模型结构符合预期（如LLaMA、Gemma等Transformer架构）
+
 
     # 5.4 配置 LoRA
     print("\n🚀 4. 正在配置LoRA...")
@@ -142,9 +140,11 @@ if __name__ == "__main__":
         task_type=TaskType.CAUSAL_LM,
         # 目标模块：通常是 Attention 层的投影矩阵
         target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+        # 这个在from peft.utils import PeftType, TRANSFORMERS_MODELS_TO_LORA_TARGET_MODULES_MAPPING中查看
+        # 或者通过打印model.named_parameters()查看
         inference_mode=False,  # 训练模式
         r=8,  # LoRA 秩，决定了可训练参数量的大小
-        lora_alpha=32,  # 缩放系数，通常是 r 的 2-4 倍
+        lora_alpha=32,  # 缩放系数，通常是 r 的 2-4 倍，用来缩放权重（计算是alpha/r）
         lora_dropout=0.1
     )
 
