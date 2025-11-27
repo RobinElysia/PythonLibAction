@@ -6,4 +6,3 @@ mysqlproject.egg-info/SOURCES.txt
 mysqlproject.egg-info/dependency_links.txt
 mysqlproject.egg-info/requires.txt
 mysqlproject.egg-info/top_level.txt
-test/test.py

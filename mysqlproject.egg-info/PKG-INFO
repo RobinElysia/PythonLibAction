@@ -32,4 +32,3 @@ Requires-Dist: tensorboard==2.13.0
 Requires-Dist: torchsummary==1.5.1
 Requires-Dist: watchdog
 Requires-Dist: streamlit
-Requires-Dist: notebook>=7.1.3
