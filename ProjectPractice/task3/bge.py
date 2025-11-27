@@ -23,8 +23,8 @@ for raw_line in text.split('\n'):   # 每一行进行遍历
 # ['第1行', '第2行', '第3行']
 
 # ---------- 2. 加载 tokenizer + 模型 ----------
-tok = AutoTokenizer.from_pretrained(r"D:\model\Em\bge")
-model = AutoModel.from_pretrained(r"D:\model\Em\bge")
+tok = AutoTokenizer.from_pretrained(r"D:\code\python\LearnPyLib\model\Em\bge")
+model = AutoModel.from_pretrained(r"D:\code\python\LearnPyLib\model\Em\bge")
 print("模型维度：", model.config.hidden_size) # 查看维度
 model.eval()          # 推理模式
 """
