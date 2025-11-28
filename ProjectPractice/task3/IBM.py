@@ -23,7 +23,7 @@ with open(r'D:\code\python\LearnPyLib\ProjectPractice\task3\IBM.txt', 'w', encod
 # 每行话转换为list
 sens = []
 for i in clear_phone_data.split("\n"):
-    i = i.split()
+    i = i.strip()
     if i:
         sens.append(i)
 
