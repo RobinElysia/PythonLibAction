@@ -1,4 +1,3 @@
-import os
 import pandas as pd
 import torch
 from datasets import Dataset
@@ -18,11 +17,11 @@ from peft import (
 
 # --- 1. 配置常量 ---
 # 模型路径（通常是本地下载好的HuggingFace格式模型）
-MODEL_PATH = "/opt/model/gemma-2-2b"
+MODEL_PATH = "D:\code\python\LearnPyLib\model\Generate\Gemma"
 # 训练数据路径（JSON格式指令集）
-DATA_PATH = "/opt/data/lora.json"
+DATA_PATH = "D:\code\python\LearnPyLib\model\Generate\Gemma\data.json"
 # 输出路径
-OUTPUT_DIR = "./gemma2_lora_finetune_output"
+OUTPUT_DIR = "D:\code\python\LearnPyLib\model\Generate\Gemma"
 
 # --- 2. 定义Prompt模板 ---
 # 这是Gemma模型特有的对话模板格式，包含 system, user, assistant 标签
@@ -116,36 +115,39 @@ if __name__ == "__main__":
     model = AutoModelForCausalLM.from_pretrained(
         MODEL_PATH,
         device_map="auto",
-        torch_dtype=torch.bfloat16
+        torch_dtype=torch.float32
     )
 
     # 开启梯度检查点，节省显存（用计算换显存）
     model.enable_input_require_grads()
 
-    # 这里的逻辑是：如果找到 layers 属性，则再次确认前6层是冻结的
+    # 这里的逻辑是：如果找到 layers 属性，则确认前6层是冻结的梯度计算
     # 实际上，使用LoRA时，基础模型通常全是冻结的。这里的代码可能是为了确保某些特殊层不参与计算。
     if hasattr(model, 'model') and hasattr(model.model, 'layers'):
         layers_to_freeze = model.model.layers[:6] # 获取前6层
         for layer in layers_to_freeze:
             for p in layer.parameters():
-                p.requires_grad = False
+                p.requires_grad = False # 设置前六层的参数的 requires_grad 属性为 False
     # 检查 model 对象是否有 model 属性
         # 并且检查 model.model 对象是否有 layers 属性
         # 这是为了确保模型结构符合预期（如LLaMA、Gemma等Transformer架构）
 
-
     # 5.4 配置 LoRA
     print("\n🚀 4. 正在配置LoRA...")
     config = LoraConfig(
-        task_type=TaskType.CAUSAL_LM,
+        task_type=TaskType.CAUSAL_LM, # 因果模型必须设置的任务类型
         # 目标模块：通常是 Attention 层的投影矩阵
         target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
         # 这个在from peft.utils import PeftType, TRANSFORMERS_MODELS_TO_LORA_TARGET_MODULES_MAPPING中查看
         # 或者通过打印model.named_parameters()查看
-        inference_mode=False,  # 训练模式
         r=8,  # LoRA 秩，决定了可训练参数量的大小
+        # r越大，参数越多，模型容量越大但计算开销增加
         lora_alpha=32,  # 缩放系数，通常是 r 的 2-4 倍，用来缩放权重（计算是alpha/r）
+        # 控制LoRA权重对原始模型权重的影响程度
         lora_dropout=0.1
+        # 在训练过程中随机丢弃部分LoRA参数，防止过拟合
+        # 数据量小时: 0.1-0.3
+        # 数据量大时: 0.05-0.1
     )
 
     # 将 LoRA 适配器挂载到基础模型上
@@ -160,42 +162,47 @@ if __name__ == "__main__":
 
     # 5.5 配置训练参数
     args = TrainingArguments(
-        output_dir=OUTPUT_DIR,
+        output_dir=OUTPUT_DIR + r"\train",
+
+        # 训练参数
         per_device_train_batch_size=4,  # 显存小则调小
+        per_device_eval_batch_size=4, # 显存小则调小
         gradient_accumulation_steps=4,  # 梯度累积，变相增大 batch size
-        logging_steps=10,
-        num_train_epochs=3,
-        save_steps=100,
+
+        # 日志
+        logging_steps=10, # 训练过程中每多少步打印一次日志
+        num_train_epochs=3, # 训练轮数
+        save_steps=100, # 每多少步保存一次模型
+        save_on_each_node=True,  # 保存模型时是否保存所有节点的模型
+        gradient_checkpointing=True,  # 启用梯度检查点，节省显存
+
+        # 优化
         learning_rate=1e-4,  # LoRA通常比全量微调学习率大一点
-        save_on_each_node=True,
-        gradient_checkpointing=True,
         bf16=True,  # 开启半精度
-        fp16=False,
-        save_total_limit=1  # 只保留最近的一个模型
+        metric_for_best_model="eval_loss",  # 以验证损失为准
+        greater_is_better=False,  # 越小越好
+        save_total_limit=1  # 只保留最优的一个模型
     )
 
     # 5.6 开始训练
     trainer = Trainer(
-        model=model,
-        args=args,
-        train_dataset=tokenized_ds,
+        model=model, # 模型
+        args=args, # train arguments
+        train_dataset=tokenized_ds, # 数据集
         # DataCollator 负责将 batch 数据动态 padding 到最大长度
-        data_collator=DataCollatorForSeq2Seq(tokenizer=tokenizer, padding=True),
+        data_collator=DataCollatorForSeq2Seq(tokenizer=tokenizer, padding=True), # Tokenizer和DataCollator
     )
 
     print("\n🚀 正在开始LoRA微调...")
     trainer.train()
 
     # 5.7 保存 Adapter
-    final_adapter_path = f"{OUTPUT_DIR}/final_adapter"
-    trainer.model.save_pretrained(final_adapter_path)
+    final_adapter_path = r"{OUTPUT_DIR}\final_adapter"
+    trainer.model.save_pretrained(final_adapter_path) # 保存模型
     print(f"✅ LoRA适配器权重已保存到: {final_adapter_path}")
 
     # 5.8 合并权重 (Merge LoRA into Base Model)
     # 推理时，为了速度，通常将 LoRA 权重合并回基础模型
-    print("\n🚀 5. 正在合并LoRA权重到原始模型...")
-    merged_model_path = f"{OUTPUT_DIR}/merged_model"
-    os.makedirs(merged_model_path, exist_ok=True)
 
     # 重新加载 Base + Adapter
     model_to_merge = AutoPeftModelForCausalLM.from_pretrained(
@@ -203,10 +210,10 @@ if __name__ == "__main__":
         torch_dtype=torch.bfloat16,
         device_map="auto"
     )
-    # 执行合并卸载操作
+    # 执行合并操作
     merged_model = model_to_merge.merge_and_unload()
 
     # 保存完整模型
-    merged_model.save_pretrained(merged_model_path, safe_serialization=True)
-    tokenizer.save_pretrained(merged_model_path)
+    merged_model.save_pretrained(OUTPUT_DIR + "\merged_model", safe_serialization=True)
+    tokenizer.save_pretrained(OUTPUT_DIR + "\merged_model")
     print("--- 训练和合并流程结束 ---")

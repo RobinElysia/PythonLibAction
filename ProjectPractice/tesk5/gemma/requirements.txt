@@ -1,0 +1,7 @@
+streamlit
+torch
+transformers
+pymysql
+faiss-cpu
+beautifulsoup4
+accelerate
