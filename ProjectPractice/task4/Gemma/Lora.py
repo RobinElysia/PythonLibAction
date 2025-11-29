@@ -8,16 +8,17 @@ from transformers import (
 from peft import LoraConfig, TaskType, get_peft_model, AutoPeftModelForCausalLM
 
 # --- 1. 配置常量 ---
-MODEL_PATH = r"D:\code\python\LearnPyLib\model\Generate\Gemma"
+MODEL_PATH = r"/opt/model"
 # 训练数据路径（JSON格式指令集）
-DATA_PATH = r"D:\code\python\LearnPyLib\model\Generate\Gemma\data.json"
+DATA_PATH = r"./data/data.json"
 # 输出路径
-OUTPUT_DIR = r"D:\code\python\LearnPyLib\model\Generate\Gemma"
+OUTPUT_DIR = r"/opt/model/gemma2-LoRa-output"
 
+# Llama模板语法
 PROMPT_TEMPLATE = (
     "<|begin_of_text|>"
     "<|start_header_id|>system<|end_header_id|>\n\n"
-    "你是一个有用的助手。<|eot_id|>"
+    "你是一个AI助手。<|eot_id|>"
     "<|start_header_id|>user<|end_header_id|>\n\n"
     "{instruction}{input}<|eot_id|>"
     "<|start_header_id|>assistant<|end_header_id|>\n\n"
@@ -60,7 +61,8 @@ def process_func(example):
 if __name__ == "__main__":
     # 3.1 加载分词器
     tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, use_fast=False, trust_remote_code=True)
-    if tokenizer.pad_token is None: tokenizer.pad_token = tokenizer.eos_token
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
 
     # 3.2 准备数据
     ds = Dataset.from_pandas(pd.read_json(DATA_PATH))
@@ -85,8 +87,8 @@ if __name__ == "__main__":
         lora_alpha=32,
         lora_dropout=0.1
     )
+    # 拼装模型
     model = get_peft_model(model, peft_config)
-    model.print_trainable_parameters()
 
     # 3.5 训练参数
     args = TrainingArguments(
@@ -112,12 +114,15 @@ if __name__ == "__main__":
 
     # 3.7 保存适配器 (Adapter)
     trainer.save_model(OUTPUT_DIR + "/final_adapter")
-    print(f"✅ LoRA训练完成，适配器已保存至: {OUTPUT_DIR}/final_adapter")
+    print(f"LoRA训练完成，适配器已保存至: {OUTPUT_DIR}/final_adapter")
 
     # --- 4. (可选) 合并模型 ---
     # 注意：如果显存不足，请单独运行此步骤，不要在训练后紧接着运行
     model_to_merge = AutoPeftModelForCausalLM.from_pretrained(
-        OUTPUT_DIR + "/final_adapter", device_map={"cuda": 0}, torch_dtype=torch.bfloat16)
+        OUTPUT_DIR + "/final_adapter",
+        device_map={"cuda": 0},
+        torch_dtype=torch.bfloat16
+    )
     merged_model = model_to_merge.merge_and_unload()
     merged_model.save_pretrained(OUTPUT_DIR + "/merged_model", safe_serialization=True)
     tokenizer.save_pretrained(OUTPUT_DIR + "/merged_model")

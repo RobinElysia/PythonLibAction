@@ -3,7 +3,7 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
-      <excludeFolder url="file://$MODULE_DIR$/model/Em/IBM" />
+      <excludeFolder url="file://$MODULE_DIR$/model/Generate/IBM" />
     </content>
     <orderEntry type="jdk" jdkName="uv (LearnPyLib)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
