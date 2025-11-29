@@ -9,11 +9,9 @@ ADAPTER_PATH = r"/opt/model/gemma2-PromptTuning-output"
 # Gemma
 prompt_template = (
     "<start_of_turn>system\n"
-    "你是一个AI助手"
-    "<end_of_turn>\n"
+    "你是一个AI助手<end_of_turn>\n"
     "<start_of_turn>user\n"
-    "{instruction}{input}"
-    "<end_of_turn>\n"
+    "{instruction}{input}<end_of_turn>\n"
     "<start_of_turn>model\n"
 )
 
@@ -62,5 +60,5 @@ def gen_resp(tokenizer, model, query, input_text=""):
 
 if __name__ == "__main__":
     model, tokenizer = load_model()
-    query = "请给我讲一个笑话"
+    query = "北京有什么好玩的么？"
     print(gen_resp(tokenizer, model, query))
