@@ -59,8 +59,11 @@ def gen_resp(tokenizer, model, query, input_text=""):
         )
 
     # 4. 解码 (只截取生成部分，去掉 Prompt)
+    # 获取输入解析后的input_ids数量
     input_len = inputs.input_ids.shape[1]
+    # 查询 + 答案，我们需要去掉查询，拿到生成的答案
     generated_ids = outputs[0][input_len:]
+    # 解码答案，并且忽略特殊符号
     response = tokenizer.decode(generated_ids, skip_special_tokens=True)
 
     return response
