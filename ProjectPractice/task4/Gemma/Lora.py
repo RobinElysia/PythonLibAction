@@ -49,9 +49,9 @@ def process_func(example):
 
     # 在 process_func 返回前加一行防御性截断（只切不补）
     if len(input_ids) > 2048:  # 或者 2048，根据你显存决定
-        input_ids = input_ids[:2048]
-        attention_mask = attention_mask[:2048]
-        labels = labels[:2048]
+        input_ids = input_ids[:1024]
+        attention_mask = attention_mask[:1024]
+        labels = labels[:1024]
 
     return {
         "input_ids": input_ids,
@@ -78,7 +78,8 @@ if __name__ == "__main__":
     model = AutoModelForCausalLM.from_pretrained(
         MODEL_PATH,
         device_map={"cuda":0},
-        torch_dtype=torch.bfloat16  # 推荐 bfloat16
+        torch_dtype=torch.bfloat16,  # 推荐 bfloat16
+        trust_remote_code=True
     )
     model.enable_input_require_grads()  # 开启梯度检查点兼容
 
@@ -111,7 +112,7 @@ if __name__ == "__main__":
         model=model,
         args=args,
         train_dataset=tokenized_ds, # 这个是个字典包列表
-        data_collator=DataCollatorForSeq2Seq(tokenizer=tokenizer, padding=True), # 字典内列表转张量
+        data_collator=DataCollatorForSeq2Seq(tokenizer=tokenizer, padding=True, max_length=1024), # 字典内列表转张量
     )
     trainer.train()
 
@@ -121,11 +122,14 @@ if __name__ == "__main__":
 
     # --- 4. (可选) 合并模型 ---
     # 注意：如果显存不足，请单独运行此步骤，不要在训练后紧接着运行
+    # LoRA/AdaLoRA 这类适配器文件夹里必须带一个 adapter_config.json，这个文件中指明了基础模型位置
+    # 这里无需再次指明基础模型位置，隐式的就加载进来了
     model_to_merge = AutoPeftModelForCausalLM.from_pretrained(
         OUTPUT_DIR + "/final_adapter",
         device_map={"cuda": 0},
-        torch_dtype=torch.bfloat16
+        torch_dtype=torch.bfloat16,
+        trust_remote_code=True
     )
-    merged_model = model_to_merge.merge_and_unload()
+    merged_model = model_to_merge.merge_and_unload() # 合并模型
     merged_model.save_pretrained(OUTPUT_DIR + "/merged_model", safe_serialization=True)
     tokenizer.save_pretrained(OUTPUT_DIR + "/merged_model")
