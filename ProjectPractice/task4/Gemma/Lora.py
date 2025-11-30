@@ -1,3 +1,6 @@
+# LoRA 比其它方案效果好的原因可能是因为它不增加深度，因为增加深度会导致训练不稳定。
+# 另外，有人通过理论分析证明了只要秩（R）足够大，LoRA 就能适用于任意全连接神经网络。
+
 import pandas as pd
 import torch
 from datasets import Dataset
