@@ -1,7 +1,9 @@
+# /
+
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-MODEL_PATH = r"/opt/model/merged_model"
+MODEL_PATH = "/opt/model/gemma2-LoRa-output/merged_model"
 
 # Llama模板语法
 PROMPT_TEMPLATE = (
@@ -20,14 +22,16 @@ def load_model():
     :return: tokenizer分词器对象, model模型对象
     """
     print("🔄 正在加载模型...")
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, local_files_only=True,trust_remote_code=True)
 
     # 这一步与训练时保持一致，加载基座
     model = AutoModelForCausalLM.from_pretrained(
         MODEL_PATH,
-        device_map={"cuda":0},
+        device_map={"":0},
         torch_dtype=torch.bfloat16,  # 保持和训练时一致的精度
-        trust_remote_code=True
+        local_files_only=True,
+        trust_remote_code=True,  # 加载LoRA模型时需要
+
     )
     model.eval()  # 切换到评估模式
     return tokenizer, model

@@ -21,17 +21,21 @@ def proc_func(example):
     input_ids = tokenizer.apply_chat_template(
         messages,
         tokenize=True, # 是否将instruction_text进行tokenize
-        add_generation_prompt=False  # 如果设置了此条件，格式化输出后会附加一个带有标记的提示，表示助手消息的开头。
+        add_generation_prompt=False
+        # 这部分为什么设置成False呢？因为我们有了{"role": "assistant", "content": example['output']}这个字段
+        # 这是正确答案
     )
     # 拿到问题input_ids
     prompt_ids = tokenizer.apply_chat_template(
-        messages[0:-1], # 去掉最后的内容
+        messages[0:-1], # 去掉最后的标准答案
         tokenize=True,
         add_generation_prompt=True
+        # 但是这里，我们去掉了标准答案，我们需要模型自己生成
+        # 生成好的内容与上述正确答案做loss计算，也就是下述的labels
     )
     # 拿到问题长度
     prompt_length = len(prompt_ids)
-    # 进行拼接
+    # 进行拼接，码住问题，拿到生成的内容，我们需要做 loss
     labels = [-100] * prompt_length + input_ids[prompt_length:]
     # 拿到掩码
     attention_mask = [1] * len(input_ids)
@@ -56,7 +60,7 @@ data_list = data.map(proc_func, remove_columns=data.column_names)
 model = AutoModelForCausalLM.from_pretrained(
     model_path,
     trust_remote_code=True,
-    device_map={"cuda":0},
+    device_map={"":0},
     torch_dtype=torch.bfloat16
 )
 model.enable_train_require_grads()
@@ -95,7 +99,7 @@ trainer.save_model(out_path)
 # 再次加载模型
 model_ = AutoPeftModelForCausalLM.from_pretrained(
     out_path,
-    device_map={"cuda":0},
+    device_map={"":0},
     torch_dtype=torch.bfloat16
 )
 # 合并权重并保存

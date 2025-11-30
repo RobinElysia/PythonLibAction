@@ -18,11 +18,12 @@ prompt_template = (
 def load_model():
     model = AutoModelForCausalLM.from_pretrained(
         BASE_MODEL_PATH,
-        device_map={"cuda":0},
+        device_map={"":0},
+        local_files_only=True,
         torch_dtype=torch.bfloat16
     )
     model = PeftModel.from_pretrained(model, ADAPTER_PATH)
-    tokenize = AutoTokenizer.from_pretrained(BASE_MODEL_PATH, trust_remote_code=True)
+    tokenize = AutoTokenizer.from_pretrained(BASE_MODEL_PATH, trust_remote_code=True,local_files_only=True)
     model.eval()
     return model, tokenize
 

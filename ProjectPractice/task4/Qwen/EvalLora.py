@@ -6,13 +6,15 @@ model_path = r"D:\code\python\LearnPyLib\model\Generate\Qwen\Qwen-LoRa-output"
 def load_model():
     model = AutoModelForCausalLM.from_pretrained(
         model_path,
-        device_map={"cuda":0},
+        device_map={"":0},
         torch_dtype=torch.bfloat16,
+        local_files_only=True,
         trust_remote_code=True
     )
     model.eval()
     tokenizer = AutoTokenizer.from_pretrained(
         model_path,
+        local_files_only=True,
         trust_remote_code=True
     )
     return model, tokenizer
@@ -24,7 +26,7 @@ def gen_resp(model, tokenizer, query, input=""):
         {"role": "system", "content": "你是一个AI助手"},
         {"role": "user", "content": query}
     ]
-    if input:
+    if input: # 如果input不为空
         messages.append({"role": "assistant", "content": input})
     # 应用聊天模板
     text = tokenizer.apply_chat_template(

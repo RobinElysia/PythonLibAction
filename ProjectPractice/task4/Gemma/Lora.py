@@ -77,7 +77,7 @@ if __name__ == "__main__":
     # 3.3 加载模型
     model = AutoModelForCausalLM.from_pretrained(
         MODEL_PATH,
-        device_map={"cuda":0},
+        device_map={"":0},
         torch_dtype=torch.bfloat16,  # 推荐 bfloat16
         trust_remote_code=True
     )
@@ -126,7 +126,7 @@ if __name__ == "__main__":
     # 这里无需再次指明基础模型位置，隐式的就加载进来了
     model_to_merge = AutoPeftModelForCausalLM.from_pretrained(
         OUTPUT_DIR + "/final_adapter",
-        device_map={"cuda": 0},
+        device_map={"": 0},
         torch_dtype=torch.bfloat16,
         trust_remote_code=True
     )

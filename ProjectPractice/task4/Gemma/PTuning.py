@@ -43,7 +43,7 @@ data_handel = data.map(proc_func, remove_columns=data.column_names)
 # 加载模型
 model = AutoModelForCausalLM.from_pretrained(
     model_path,
-    device_map={"cuda":0},
+    device_map={"":0},
     torch_dtype=torch.bfloat16,
 )
 model.enable_input_require_grads()

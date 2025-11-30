@@ -16,12 +16,14 @@ prompt_template = (
 def load_model():
     tokenizer = AutoTokenizer.from_pretrained(
         BASE_MODEL_PATH,
+        local_files_only=True,
         trust_remote_code=True,
     )
     model = AutoModelForCausalLM.from_pretrained(
         BASE_MODEL_PATH,
         torch_dtype=torch.bfloat16,
-        device_map={"cuda":0}
+        local_files_only=True,
+        device_map={"":0}
     )
     model = PeftModel.from_pretrained(model, ADAPTER_PATH)
     return model, tokenizer
