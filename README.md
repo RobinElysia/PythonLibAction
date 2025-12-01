@@ -15,12 +15,10 @@
 
 这里采用 WSL2 作为本地开发环境支持，为什么不选 VM 和 其他的虚拟化技术，一是 VM 有点大材小用的感觉，虚拟化环境配发 4 核心或许不太够用；为什么不用 Docker 虚拟环境，一方面是出现的各种硬件虚拟化问题，一方面是精简虚拟化环境可能导致各种意料之外的问题。所以我们采用折中方案， WSL2 虚拟化。
 
-对于 WSL2 而言，我建议使用 Ubuntu 22 以上的版本。
+对于 WSL2 而言，我建议使用 Ubuntu 20/22 版本，24 版本不支持cuda11.8和对应的cudnn。
 
 #### 手动编译 Python 环境
-
-低版本较为麻烦，需要去 python 官网或者ustc源直接下载高版本的压缩包，解压缩编译
-
+因为apt不支持安装特定版本，所以这里需要去 python 官网或者 ustc 源下载高版本的压缩包，解压缩编译
 这里我们选择 ustc 源 进行下载，链接如下：
 https://mirrors.ustc.edu.cn/python/3.10.8/Python-3.10.8.tar.xz
 https://mirrors.ustc.edu.cn/python/3.11.14/Python-3.11.14.tar.xz
@@ -138,7 +136,7 @@ sudo cp /var/cudnn-local-repo-ubuntu2204-8.9.3.28/cudnn-*-keyring.gpg /usr/share
 sudo apt-get update
 
 # 安装
-sudo apt-get install  -y libcudnn8 libcudnn8-dev libcudnn8-samples
+sudo apt-get install -y libcudnn8 libcudnn8-dev libcudnn8-samples
 
 ```
 
