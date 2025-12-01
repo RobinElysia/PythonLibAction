@@ -85,6 +85,8 @@ arg = TrainingArguments(
     bf16=True,
     learning_rate=1e-4,
     gradient_checkpointing=True,
+    evaluation_strategy="steps", # 评估，可以去了
+    eval_steps=100, # 评估的步数，可以去了
 )
 # 开始训练
 trainer = Trainer(

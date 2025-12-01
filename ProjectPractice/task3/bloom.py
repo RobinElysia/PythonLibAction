@@ -4,18 +4,16 @@ os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 import faiss
 from transformers import AutoTokenizer, AutoModel
-from bs4 import BeautifulSoup
 import torch
 import re
 
 # ---------- 1. 清洗数据（完全不动） ----------
 # 文本预处理： 读取数据 ，去除HTML标签，并删除文本中所有的电话号码，保存数据。
 
-with open(r"/ProjectPractice/task3/3.txt", 'r', encoding='utf-8') as f:
+with open(r"D:\code\python\LearnPyLib\ProjectPractice\task3\3.txt", 'r', encoding='utf-8') as f:
     content = f.read()
-html_data = BeautifulSoup(content, 'html.parser')
 
-clear_tag_data = re.sub(r'<.*?>', '', str(html_data)) # 删除HTML标签
+clear_tag_data = re.sub(r'<.*?>', '', content) # 删除HTML标签
 clear_number_data = re.sub(r'电话[:：]?.*', '', clear_tag_data) # 删除电话号码
 
 with open(r'D:\code\python\LearnPyLib\ProjectPractice\bloom.txt', 'w', encoding='utf-8') as f:

@@ -4,15 +4,13 @@ os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 import faiss
 import re
 import torch
-from bs4 import BeautifulSoup
 from transformers import AutoTokenizer, AutoModel
 
 
 # ---------- 1. 清洗数据 ----------
-with open(r"/ProjectPractice/task3/3.txt", 'r', encoding='utf-8') as f:
+with open(r"D:\code\python\LearnPyLib\ProjectPractice\task3\3.txt", 'r', encoding='utf-8') as f:
     content = f.read()
-soup = BeautifulSoup(content, 'html.parser')
-text = re.sub(r'<.*?>', '', str(soup)) # 替换为空
+text = re.sub(r'<.*?>', '', content) # 替换为空
 text = re.sub(r'电话[:：]?.*', '', text) # 替换为空
 lines = []                 # 用来存非空行
 for raw_line in text.split('\n'):   # 每一行进行遍历

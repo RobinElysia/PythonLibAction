@@ -1,5 +1,4 @@
 from transformers import AutoTokenizer, AutoModel
-from bs4 import BeautifulSoup
 import faiss
 from torch import no_grad
 import re
@@ -10,10 +9,8 @@ import re
 # 导入时数据
 with open(r'D:\code\python\LearnPyLib\ProjectPractice\task3\3.txt', 'r', encoding='utf-8') as f:
     content = f.read()
-# 汤处理
-data_load = BeautifulSoup(content, 'html.parser')
 # 正则删除
-data_clear_tag = re.sub(r'<.*?>', '', str(data_load))
+data_clear_tag = re.sub(r'<.*?>', '', content)
 data_clear_phone = re.sub(r'电话[:：]?.*', '', data_clear_tag)
 # 数据转换
 sens = []
