@@ -10,7 +10,7 @@ import re
 # ---------- 1. 清洗数据（完全不动） ----------
 # 文本预处理： 读取数据 ，去除HTML标签，并删除文本中所有的电话号码，保存数据。
 
-with open(r"D:\code\python\LearnPyLib\ProjectPractice\task3\3.txt", 'r', encoding='utf-8') as f:
+with open(r"/AboutTransformerLib/3.txt", 'r', encoding='utf-8') as f:
     content = f.read()
 
 clear_tag_data = re.sub(r'<.*?>', '', content) # 删除HTML标签
@@ -28,8 +28,8 @@ for i in clear_number_data.split("\n"):
 # ---------- 2. 加载 tokenizer + 模型 ----------
 # 用 transforms 加载Embedding 模型bge-base-zh，对处理后数据进行向量化操作，并存入向量库FAISS中，保存数据。
 
-token = AutoTokenizer.from_pretrained(r"D:\code\python\LearnPyLib\model\Em\bloom") # 我的模型在本地，你们需要更改
-model = AutoModel.from_pretrained(r"D:\code\python\LearnPyLib\model\Em\bloom")
+token = AutoTokenizer.from_pretrained(r"/model/Em/bloom") # 我的模型在本地，你们需要更改
+model = AutoModel.from_pretrained(r"/model/Em/bloom")
 model.eval()
 d = model.config.hidden_size # 1536维度
 

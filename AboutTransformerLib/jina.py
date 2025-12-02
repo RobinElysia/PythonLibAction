@@ -7,7 +7,7 @@ import re
 # 文本预处理： 读取数据 ，去除HTML标签，并删除文本中所有的电话号码，保存数据。
 
 # 导入时数据
-with open(r'D:\code\python\LearnPyLib\ProjectPractice\task3\3.txt', 'r', encoding='utf-8') as f:
+with open(r'/AboutTransformerLib/3.txt', 'r', encoding='utf-8') as f:
     content = f.read()
 # 正则删除
 data_clear_tag = re.sub(r'<.*?>', '', content)
@@ -26,8 +26,8 @@ with open(r'D:\code\python\LearnPyLib\ProjectPractice\task3\jina.txt', 'w', enco
 # 用 transforms 加载Embedding 模型bge-base-zh，对处理后数据进行向量化操作，并存入向量库FAISS中，保存数据。
 
 # 创建模型
-tok = AutoTokenizer.from_pretrained(r'D:\code\python\LearnPyLib\model\Em\jina', trust_remote_code=True)
-model = AutoModel.from_pretrained(r'D:\code\python\LearnPyLib\model\Em\jina', trust_remote_code=True)
+tok = AutoTokenizer.from_pretrained(r'/model/Em/jina', trust_remote_code=True)
+model = AutoModel.from_pretrained(r'/model/Em/jina', trust_remote_code=True)
 # 开启模型eval
 model.eval()
 # 定义维度

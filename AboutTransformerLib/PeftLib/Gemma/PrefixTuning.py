@@ -18,7 +18,7 @@ prompt_template = (
 
 # 处理函数
 def proc_func(example):
-    input = prompt_template.format(example["instruction"], example.get("input",""))
+    input = prompt_template.format(instruction=example["instruction"], input=example.get("input",""))
     response = f"{example['output']}"
 
     inp_ids = tokenizer(input, add_special_tokens=False)["input_ids"]

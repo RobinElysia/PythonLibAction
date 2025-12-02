@@ -8,7 +8,7 @@ from transformers import AutoTokenizer, AutoModel
 
 
 # ---------- 1. 清洗数据 ----------
-with open(r"D:\code\python\LearnPyLib\ProjectPractice\task3\3.txt", 'r', encoding='utf-8') as f:
+with open(r"/AboutTransformerLib/3.txt", 'r', encoding='utf-8') as f:
     content = f.read()
 text = re.sub(r'<.*?>', '', content) # 替换为空
 text = re.sub(r'电话[:：]?.*', '', text) # 替换为空
@@ -21,8 +21,8 @@ for raw_line in text.split('\n'):   # 每一行进行遍历
 # ['第1行', '第2行', '第3行']
 
 # ---------- 2. 加载 tokenizer + 模型 ----------
-tok = AutoTokenizer.from_pretrained(r"D:\code\python\LearnPyLib\model\Em\bge")
-model = AutoModel.from_pretrained(r"D:\code\python\LearnPyLib\model\Em\bge")
+tok = AutoTokenizer.from_pretrained(r"/model/Em/bge")
+model = AutoModel.from_pretrained(r"/model/Em/bge")
 print("模型维度：", model.config.hidden_size) # 查看维度
 model.eval()          # 推理模式
 """

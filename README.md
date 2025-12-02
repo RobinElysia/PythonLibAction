@@ -19,6 +19,7 @@
 
 #### 手动编译 Python 环境
 因为apt不支持安装特定版本，所以这里需要去 python 官网或者 ustc 源下载高版本的压缩包，解压缩编译
+
 这里我们选择 ustc 源 进行下载，链接如下：
 https://mirrors.ustc.edu.cn/python/3.10.8/Python-3.10.8.tar.xz
 https://mirrors.ustc.edu.cn/python/3.11.14/Python-3.11.14.tar.xz
