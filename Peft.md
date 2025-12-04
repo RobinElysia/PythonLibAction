@@ -1,18 +1,19 @@
 我会以Gemma2:2b和Qwen为例子进行微调，废话少说，直接开始。
+
 ## 提示词模板参考
 
-|模型家族|system 支持|角色名|典型边界标记|官方模板片段（Jinja2）|备注|
-|:--|:--|:--|:--|:--|:--|
-|**Qwen2 / Qwen-VL**|✅ 默认带  <br>`You are a helpful assistant`|user / assistant / system|`<|im_start|>role\n...<|im_end|>\n`|`{% for message in messages %}{{'<|im_start|>'+message['role']+'\n'+message['content']+'<|im_end|>'+'\n'}}{% endfor %}`|多模态时插入 `<|vision_start|>...<|vision_end|>`|
-|**ChatML（OpenAI 风格）**|✅ 推荐显式给出|user / assistant / system|同上|官方单行版：  <br>`{%- for message in messages %}{{'<|im_start|>'+message['role']+'\n'+message['content']+'<|im_end|>'+'\n'}}{% endfor %}`|被多数新模型直接复用|
-|**Llama-2-Chat**|✅ 用 `<<SYS>>\n...\n<</SYS>>` 嵌在第一条 user 里|user / assistant|`<s>[INST] <<SYS>>...\n<</SYS>>\n{user} [/INST] {assistant} </s><s>[INST] {user} [/INST]`|见下方完整模板|官方**不允许**单独 system 消息，必须嵌在首条 user 内部|
-|**Llama-3-Instruct**|✅ 独立 system 消息|user / assistant / system|`<|start_header_id|>{role}<|end_header_id|>\n\n{content}<|eot_id|>`|`{% for message in messages %}{{'<|start_header_id|>'+message['role']+'<|end_header_id|>\n\n'+message['content']+'<|eot_id|>'}}{% endfor %}`|与 llama-2 不兼容|
-|**Mistral-Instruct v0.x**|❌ 官方模板**显式禁止 system**|user / assistant|`<s>[INST] {user} [/INST] {assistant}</s>`|`{% if messages[0]['role']=='system' %}{{ raise_exception('System role not supported') }}{% endif %}...`|想加 system 需自己改模板|
-|**Gemma / Gemma-2**|❌ 官方**无 system**|user / model|`<bos><start_of_turn>user\n...<end_of_turn>\n<start_of_turn>model\n...<end_of_turn>`|模板里把 assistant 重命名成 model|
-|**Yi-Chat**|✅ 可选|user / assistant / system|同 ChatML|与 Qwen 相同格式，官方无默认 system|
-|**DeepSeek-Chat**|✅ 默认 system|user / assistant / system|同 ChatML|直接复用 Qwen 模板|
-|**GLM-4-Chat**|✅|user / assistant / system|`[gMASK]sop<|user|>\n...<|assistant|>\n...<|system|>\n...`|官方模板较长，见仓库 tokenizer_config.json|含 `gMASK`+`sop` 前缀|
-|**Baichuan2-Chat**|✅|user / assistant / system|`<reserved_102>{user}<reserved_103>{assistant}<reserved_102>...`|用数字 ID 作角色标记|需关 `add_bos_token=False`|
+| 模型家族                  | system 支持                                      | 角色名                    | 典型边界标记                                                 | 官方模板片段（Jinja2）                                       | 备注                                                   |
+| :------------------------ | :----------------------------------------------- | :------------------------ | :----------------------------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------- |
+| **Qwen2 / Qwen-VL**       | ✅ 默认带  <br>`You are a helpful assistant`      | user / assistant / system | `<|im_start|>role\n...<|im_end|>\n`                          | `{% for message in messages %}{{'<|im_start|>'+message['role']+'\n'+message['content']+'<|im_end|>'+'\n'}}{% endfor %}` | 多模态时插入 `<|vision_start|>...<|vision_end|>`       |
+| **ChatML（OpenAI 风格）** | ✅ 推荐显式给出                                   | user / assistant / system | 同上                                                         | 官方单行版：  <br>`{%- for message in messages %}{{'<|im_start|>'+message['role']+'\n'+message['content']+'<|im_end|>'+'\n'}}{% endfor %}` | 被多数新模型直接复用                                   |
+| **Llama-2-Chat**          | ✅ 用 `<<SYS>>\n...\n<</SYS>>` 嵌在第一条 user 里 | user / assistant          | `<s>[INST] <<SYS>>...\n<</SYS>>\n{user} [/INST] {assistant} </s><s>[INST] {user} [/INST]` | 见下方完整模板                                               | 官方**不允许**单独 system 消息，必须嵌在首条 user 内部 |
+| **Llama-3-Instruct**      | ✅ 独立 system 消息                               | user / assistant / system | `<|start_header_id|>{role}<|end_header_id|>\n\n{content}<|eot_id|>` | `{% for message in messages %}{{'<|start_header_id|>'+message['role']+'<|end_header_id|>\n\n'+message['content']+'<|eot_id|>'}}{% endfor %}` | 与 llama-2 不兼容                                      |
+| **Mistral-Instruct v0.x** | ❌ 官方模板**显式禁止 system**                    | user / assistant          | `<s>[INST] {user} [/INST] {assistant}</s>`                   | `{% if messages[0]['role']=='system' %}{{ raise_exception('System role not supported') }}{% endif %}...` | 想加 system 需自己改模板                               |
+| **Gemma / Gemma-2**       | ❌ 官方**无 system**                              | user / model              | `<bos><start_of_turn>user\n...<end_of_turn>\n<start_of_turn>model\n...<end_of_turn>` | 模板里把 assistant 重命名成 model                            |                                                        |
+| **Yi-Chat**               | ✅ 可选                                           | user / assistant / system | 同 ChatML                                                    | 与 Qwen 相同格式，官方无默认 system                          |                                                        |
+| **DeepSeek-Chat**         | ✅ 默认 system                                    | user / assistant / system | 同 ChatML                                                    | 直接复用 Qwen 模板                                           |                                                        |
+| **GLM-4-Chat**            | ✅                                                | user / assistant / system | `[gMASK]sop<|user|>\n...<|assistant|>\n...<|system|>\n...`   | 官方模板较长，见仓库 tokenizer_config.json                   | 含 `gMASK`+`sop` 前缀                                  |
+| **Baichuan2-Chat**        | ✅                                                | user / assistant / system | `<reserved_102>{user}<reserved_103>{assistant}<reserved_102>...` | 用数字 ID 作角色标记                                         | 需关 `add_bos_token=False`                             |
 
 ### 使用
 
@@ -220,8 +221,6 @@ formatted = tokenizer.apply_chat_template(
     chat_template=None  # 或指定自定义模板
 )
 ```
-
-注：
 
 ## Gemma
 
@@ -922,25 +921,3 @@ if __name__ == "__main__":
     query = "北京有什么好玩的么？"
     print(gen_resp(tokenizer, model, query))
 ```
-
-## Qwen
-
-### 微调
-
-#### LoRa
-
-#### PromptTuning
-
-#### P-Tuning
-
-#### PrefixTuning
-
-### 预测
-
-#### LoRa
-
-#### PromptTuning
-
-#### P-Tuning
-
-#### PrefixTuning
