@@ -26,3 +26,4 @@ tensorboard==2.13.0
 torchsummary==1.5.1
 watchdog
 streamlit
+graphviz>=0.21

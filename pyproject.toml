@@ -10,44 +10,40 @@ description = "Add your description here"
 requires-python = "==3.10.11"
 dependencies = [
     # 解析/爬虫 - 快速、容错地抽取/清洗 HTML/XML 文本
-    "lxml==6.0.2",          # C 级高性能 XML/HTML 解析器，支持 XPath
+    "lxml==6.0.2", # C 级高性能 XML/HTML 解析器，支持 XPath
     "BeautifulSoup4==4.12.3", # 对不规则 HTML 友好的高层解析、搜索、遍历接口
-
     # 数据分析 - 结构化数据二维表格化操作与统计
-    "pandas==2.2.3",        # 提供 DataFrame/Series，支撑读写、过滤、聚合、透视等全套 EDA 流程
+    "pandas==2.2.3", # 提供 DataFrame/Series，支撑读写、过滤、聚合、透视等全套 EDA 流程
     "pyarrow==17.0.0",
-
     # 数据库 - 与 MySQL、MongoDB、向量检索引擎交互的驱动与 ORM
-    "pymysql==1.1.1",       # 纯 Python 实现的 MySQL 客户端
-    "pymongo==4.15.4",       # 官方 MongoDB 驱动
-    "faiss-cpu==1.9.0",     # Facebook 开源的稠密向量相似度检索库（CPU 版）
-    "SQLAlchemy==2.0.36",    # Python 事实标准 ORM & SQL 工具链
-    "mysqlclient",   # SQLAlchemy链接mysql需要，和pymysql都可以
-
+    "pymysql==1.1.1", # 纯 Python 实现的 MySQL 客户端
+    "pymongo==4.15.4", # 官方 MongoDB 驱动
+    "faiss-cpu==1.9.0", # Facebook 开源的稠密向量相似度检索库（CPU 版）
+    "SQLAlchemy==2.0.36", # Python 事实标准 ORM & SQL 工具链
+    "mysqlclient", # SQLAlchemy链接mysql需要，和pymysql都可以
     # 机器学习基本工具 - 经典 ML+可视化+数值计算
     "numpy>=1.25.0", # 张量/向量化计算基石，sklearn、torch 均依赖
-    "scikit-learn==1.7.2",   # 传统机器学习算法（分类/回归/聚类/降维/预处理）
-    "matplotlib",     # 2D 静态可视化，科研作图首选
-
+    "scikit-learn==1.7.2", # 传统机器学习算法（分类/回归/聚类/降维/预处理）
+    "matplotlib", # 2D 静态可视化，科研作图首选
     # 深度学习库 - Transformer 生态、PyTorch 全家桶及配套评估/加速/日志组件
-    "transformers==4.45.2",   # Hugging Face 社区预训练 SOTA 模型库（BERT/GPT/T5…）
-    "datasets==2.18.0",       # HF 社区 1000+ 标准/自定义数据集加载、缓存与处理接口
-    "evaluate",       # HF 统一封装 GLUE、ROUGE、BLEU 等常用评估指标
-    "peft==0.10.0",           # 参数高效微调（LoRA/AdaLoRA/P-tuning）官方实现
-    "accelerate==0.27.0",     # HF 分布式训练/混合精度/CPU offload 通用框架
-    "optimum",        # 针对 Intel/ONNX/OpenVINO/NVIDIA 的推理加速与量化工具箱
-    "sentencepiece==0.1.99",  # Google 子词分词器（支持 BPE/Unigram）
-    "nltk==3.9.1",           # 经典 NLP 工具集（分句、词性、情感词典等）
-    "torch==2.4.0+cu118",     # PyTorch GPU 2.2.0（CUDA 11.8）核心库
+    "transformers==4.45.2", # Hugging Face 社区预训练 SOTA 模型库（BERT/GPT/T5…）
+    "datasets==2.18.0", # HF 社区 1000+ 标准/自定义数据集加载、缓存与处理接口
+    "evaluate", # HF 统一封装 GLUE、ROUGE、BLEU 等常用评估指标
+    "peft==0.10.0", # 参数高效微调（LoRA/AdaLoRA/P-tuning）官方实现
+    "accelerate==0.27.0", # HF 分布式训练/混合精度/CPU offload 通用框架
+    "optimum", # 针对 Intel/ONNX/OpenVINO/NVIDIA 的推理加速与量化工具箱
+    "sentencepiece==0.1.99", # Google 子词分词器（支持 BPE/Unigram）
+    "nltk==3.9.1", # 经典 NLP 工具集（分句、词性、情感词典等）
+    "torch==2.4.0+cu118", # PyTorch GPU 2.2.0（CUDA 11.8）核心库
     "torchvision==0.19.0+cu118", # 官方视觉模型/数据变换/数据集
     "torchaudio==2.4.0+cu118", # 官方语音模型/特征提取/数据集
-    "tqdm==4.66.5",           # 进度条美化，训练/数据加载可视化
-    "tensorboard==2.13.0",    # 训练日志可视化（兼容 PytorchLib-lightning、transformers）
+    "tqdm==4.66.5", # 进度条美化，训练/数据加载可视化
+    "tensorboard==2.13.0", # 训练日志可视化（兼容 PytorchLib-lightning、transformers）
     "torchsummary==1.5.1",
-
     # 页面开发
     "watchdog",
-    "streamlit"
+    "streamlit",
+    "graphviz>=0.21",
 ]
 
 [[tool.pip.index-url]]
