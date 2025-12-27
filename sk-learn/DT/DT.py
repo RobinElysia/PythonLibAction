@@ -58,6 +58,7 @@ def DT_Classifier():
 
 def DT_Regressor():
     # 参数和分类树一摸一样，但是没有离散值的分类样本不均很问题
+    # 使用L2、L1和费尔德曼距作为损失函数（代替信息增益和基尼指数）
     pass
 
 if __name__ == '__main__':
