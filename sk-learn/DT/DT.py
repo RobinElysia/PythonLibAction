@@ -57,7 +57,7 @@ def DT_Classifier():
     print(clf.apply(X_test), clf.predict(X_test))
 
 def DT_Regressor():
-    # 参数和分类树一摸一样
+    # 参数和分类树一摸一样，但是没有离散值的分类样本不均很问题
     pass
 
 if __name__ == '__main__':
