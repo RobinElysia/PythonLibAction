@@ -5,6 +5,8 @@ from sklearn.tree import ExtraTreeRegressor
 from sklearn.tree import ExtraTreeClassifier
 from sklearn.datasets import load_wine
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_validate
 import graphviz
 
 """
@@ -60,6 +62,12 @@ def DT_Regressor():
     # 参数和分类树一摸一样，但是没有离散值的分类样本不均很问题
     # 使用L2、L1和费尔德曼距作为损失函数（代替信息增益和基尼指数）
     # score返回的是R2，不是MSE
+    wine = load_wine()
+    X_train, X_test, y_train, y_test = train_test_split(wine.data, wine.target, test_size=0.3)
+    clf = DecisionTreeRegressor(random_state=0)
+    # 交叉检验
+    print(cross_val_score(clf, wine.data, wine.target, cv=5))
+    print(cross_validate(clf, wine.data, wine.target, cv=5)) # 通过交叉验证评估指标，并记录Fitscore时间。
     pass
 
 if __name__ == '__main__':
