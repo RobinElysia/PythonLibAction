@@ -68,7 +68,6 @@ def DT_Regressor():
     # 交叉检验
     print(cross_val_score(clf, wine.data, wine.target, cv=5))
     print(cross_validate(clf, wine.data, wine.target, cv=5)) # 通过交叉验证评估指标，并记录Fitscore时间。
-    pass
 
 if __name__ == '__main__':
     DT_Classifier()
